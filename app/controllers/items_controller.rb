@@ -3,7 +3,7 @@ class ItemsController < ApplicationController
   respond_to :js, :html
 
   def index
-    @items = Item.all
+    @items = Item.hasimage.all
     respond_with @items
   end
 
