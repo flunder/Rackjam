@@ -7,6 +7,9 @@ class CreateItems < ActiveRecord::Migration
       t.integer :price
       t.string  :site
       t.text    :desc
+      t.string  :photo_file_name
+      t.string  :photo_content_type
+      t.string  :photo_file_size      
       t.timestamps
     end
   end

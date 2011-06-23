@@ -51,6 +51,9 @@ GEM
       treetop (~> 1.4.8)
     mime-types (1.16)
     nokogiri (1.4.6)
+    paperclip (2.3.11)
+      activerecord (>= 2.3.0)
+      activesupport (>= 2.3.2)
     polyglot (0.3.1)
     rack (1.2.3)
     rack-mount (0.6.14)
@@ -90,6 +93,7 @@ PLATFORMS
 
 DEPENDENCIES
   feedzirra
+  paperclip (~> 2.3.11)
   rails (= 3.0.9)
   scrapi
   sqlite3

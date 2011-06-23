@@ -19,6 +19,9 @@ ActiveRecord::Schema.define(:version => 20110623185420) do
     t.integer  "price"
     t.string   "site"
     t.text     "desc"
+    t.string   "photo_file_name"
+    t.string   "photo_content_type"
+    t.string   "photo_file_size"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

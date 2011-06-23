@@ -1,0 +1,16 @@
+<li class="itemWrap">
+	<div class="ieWrap">
+		<%= link_to (image_tag item.photo.url(:thumb), :alt => item.title), item.url, :target => '_blank' %>
+		<div class="details">
+			<div class="seethrough"></div>
+			<div class="actualDetails" onclick="javascript: window.location = '<%=item.url%>';">
+				<div class="headline"><%=truncate(item.title, :length => 40)%></div>
+				<div class="price">&#163;<%=item.price%></div>
+				<div class="go"><%= link_to 'go', item.url, :class => 'goBtn' %></div>
+				<div class="foot"><%= link_to item.site, item.url %></div>
+			</div>
+		</div> 
+	</div>
+</li>
+
+

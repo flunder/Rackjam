@@ -5,6 +5,27 @@ require 'iconv'
 
 class Item < ActiveRecord::Base
   
+  # PAPERCLIP ------------------------------------------
+  
+  attr_accessor :image_url
+  attr_accessor :image_remote_url
+
+  #validates_presence_of :name
+  before_create :dblcheck_file_name
+
+  #has_attached_file :image
+  before_validation :download_remote_image, :if => :image_url_provided?
+  validates_presence_of :image_remote_url, :if => :image_url_provided?, :message => 'is invalid or inaccessible'  
+  
+  has_attached_file :photo,
+    :styles => { :thumb =>  ["174x130#", :png] },
+    :path => ":rails_root/public/images/items/:id/:style/:basename.:extension",
+    :url  => "/images/items/:id/:style/:basename.:extension",
+    :default_url => "/images/empty.gif",
+    :default_style => :thumb
+  
+  # END
+  
   def self.get() 
       tresh = 10; 
       self.update_via_feed('gumtree', 'http://www.gumtree.com/cgi-bin/list_postings.pl?feed=rss&posting_cat=4709&search_terms=instruments', tresh)
@@ -60,6 +81,7 @@ class Item < ActiveRecord::Base
                           :price        => price,
                           :desc         => ic.iconv(desc + ' ')[0..-2],
                           :site         => sourceName,
+                          :image_url    => imageSrc
                         )
                       rescue Exception => exc
                         puts("Error: #{exc.message}")
@@ -158,5 +180,33 @@ class Item < ActiveRecord::Base
     end
   end
   
+  def dayInYear
+    self.created_at.strftime('%j')
+  end
+  
+  private
+  
+    def dblcheck_file_name
+      #some fallback mechanism to fix the nofilename issue
+      if photo_file_name.nil?
+        self.photo.instance_write(:file_name, "#{ActiveSupport::SecureRandom.hex(6)}.png")
+      end
+    end
+
+    def image_url_provided?
+      !self.image_url.blank?
+    end
+
+    def download_remote_image
+      self.photo = do_download_remote_image
+      self.image_remote_url = image_url
+    end
+
+    def do_download_remote_image
+      io = open(URI.parse(image_url))
+      def io.original_filename; base_uri.path.split('/').last; end
+      io.original_filename.blank? ? nil : io
+    rescue # catch url errors with validations instead of exceptions (Errno::ENOENT, OpenURI::HTTPError, etc...)
+  end
   
 end

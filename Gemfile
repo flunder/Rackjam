@@ -4,6 +4,7 @@ gem 'rails', '3.0.9'
 gem 'sqlite3'
 gem 'scrapi'
 gem 'feedzirra'
+gem "paperclip", "~> 2.3.11"
 
 # -----------------
 # Use unicorn as the web server
