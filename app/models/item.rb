@@ -6,7 +6,7 @@ require 'iconv'
 class Item < ActiveRecord::Base
   
   # SCOPES ---------------------------------------------
-  Item.named_scope :hasimage, :conditions => ["imageSrc != ''"]
+  named_scope :hasimage, :conditions => ["imageSrc != ''"]
   
   # PAPERCLIP ------------------------------------------
   

@@ -1,5 +1,23 @@
-<li class="itemWrap rounded-corners" style="background: url(<%=item.photo.url(:thumb)%>)">
-	<!--%= link_to (image_tag item.photo.url(:thumb), :alt => item.title), item.url, :target => '_blank' %-->
+<li class="item">
+	
+	<% if item.imageSrc != '' %>
+	<%= link_to (image_tag item.photo.url(:thumb), :alt => item.title), item.url, :target => '_blank', :class => 'itemImage' %>
+	<% else %>
+	<%= image_tag 'noimage.png', :class => 'itemImage' %>
+	<% end %>
+	<div class="details">
+		<h3><%= truncate(item.title, :length => 100).capitalize %></h3>
+		<p><%= truncate(item.desc, :length => 400).capitalize %></p>
+	</div>
+	
+	<div class="options">
+		<ul class="details">
+			<!-- li class="time"><a href="#">12</a></li -->
+			<li class="notes"><a href="#"><%=item.site%></a></li>
+			<li class="comments"><a href="#">£<%=item.price%></a></li>
+		</ul>
+	</div>
+		
 	<a href="#" class="overlay"></a>
 	<!--
 	<div class="details">

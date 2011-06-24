@@ -4,17 +4,20 @@
 <head>
   <title>Synth4</title>
   <%= stylesheet_link_tag :all %>
-  <%= javascript_include_tag :defaults %>
+  <%= javascript_include_tag :defaults, 'jquery-1.6.1.min.js', 'isotope/jquery.isotope.min.js' %>
   <%= csrf_meta_tag %>
 </head>
 
 <body>
+	<div id="header">
+		<h1>GearSlutz</h1>
+	</div>
 	
 	<div id="main">	
     	<div id="results">
       		<%= yield  %>
     	</div>
-	</div>		
-
+	</div>	
 </body>
 </html>
+
