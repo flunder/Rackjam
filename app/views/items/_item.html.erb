@@ -1,19 +1,20 @@
 <li class="item">
 	
 	<% if item.imageSrc != '' %>
-	<%= link_to (image_tag item.photo.url(:thumb), :alt => item.title), item.url, :target => '_blank', :class => 'itemImage' %>
+	<%= link_to (image_tag item.photo.url(:thumb), :alt => item.title), item.url, :target => '_blank', :class => 'image' %>
 	<% else %>
-	<%= image_tag 'noimage.png', :class => 'itemImage' %>
+	<%= image_tag 'noimage.png', :class => 'image' %>
 	<% end %>
+	
 	<div class="details">
 		<h3><%= truncate(item.title, :length => 100).capitalize %></h3>
-		<p><%= truncate(item.desc, :length => 400).capitalize %></p>
+		<p><%= truncate(item.desc, :length => 150).capitalize %></p>
 	</div>
 	
 	<div class="options">
 		<ul class="details">
-			<!-- li class="time"><a href="#">12</a></li -->
-			<li class="notes"><a href="#"><%=item.site%></a></li>
+			<li class="time"><a href="#" style="color:red !important;"><%=item.brand%></a></li>
+			<li class="notes"><a href="#"><%= link_to item.site.capitalize, item.url %></a></li>
 			<li class="comments"><a href="#">£<%=item.price%></a></li>
 		</ul>
 	</div>

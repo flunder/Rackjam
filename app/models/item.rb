@@ -9,7 +9,6 @@ class Item < ActiveRecord::Base
   named_scope :hasimage, :conditions => ["imageSrc != ''"]
   
   # PAPERCLIP ------------------------------------------
-  
   attr_accessor :image_url
   attr_accessor :image_remote_url
 
@@ -21,12 +20,11 @@ class Item < ActiveRecord::Base
   validates_presence_of :image_remote_url, :if => :image_url_provided?, :message => 'is invalid or inaccessible'  
   
   has_attached_file :photo,
-    :styles => { :thumb =>  ["200x134#", :png] },
-    :path => ":rails_root/public/images/items/:id/:style/:basename.:extension",
-    :url  => "/images/items/:id/:style/:basename.:extension",
-    :default_url => "/images/empty.gif",
-    :default_style => :thumb
-  
+      :styles => { :thumb =>  ["200x134#", :png] },
+      :path => ":rails_root/public/images/items/:id/:style/:basename.:extension",
+      :url  => "/images/items/:id/:style/:basename.:extension",
+      :default_url => "/images/empty.gif",
+      :default_style => :thumb
   # END
   
   def self.get() 
@@ -35,6 +33,7 @@ class Item < ActiveRecord::Base
   end
 
   def self.update_via_feed(sourceName, url, tresh)
+    
       ic = Iconv.new('UTF-8//IGNORE', 'UTF-8')
       feed = Feedzirra::Feed.fetch_and_parse(url)
   
@@ -89,6 +88,9 @@ class Item < ActiveRecord::Base
                       rescue Exception => exc
                         puts("Error: #{exc.message}")
                       end     
+
+                      self.categorize('',entry.url)
+                      puts ""
 
                   else 
                     puts "skipping: #{entry.url} ~ on ignore list"
@@ -185,6 +187,31 @@ class Item < ActiveRecord::Base
   
   def dayInYear
     self.created_at.strftime('%j')
+  end
+  
+  def self.categorize(itemID = '', itemURL = '')
+    
+    # Takes an item and regMatches it with a list of Brands, 
+    # If found it will update the item...
+
+    if itemID != ''
+      myItem = Item.find_by_id(itemID)
+    else 
+      myItem = Item.find_by_url(itemURL)    
+    end
+        
+    # puts "Categorizing: ##{myItem.id}"
+    
+    allBrands = Brand.all
+    allBrands.each do |brand|
+      myString = ' ' << myItem.title << ' ' << myItem.desc << ' '
+      result = myString.downcase.scan(' ' << brand.name.downcase.chomp << ' ')
+      if result.empty? != true
+        puts "found brand: #{result[0]}"
+        myItem.update_attributes(:brand => result[0])
+      end
+    end
+    
   end
   
   private

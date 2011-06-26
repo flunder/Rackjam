@@ -1,90 +1,32 @@
 /* http://www.larsattacks.co.uk */
 
-/* reset */
-html,body,div,span,applet,object,iframe,
-h1,h4,h5,h6,p,blockquote,pre,
-a,abbr,acronym,address,big,cite,code,
-del,dfn,em,font,img,ins,kbd,q,s,samp,
-small,strike,strong,sub,sup,tt,var,
-dl,dt,dd,ol,ul,li,
-fieldset,form,label,legend,
-table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-weight:inherit;font-style:inherit;font-size:100%;font-family:inherit;vertical-align:baseline;}
-:focus{outline:0;}
-body{line-height:1;color:black;background:white;}
-ol,ul{list-style:none;}
-/* tables still need 'cellspacing="0"' in the markup */
-table{border-collapse:separate;border-spacing:0;}
-caption,th,td{text-align:left;font-weight:normal;}
-blockquote:before,blockquote:after,
-q:before,q:after{content:"";}
-blockquote,q{quotes:"" "";}
+/* -- Reset */
+html,body,div,span,applet,object,iframe, h1,h4,h5,h6,p,blockquote,pre, a,abbr,acronym,address,big,cite,code, del,dfn,em,font,img,ins,kbd,q,s,samp, small,strike,strong,sub,sup,tt,var, dl,dt,dd,ol,ul,li, fieldset,form,label,legend, table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-weight:inherit;font-style:inherit;font-size:100%;font-family:inherit;vertical-align:baseline;} :focus{outline:0;} body{line-height:1;color:black;background:white;} ol,ul{list-style:none;}table{border-collapse:separate;border-spacing:0;}caption,th,td{text-align:left;font-weight:normal;}blockquote:before,blockquote:after,q:before,q:after{content:"";}blockquote,q{quotes:"" "";}
 
+/* -- Styles */
 html{ background-color: #fff; }
-body{
-	font-family:Helvetica, Arial, Verdana;
-	color:#666;
-	font-size:12px;
-	line-height:10px; 
-	padding-bottom:200px;
-	background: #fff;
-}
+body{ font-family:Helvetica, Arial, Verdana; color:#666; font-size:12px; line-height:10px;  background: #fff; }
 
 #main { padding-left: 30px; padding-top: 30px; }
 
 a { color: #2e3326; text-decoration: none;}
 a img { border: 0px; }
 a:hover { color: black; }
-
-#results{ /* width:870px; */ }
-
-.rounded-corners {
-  	-moz-border-radius: 5px;
-		-webkit-border-radius: 5px;
-		-khtml-border-radius: 5px;
-		border-radius: 5px;
-}
-
-#header { position: fixed; font-size: 2em; color: black; width: 100%; background: rgba(0, 0, 0, 0.85); padding: 25px 30px 20px; color: #9ff6d4; border-bottom: 1px solid #555; z-index: 100;}
-
-#results { margin-top: 65px; }
-#results ul { list-style-type:none; clear:both; float:left; }
-#results ul img { float:left; width:200px; max-width:200px; min-width:200px; max-height:134px; min-height:134px; overflow:hidden; }
-#results ul li.item { width:200px; overflow:hidden; float:left; margin-right: 30px; margin-bottom: 30px; color: #222; border-bottom: 1px solid #EFEFEF; }
-#results ul li.item .details { padding: 0px; font-size: 0.8em; float: left; font-size: 0.9em; line-height: 1.35em; }
-
-.itemImage { margin-bottom: 10px; float: left; }
 h3 { font-weight: bold; margin: 0; }
 
-#results ul li.item .options {
-	border-top: 1px solid #DDDDDD;
-  float: left;
-  margin-top: 5px;
-  width: 100%;
-}
+#header { position: fixed; font-size: 2em; color: black; width: 100%; background: rgba(0, 0, 0, 0.85); padding: 25px 30px 20px; color: #9ff6d4; border-bottom: 1px solid #555; z-index: 100;}
+#header a { color: #9FF6D4; }
 
-#results ul li.item .options ul.details {
-	list-style-type: none;
-   margin: 0;
-   padding: 4px 0;
-   width: 100%;	
-}
-#results ul li.item .options ul.details li {
-	  display: inline-block;
-    margin-right: 18px;
-		font-weight: bold;
-}
+#results { margin-top: 65px; }
+#results.items ul { list-style-type:none; clear:both; float:left; }
+#results.items ul img { float:left; width:200px; max-width:200px; min-width:200px; max-height:134px; min-height:134px; overflow:hidden; }
+#results.items ul li.item { width:200px; overflow:hidden; float:left; margin-right: 30px; margin-bottom: 30px; color: #222; border-bottom: 1px solid #EFEFEF; }
+#results.items ul li.item .image { margin-bottom: 10px; float: left; }
+#results.items ul li.item .options { border-top: 1px solid #DDD; float: left; margin-top: 5px; width: 100%; }
+#results.items ul li.item .details { padding: 0px; font-size: 0.8em; float: left; font-size: 0.9em; line-height: 1.35em; }
+#results.items ul li.item .options ul.details { list-style-type: none; margin: 0; padding: 4px 0; width: 100%;	 }
+#results.items ul li.item .options ul.details li { display: inline-block; margin-right: 18px; font-weight: bold; }
 
-/* -- Footer -------- */
-#googleAd{width:881px;float:left;margin-left:-12px;height:100px;padding:13px 0px 0px 15px;text-align:center;}
-
-.pagination{margin:15px 0px 10px 0px;float:left;font-family:Georgia;font-size:1.1em;}
-.pagination a{padding:2px; color:#59b2dc;text-decoration:none;}
-
-#footer { width: 868px; margin-top: -6px; padding: 14px; font-size:14px; border-top: 1px solid #6c5422;  background: #f3f1e9 url('/images/options_bg.png') no-repeat 0px 32px; clear: both;}
-#footer ul li { display: inline; margin-right: 10px;}
-#footer2 { float: left; background:  url('/images/footerbg.png') no-repeat; margin: 0px 0px 0px -23px; height: 44px; width: 940px;}
-
-#footer #footer_rightSide { float:right; height:100px; left:29px; top:-53px; margin-bottom:-141px; overflow:hidden; position:relative; }  
-#footer #footer_rightSide #footer_friendsdiv { float:left; font-family:Georgia; font-style:italic; font-weight:bold; left:7px; position:relative; top:40px; }
-#footer #footer_rightSide a img {opacity: 0.9 }
-#footer #footer_rightSide a img:hover {opacity: 1}
+#results.brands { line-height: 2em; }
+#results.brands caption, th, td { padding: 0 11px 0 0; }
+.rounded-corners { -moz-border-radius: 5px; -webkit-border-radius: 5px; -khtml-border-radius: 5px; border-radius: 5px; }

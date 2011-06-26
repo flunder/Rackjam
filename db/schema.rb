@@ -10,18 +10,26 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110623185420) do
+ActiveRecord::Schema.define(:version => 20110626171612) do
+
+  create_table "brands", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "items", :force => true do |t|
     t.string   "url"
     t.string   "title"
-    t.text     "imageSrc"
     t.integer  "price"
     t.string   "site"
     t.text     "desc"
+    t.string   "brand"
+    t.text     "imageSrc"
     t.string   "photo_file_name"
     t.string   "photo_content_type"
     t.string   "photo_file_size"
+    t.datetime "expires"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

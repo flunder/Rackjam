@@ -1,8 +1,13 @@
 Synth4::Application.routes.draw do
+
+  resources :brands
+
+  root :to => "items#index"
   
   resources :items
 
-  match 'get/' => 'items#get'
+  match "get/" => "items#get"
+  match "categorize/:id" => "items#categorize"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

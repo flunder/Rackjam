@@ -45,8 +45,14 @@ class ItemsController < ApplicationController
   end
   
   def get
+    # Gets items from a site and loads them into the db
     Item.get();
     render :nothing => true
   end
+ 
+  def categorize
+    Item.categorize(params[:id]);
+    render :nothing => true
+  end 
   
 end
