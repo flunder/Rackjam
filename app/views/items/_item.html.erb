@@ -13,7 +13,9 @@
 	
 	<div class="options">
 		<ul class="details">
-			<li class="time"><a href="#" style="color:red !important;"><%=item.brand%></a></li>
+			<li class="time">
+				<a href="#" style="color:red !important;"><%=item.brand_list%></a>
+			</li>
 			<li class="notes"><a href="#"><%= link_to item.site.capitalize, item.url %></a></li>
 			<li class="comments"><a href="#">£<%=item.price%></a></li>
 		</ul>

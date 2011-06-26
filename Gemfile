@@ -5,6 +5,8 @@ gem 'sqlite3'
 gem 'scrapi'
 gem 'feedzirra'
 gem "paperclip", "~> 2.3.11"
+gem 'acts-as-taggable-on'
+
 
 # -----------------
 # Use unicorn as the web server

@@ -2,8 +2,11 @@ require 'rubygems'
 require 'scrapi'
 require 'open-uri'
 require 'iconv'
+require 'csv'
 
 class Item < ActiveRecord::Base
+  
+  acts_as_taggable_on :brands
   
   # SCOPES ---------------------------------------------
   named_scope :hasimage, :conditions => ["imageSrc != ''"]
@@ -199,18 +202,21 @@ class Item < ActiveRecord::Base
     else 
       myItem = Item.find_by_url(itemURL)    
     end
-        
-    # puts "Categorizing: ##{myItem.id}"
     
+    result = Array.new
+    
+    # Match brands and dumo them into an array called result
     allBrands = Brand.all
     allBrands.each do |brand|
       myString = ' ' << myItem.title << ' ' << myItem.desc << ' '
-      result = myString.downcase.scan(' ' << brand.name.downcase.chomp << ' ')
-      if result.empty? != true
-        puts "found brand: #{result[0]}"
-        myItem.update_attributes(:brand => result[0])
-      end
+      result << myString.downcase.scan(' ' << brand.name.downcase.chomp << ' ')
     end
+    
+    # Update the item's tags with the result array
+    if result.empty? != true
+      puts "found brand(s): #{result}"
+      myItem.update_attributes(:brand_list => result)
+    end    
     
   end
   
