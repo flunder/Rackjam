@@ -9,16 +9,21 @@
 	<div class="details">
 		<h3><%= truncate(item.title, :length => 100).capitalize %></h3>
 		<p><%= truncate(item.desc, :length => 150).capitalize %></p>
+		<% unless item.brand_list.empty? %>
+			<div class="brandTags">
+				<% item.brands.each do |k| %>
+					<%= link_to k.name.capitalize , '?brand=' << k.name%>
+				<% end %>
+			</div>
+		<% end %>
 	</div>
+	
+	
 	
 	<div class="options">
 		<ul class="details">
 			<li class="time">
-				<% unless item.brand_list.empty? %>
-					<% item.brands.each do |k| %>
-						<%= link_to k.name.capitalize , '?brand=' << k.name%>
-					<% end %>
-				<% end%>
+				
 			</li>
 			<li class="notes"><a href="#"><%= link_to item.site.capitalize, item.url %></a></li>
 			<li class="comments"><a href="#">£<%=item.price%></a></li>

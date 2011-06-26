@@ -11,6 +11,23 @@
 <body>
 	<div id="header">
 		<h1><a href="/">Synth4</a></h1>
+		<!--
+			@xx = Item.brand_counts
+			@xx.order('count DESC')
+			
+		-->
+		<% @brands = Item.brand_counts.order('name ASC') %>
+		<% unless @brands.empty? %>
+		
+			<form action="" id="brand_dropdown">
+				<select>
+					<% @brands.each do |brand| %>
+						<option value="<%= brand %>"><%= brand.name.capitalize %></option>
+					<% end %>
+				</select>
+			</form>
+		<% end %>
+		
 	</div>
 	
 	<div id="main">	
