@@ -3,7 +3,13 @@ class ItemsController < ApplicationController
   respond_to :js, :html
 
   def index
-    @items = Item.all
+    
+    if params[:brand]
+      @items = Item.tagged_with(params[:brand])
+    else 
+      @items = Item.all
+    end
+    
     respond_with @items
   end
 

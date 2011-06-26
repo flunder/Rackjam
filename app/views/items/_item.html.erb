@@ -14,7 +14,11 @@
 	<div class="options">
 		<ul class="details">
 			<li class="time">
-				<a href="#" style="color:red !important;"><%=item.brand_list%></a>
+				<% unless item.brand_list.empty? %>
+					<% item.brands.each do |k| %>
+						<%= link_to k.name.capitalize , '?brand=' << k.name%>
+					<% end %>
+				<% end%>
 			</li>
 			<li class="notes"><a href="#"><%= link_to item.site.capitalize, item.url %></a></li>
 			<li class="comments"><a href="#">£<%=item.price%></a></li>
