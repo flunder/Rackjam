@@ -26,6 +26,7 @@ Denon
 Digidesign
 Doepfer
 Drawmer
+Edirol
 EDP
 Electrix Pro
 Electro Harmonix
@@ -68,10 +69,12 @@ Logan Electronics
 MacBeth Studio Systems
 Mackie
 MAM
+Manley
 Marion Systems
 Marshall
 Metasonix
 Miscellaneous
+M-audio 
 Moog
 MOTU
 Mutronics
@@ -84,6 +87,7 @@ OSC
 PAiA
 PPG
 Pioneer
+Peavey
 Propellerheads
 Prodipe
 Prosoniq
@@ -97,6 +101,7 @@ Samson
 Se electronics
 Seer Systems
 Sennheiser
+Studiomaster
 Sequential Circuits
 Serge
 Shure

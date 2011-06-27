@@ -12,12 +12,13 @@ body{ font-family:Helvetica, Arial, Verdana; color:#666; font-size:12px; line-he
 a { color: #2e3326; text-decoration: none;}
 a img { border: 0px; }
 a:hover { color: black; }
-h1 { float: left; margin-left: 30px; }
+h1 { float: left; margin-left: 30px; padding-top: 7px; }
 h2 { }
 h3 { font-weight: bold; margin: 0; }
 
 #header { position: fixed; font-size: 2em; color: black; width: 100%; background: rgba(0, 0, 0, 0.85); padding: 25px 0px; color: #9ff6d4; border-bottom: 1px solid #555; z-index: 100;}
 #header a { color: #9FF6D4; }
+#header a:hover { color: white; }
 
 #header #brand_dropdown { float: right; margin-right: 30px; } 
 
@@ -29,7 +30,7 @@ h3 { font-weight: bold; margin: 0; }
 #results.items ul li.item .options { border-top: 1px solid #DDD; float: left; margin-top: 5px; width: 100%; }
 #results.items ul li.item .details { padding: 0px; font-size: 0.8em; float: left; font-size: 0.9em; line-height: 1.35em; }
 #results.items ul li.item .details .brandTags { margin-top: 4px;}
-#results.items ul li.item .details .brandTags a { color: #bbb; font-weight: bold; }
+#results.items ul li.item .details .brandTags a { color: #bbb; font-weight: bold;  padding-right: 5px; }
 #results.items ul li.item .details .brandTags a:hover { color: red; }
 #results.items ul li.item .options ul.details { list-style-type: none; margin: 0; padding: 4px 0; width: 100%;	 }
 #results.items ul li.item .options ul.details li { display: inline-block; margin-right: 18px; font-weight: bold; }

@@ -41,40 +41,63 @@ class Item < ActiveRecord::Base
       feed = Feedzirra::Feed.fetch_and_parse(url)
   
       feed.entries.each_with_index do |entry,index|
-          if exists? :url => entry.url 
-              # existing => maybe run an update here?
-          else 
-              item = feedSpecificFields(sourceName).scrape(open(entry.url).read)
-              if !item[0].title  # No headline sounds like trouble, lets skip it
-                  puts "Missing headline ~ wtf!"
-              else
+        
+            item = feedSpecificFields(sourceName).scrape(open(entry.url).read)
+            if !item[0].title  # No headline sounds like trouble, lets skip it
+                puts "Missing headline ~ wtf!"
+            else
+              
+                # Cleaning up
+                skip = 'no';                   
+                if !item[0].imageSrc
+                  puts "missing image #{entry.url}" # no image =(
+                  imageSrc = ''
+                else 
+                  imageSrc = item[0].imageSrc # has image
+                end
+                title = item[0].title.strip      
+                item[0].desc ||= " " 
+                desc  = item[0].desc.strip
+                                
+                # -- Specifolics -------------------------------------
+                # -- GUMTREE -----------------------------------------
+                if sourceName == 'gumtree' 
+                  price = item[0].price
+                  if (title.index('&amp;'))
+                    title = title[0..title.index('&amp;')-1] 
+                  end
+                end
+                #END SPECIFOLICS ----------- **
                 
-                  # Cleaning up
-                  skip = 'no';                   
-                  if !item[0].imageSrc
-                    puts "missing image #{entry.url}" # no image =(
-                    imageSrc = ''
-                  else 
-                    imageSrc = item[0].imageSrc # has image
-                  end
-                  title = item[0].title.strip      
-                  item[0].desc ||= " " 
-                  desc  = item[0].desc.strip
-                  
-                  # -- Specifolics -------------------------------------
-                  # -- GUMTREE -----------------------------------------
-                  if sourceName == 'gumtree' 
-                    price = item[0].price
-                    if (title.index('&amp;'))
-                      title = title[0..title.index('&amp;')-1] 
-                    end
-                  end
-                  #END SPECIFOLICS ----------- **
-                  
-                  price = self.cleanPrice(price)              
-                  
-                  if skip == 'no' 
-                    
+                price = self.cleanPrice(price)              
+                
+                if skip == 'no' 
+
+                    if exists? :url => entry.url # exists? update!
+                        puts "existed!"
+                        @myItem = Item.find_by_url(entry.url) 
+                        puts "#{@myItem.price} | #{price}"
+                        if @myItem.price.to_i == price.to_i
+                          puts "but has same price"
+                        else
+                          begin
+                            @myItem.update_attributes(
+                              :url          => entry.url,
+                              :title        => ic.iconv(title + ' ')[0..-2],
+                              :imageSrc     => imageSrc,
+                              :price        => price,
+                              :desc         => ic.iconv(desc + ' ')[0..-2],
+                              :site         => sourceName,
+                              :image_url    => imageSrc                            
+                            )
+                          rescue Exception => exc
+                            puts("Error: #{exc.message}")
+                          end
+                        end
+                        
+                        puts ""
+                    else # create
+                
                       puts "URL: #{entry.url}"
                       # puts "URL: #{entry.url} | HEADLINE: #{headline} | IMAGESRC: #{imageSrc} | PRICE: #{price} | BLURB: #{blurb[0.10]} | SITE: #{sourceName} [ EC: #{existsCounter} ]"
 
@@ -94,13 +117,12 @@ class Item < ActiveRecord::Base
 
                       self.categorize('',entry.url)
                       puts ""
-
-                  else 
-                    puts "skipping: #{entry.url} ~ on ignore list"
-                  end #skip
-                  
-              end #headline
-          end #exists
+                  end #existed
+                else 
+                  puts "skipping: #{entry.url} ~ on ignore list"
+              end #skip
+            
+            end #headline
       end #feed.entries.loop
   end
   
@@ -202,14 +224,17 @@ class Item < ActiveRecord::Base
     else 
       myItem = Item.find_by_url(itemURL)    
     end
-    
+
     result = Array.new
     
     # Match brands and dumo them into an array called result
     allBrands = Brand.all
     allBrands.each do |brand|
       myString = ' ' << myItem.title << ' ' << myItem.desc << ' '
-      result << myString.downcase.scan(' ' << brand.name.downcase.chomp << ' ')
+      temp = myString.downcase.scan(' ' << brand.name.downcase.chomp << ' ')
+      if !temp.empty?
+        result << temp
+      end
     end
     
     # Update the item's tags with the result array
@@ -221,7 +246,7 @@ class Item < ActiveRecord::Base
   end
   
   private
-  
+    
     def dblcheck_file_name
       #some fallback mechanism to fix the nofilename issue
       if photo_file_name.nil?
