@@ -9,7 +9,7 @@ class Item < ActiveRecord::Base
   acts_as_taggable_on :brands
   
   # SCOPES ---------------------------------------------
-  named_scope :hasimage, :conditions => ["imageSrc != ''"]
+  scope :hasimage, :conditions => ["imageSrc != ''"]
   
   # PAPERCLIP ------------------------------------------
   attr_accessor :image_url
