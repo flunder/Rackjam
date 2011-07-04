@@ -5,9 +5,13 @@ Synth4::Application.routes.draw do
   root :to => "items#index"
   
   resources :items
-
+  match '/feed' => 'items#feed',
+      :as => :feed,
+      :defaults => { :format => 'atom' }
+      
   match "get/" => "items#get"
-  match "categorize/:id" => "items#categorize"
+  match "categorize/:id" => "items#categorize" # /categorize/1, accepts urls, too
+
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

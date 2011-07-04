@@ -4,16 +4,16 @@
 <head>
   <title>Synth4</title>
   <%= stylesheet_link_tag :all %>
-  <%= javascript_include_tag :defaults, 'jquery-1.6.1.min.js', 'isotope/jquery.isotope.min.js' %>
+  <%= javascript_include_tag :defaults, 'isotope/jquery.isotope.min.js' %>
+  <%= auto_discovery_link_tag :atom, "/feed" %>
+  <%= auto_discovery_link_tag :rss, "/feed.rss" %>
   <%= csrf_meta_tag %>
 </head>
 
 <body>
 	<div id="header">
-		<h1><a href="/">Synth4</a></h1>
+		<h1><a href="/">Synth4</a><span>v0.1</h1>
 
-		<% puts "*** #{params[:brand]}"%>
-	
 		<% @brands = Item.brand_counts.order('name ASC') %>
 		<% unless @brands.empty? %>
 		
@@ -33,6 +33,9 @@
 	</div>
 	
 	<div id="main">	
+		<div id="leftNav">
+			<%= render "layouts/leftnav" %>
+		</div>
     	<div id="results" class="<%=controller.controller_name %>">
       		<%= yield  %>
     	</div>

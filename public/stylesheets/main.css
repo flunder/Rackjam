@@ -17,12 +17,13 @@ h2 { }
 h3 { font-weight: bold; margin: 0; }
 
 #header { position: fixed; font-size: 2em; color: black; width: 100%; background: rgba(0, 0, 0, 0.85); padding: 25px 0px; color: #9ff6d4; border-bottom: 1px solid #555; z-index: 100;}
-#header a { color: #9FF6D4; }
+#header a { color: white; }
 #header a:hover { color: white; }
+#header h1 span { color: red !important; font-size: 0.5em; margin-left: 0.3em; }
 
 #header #brand_dropdown { float: right; margin-right: 30px; } 
 
-#results { margin-top: 65px; }
+#results { margin-top: 80px; margin-left: 200px;  }
 #results.items ul { list-style-type:none; clear:both; float:left; }
 #results.items ul img { float:left; width:200px; max-width:200px; min-width:200px; max-height:134px; min-height:134px; overflow:hidden; }
 #results.items ul li.item { width:200px; overflow:hidden; float:left; margin-right: 30px; margin-bottom: 30px; color: #222; border-bottom: 1px solid #EFEFEF; }
@@ -32,9 +33,22 @@ h3 { font-weight: bold; margin: 0; }
 #results.items ul li.item .details .brandTags { margin-top: 4px;}
 #results.items ul li.item .details .brandTags a { color: #bbb; font-weight: bold;  padding-right: 5px; }
 #results.items ul li.item .details .brandTags a:hover { color: red; }
-#results.items ul li.item .options ul.details { list-style-type: none; margin: 0; padding: 4px 0; width: 100%;	 }
-#results.items ul li.item .options ul.details li { display: inline-block; margin-right: 18px; font-weight: bold; }
+#results.items ul li.item .options ul.details { list-style-type: none; margin: 0; padding: 6px 0 4px 0; width: 100%;	 }
+#results.items ul li.item .options ul.details li { display: inline-block; margin-right: 8px; font-weight: bold; }
 
 #results.brands { line-height: 2em; }
 #results.brands caption, th, td { padding: 0 11px 0 0; }
 .rounded-corners { -moz-border-radius: 5px; -webkit-border-radius: 5px; -khtml-border-radius: 5px; border-radius: 5px; }
+
+.details li  { float: left; color: #999; }
+.details li a { padding-top: 0px;  }
+
+.details li.time { cursor: default; padding-left: 16px; background: url("http://static.tumblr.com/fftf9xi/GCtl5z3ut/icon_timeago.png") no-repeat; float: left;   }
+.details li.love a { opacity: 0.5; background: url("http://static.tumblr.com/fftf9xi/Hkml5z3k3/icon_notes.png") no-repeat; float: left; text-indent: -77777px; width: 15px; }
+.details li.love a:hover { opacity: 1; }
+.details li.price a {  }
+.details li.site a  { /* background: url("http://static.tumblr.com/arbn4az/9aYljnre3/permalink.png") no-repeat; padding-left: 16px; */ color: #999;  /* padding-top: 1px; */å}
+.details li.last { margin-right: 0px !important; float: right; }
+
+#leftNav { float: left; width: 176px; height: 100%; position: fixed; top: 125px ;}
+

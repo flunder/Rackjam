@@ -9,6 +9,7 @@ class Item < ActiveRecord::Base
   acts_as_taggable_on :brands
   
   # SCOPES ---------------------------------------------
+  default_scope :order => ["updated_at DESC"]
   scope :hasimage, :conditions => ["imageSrc != ''"]
   
   # PAPERCLIP ------------------------------------------

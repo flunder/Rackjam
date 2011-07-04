@@ -23,7 +23,6 @@ class ItemsController < ApplicationController
     respond_with(@item)  
   end
 
-  # GET /items/1/edit
   def edit
     @item = Item.find(params[:id])
   end
@@ -60,5 +59,17 @@ class ItemsController < ApplicationController
     Item.categorize(params[:id]);
     render :nothing => true
   end 
+  
+  def feed
+    @title = "SynthFeed" # this will be the name of the feed displayed on the feed reader
+    @feed_items = Item.all
+    @updated = @feed_items.first.updated_at unless @feed_items.empty? # this will be our Feed's update timestamp
+
+    respond_to do |format|
+      format.atom { render :layout => false }
+      format.rss { redirect_to feed_path(:format => :atom), :status => :moved_permanently } # we want the RSS feed to redirect permanently to the ATOM feed
+    end
+  end
+  
   
 end
