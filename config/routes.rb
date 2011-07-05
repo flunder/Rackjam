@@ -12,9 +12,6 @@ Synth4::Application.routes.draw do
   match "get/" => "items#get"
   match "categorize/:id" => "items#categorize" # /categorize/1, accepts urls, too
 
-  match "list" => "items#switchView", :view => 'list'
-  match "grid" => "items#switchView", :view => 'grid'
-
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

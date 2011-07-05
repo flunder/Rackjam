@@ -4,14 +4,21 @@ class ItemsController < ApplicationController
 
   def index
     
-    # Get view from cookie    
-    if cookies[:view] 
-      @view = cookies[:view] 
+    if params[:view]
+      @view = params[:view]
+      cookies[:view] = { :value => @view, :expires => 24.hours.from_now }
     else
-      cookies[:view] = { :value => "grid", :expires => 24.hours.from_now }
+      # Get view from cookie    
+      if cookies[:view] 
+        @view = cookies[:view] 
+      else
+        cookies[:view] = { :value => "grid", :expires => 24.hours.from_now }
+      end
     end
     
     @view ||= 'grid'
+    
+    
     
     # Do the Brand selectio
     if params[:brand]
@@ -83,12 +90,5 @@ class ItemsController < ApplicationController
       format.rss { redirect_to feed_path(:format => :atom), :status => :moved_permanently } # we want the RSS feed to redirect permanently to the ATOM feed
     end
   end
-  
-  def switchView
-    @view = params[:view]
-    cookies[:view] = { :value => @view, :expires => 24.hours.from_now }
-    # puts "!#{@view}!"
-    redirect_to :root
-  end
-  
+    
 end
