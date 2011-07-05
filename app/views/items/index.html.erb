@@ -1,7 +1,6 @@
 <% c = 0; %>
 
-<!-- ><h1>Listing items</h1> -->
-
+<div id="results" class="<%=controller.controller_name %> <%=@view%>">
 <% @items.group_by(&:dayInYear).each do |dayInYear, items| %>
   	<% t = Time.new %>
 	<% c += 1 %>
@@ -21,5 +20,9 @@
 		<%= render(:partial => "item", :collection => items) %>
 	</ul>
 <% end %>
+</div>
 
-<%= link_to 'New Item', new_item_path %>
+<div id="paginationWrap">
+	<%= will_paginate @items %>
+	<!--%= link_to 'New Item', new_item_path %-->
+</div>

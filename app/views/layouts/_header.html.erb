@@ -1,0 +1,34 @@
+<h1><a href="/">Synth4</a><span>v0.1</h1>
+
+<div id="viewAs">
+	<span>Layout View</span>
+	
+	<% if @view == 'grid' %>
+		<%= link_to 'grid', grid_url, :id => 'viewAsGrid', :class => 'selected'  %>
+	<% else %>
+		<%= link_to 'grid', grid_url, :id => 'viewAsGrid'%>
+	<% end %>
+	
+	<% if @view == 'list' %>
+		<%= link_to 'list', list_url, :id => 'viewAsList', :class => 'selected'  %>
+	<% else %>
+		<%= link_to 'list', list_url, :id => 'viewAsList' %>
+	<% end %>	
+	
+</div>	
+
+<% @brands = Item.brand_counts.order('name ASC') %>
+<% unless @brands.empty? %>
+
+	<form action="" id="brand_dropdown">
+		<select name="brand" onchange='this.form.submit()'>
+			<% @brands.each do |brand| %>
+				<% if params[:brand] == brand.name.downcase %>
+					<option value="<%= brand %>" selected="selected"><%= brand.name.capitalize %></option>
+				<% else %>
+					<option value="<%= brand %>"><%= brand.name.capitalize %></option>
+				<% end %>
+			<% end %>
+		</select>
+	</form>
+<% end %>

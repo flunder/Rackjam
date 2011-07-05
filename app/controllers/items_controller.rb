@@ -3,12 +3,20 @@ class ItemsController < ApplicationController
   respond_to :js, :html
 
   def index
+        
+    if cookies[:view] 
+      @view = cookies[:view] 
+    else
+      cookies[:view] = { :value => "grid", :expires => 24.hours.from_now }
+    end
     
     if params[:brand]
-      @items = Item.tagged_with(params[:brand])
+      @getItems = Item.tagged_with(params[:brand])
     else 
-      @items = Item.all
+      @getItems = Item.all
     end
+    
+    @items = @getItems.paginate :page => params[:page]
     
     respond_with @items
   end
@@ -71,5 +79,11 @@ class ItemsController < ApplicationController
     end
   end
   
+  def switchView
+    @view = params[:view]
+    cookies[:view] = { :value => @view, :expires => 24.hours.from_now }
+    # puts "!#{@view}!"
+    redirect_to :root
+  end
   
 end

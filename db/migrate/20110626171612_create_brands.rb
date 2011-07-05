@@ -2,7 +2,7 @@ class CreateBrands < ActiveRecord::Migration
   def self.up
     create_table :brands do |t|
       t.string :name
-
+      t.string :permalink
       t.timestamps
     end
   end

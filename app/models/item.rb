@@ -6,6 +6,9 @@ require 'csv'
 
 class Item < ActiveRecord::Base
   
+  cattr_reader :per_page
+  @@per_page = 10
+  
   acts_as_taggable_on :brands
   
   # SCOPES ---------------------------------------------

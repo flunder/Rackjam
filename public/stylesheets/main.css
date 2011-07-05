@@ -20,7 +20,12 @@ h3 { font-weight: bold; margin: 0; }
 #header a { color: white; }
 #header a:hover { color: white; }
 #header h1 span { color: red !important; font-size: 0.5em; margin-left: 0.3em; }
-
+#header #viewAs { position: absolute; left: 230px; top: 35px;}
+#header #viewAs span { float: left; margin-right: 10px; font-weight: bold; font-size: 0.5em; color: #777; padding-top: 1px; }
+#header #viewAs a#viewAsList { opacity: 0.4; background: url("../images/icons/list.gif") no-repeat; float: left; height: 12px; margin-right: 8px; text-indent: -77777px; width: 17px;}
+#header #viewAs a#viewAsGrid { display: block; opacity: 0.4; background: url("../images/icons/grid.gif") no-repeat; float: left; height: 12px; margin-right: 8px; text-indent: -77777px; width: 17px;}
+#header #viewAs a:hover { opacity: 1 !important;}
+#header #viewAs a.selected { opacity: 0.8 !important; }
 #header #brand_dropdown { float: right; margin-right: 30px; } 
 
 #results { margin-top: 80px; margin-left: 200px;  }
@@ -52,3 +57,4 @@ h3 { font-weight: bold; margin: 0; }
 
 #leftNav { float: left; width: 176px; height: 100%; position: fixed; top: 125px ;}
 
+#paginationWrap { clear: both; font-size: 1.3em; left: 200px; margin-bottom: 25px; position: relative; width: 400px; }

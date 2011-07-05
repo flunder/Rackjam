@@ -1,6 +1,5 @@
 class BrandsController < ApplicationController
-  # GET /brands
-  # GET /brands.xml
+  
   def index
     @brands = Brand.all
 
@@ -10,10 +9,8 @@ class BrandsController < ApplicationController
     end
   end
 
-  # GET /brands/1
-  # GET /brands/1.xml
   def show
-    @brand = Brand.find(params[:id])
+    @brand = Brand.find_by_permalink(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -21,8 +18,6 @@ class BrandsController < ApplicationController
     end
   end
 
-  # GET /brands/new
-  # GET /brands/new.xml
   def new
     @brand = Brand.new
 
@@ -32,13 +27,10 @@ class BrandsController < ApplicationController
     end
   end
 
-  # GET /brands/1/edit
   def edit
-    @brand = Brand.find(params[:id])
+    @brand = Brand.find_by_permalink(params[:id])
   end
 
-  # POST /brands
-  # POST /brands.xml
   def create
     @brand = Brand.new(params[:brand])
 
@@ -53,10 +45,8 @@ class BrandsController < ApplicationController
     end
   end
 
-  # PUT /brands/1
-  # PUT /brands/1.xml
   def update
-    @brand = Brand.find(params[:id])
+    @brand = Brand.find_by_permalink(params[:id])
 
     respond_to do |format|
       if @brand.update_attributes(params[:brand])
@@ -69,10 +59,8 @@ class BrandsController < ApplicationController
     end
   end
 
-  # DELETE /brands/1
-  # DELETE /brands/1.xml
   def destroy
-    @brand = Brand.find(params[:id])
+    @brand = Brand.find_by_permalink(params[:id])
     @brand.destroy
 
     respond_to do |format|
