@@ -27,7 +27,7 @@ class Item < ActiveRecord::Base
   validates_presence_of :image_remote_url, :if => :image_url_provided?, :message => 'is invalid or inaccessible'  
   
   has_attached_file :photo,
-      :styles => { :thumb =>  ["200x134#", :png] },
+      :styles => { :thumb =>  ["200x134#", :png], :large =>  ["250x230#", :png] },
       :path => ":rails_root/public/images/items/:id/:style/:basename.:extension",
       :url  => "/images/items/:id/:style/:basename.:extension",
       :default_url => "/images/empty.gif",

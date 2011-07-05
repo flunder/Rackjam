@@ -28,18 +28,24 @@ h3 { font-weight: bold; margin: 0; }
 #header #viewAs a.selected { opacity: 0.8 !important; }
 #header #brand_dropdown { float: right; margin-right: 30px; } 
 
-#results { margin-top: 80px; margin-left: 200px;  }
+#results { margin-top: 90px; margin-left: 200px;  }
 #results.items ul { list-style-type:none; clear:both; float:left; }
-#results.items ul img { float:left; width:200px; max-width:200px; min-width:200px; max-height:134px; min-height:134px; overflow:hidden; }
-#results.items ul li.item { width:200px; overflow:hidden; float:left; margin-right: 30px; margin-bottom: 30px; color: #222; border-bottom: 1px solid #EFEFEF; }
-#results.items ul li.item .image { margin-bottom: 10px; float: left; }
-#results.items ul li.item .options { border-top: 1px solid #DDD; float: left; margin-top: 5px; width: 100%; }
+#results.items.grid ul img { float:left; width:200px; max-width:200px; min-width:200px; max-height:134px; min-height:134px; overflow:hidden; }
+#results.items.grid ul li.item { width:200px; overflow:hidden; float:left; margin-right: 30px; margin-bottom: 30px; color: #222; border-bottom: 1px solid #EFEFEF; }
+#results.items.grid ul li.item .image { margin-bottom: 10px; float: left; }
+#results.items.grid ul li.item .options { border-top: 1px solid #DDD; float: left; margin-top: 5px; width: 100%; }
 #results.items ul li.item .details { padding: 0px; font-size: 0.8em; float: left; font-size: 0.9em; line-height: 1.35em; }
 #results.items ul li.item .details .brandTags { margin-top: 4px;}
 #results.items ul li.item .details .brandTags a { color: #bbb; font-weight: bold;  padding-right: 5px; }
 #results.items ul li.item .details .brandTags a:hover { color: red; }
 #results.items ul li.item .options ul.details { list-style-type: none; margin: 0; padding: 6px 0 4px 0; width: 100%;	 }
 #results.items ul li.item .options ul.details li { display: inline-block; margin-right: 8px; font-weight: bold; }
+
+#results.items.list ul li.item { clear: both; margin-bottom: 25px; float: left; }
+#results.items.list ul li.item .listImage { float: left; margin-right: 20px; }
+#results.items.list ul li.item .detailsOptionsWrap { float: left; width: 350px; position: relative; }
+#results.items.list ul li.item .detailsOptionsWrap h3 { margin-bottom: 10px; font-size: 1.5em; }
+#results.items.list ul li.item .detailsOptionsWrap .options { position: absolute; top: 110px; }
 
 #results.brands { line-height: 2em; }
 #results.brands caption, th, td { padding: 0 11px 0 0; }
@@ -52,7 +58,7 @@ h3 { font-weight: bold; margin: 0; }
 .details li.love a { opacity: 0.5; background: url("http://static.tumblr.com/fftf9xi/Hkml5z3k3/icon_notes.png") no-repeat; float: left; text-indent: -77777px; width: 15px; }
 .details li.love a:hover { opacity: 1; }
 .details li.price a {  }
-.details li.site a  { /* background: url("http://static.tumblr.com/arbn4az/9aYljnre3/permalink.png") no-repeat; padding-left: 16px; */ color: #999;  /* padding-top: 1px; */å}
+.details li.site a  { /* background: url("http://static.tumblr.com/arbn4az/9aYljnre3/permalink.png") no-repeat; padding-left: 16px; */ color: #999;  /* padding-top: 1px; */Ã¥}
 .details li.last { margin-right: 0px !important; float: right; }
 
 #leftNav { float: left; width: 176px; height: 100%; position: fixed; top: 125px ;}

@@ -1,6 +1,6 @@
 $(function(){
 
-  	$('#results.items').isotope({
+  	$('#results.items.grid').isotope({
     	itemSelector: '.item',
 			layoutMode : 'fitRows',
 			animationOptions: {

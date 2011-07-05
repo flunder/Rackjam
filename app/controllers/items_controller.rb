@@ -3,19 +3,24 @@ class ItemsController < ApplicationController
   respond_to :js, :html
 
   def index
-        
+    
+    # Get view from cookie    
     if cookies[:view] 
       @view = cookies[:view] 
     else
       cookies[:view] = { :value => "grid", :expires => 24.hours.from_now }
     end
     
+    @view ||= 'grid'
+    
+    # Do the Brand selectio
     if params[:brand]
       @getItems = Item.tagged_with(params[:brand])
     else 
       @getItems = Item.all
     end
     
+    # Paginate
     @items = @getItems.paginate :page => params[:page]
     
     respond_with @items

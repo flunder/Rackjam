@@ -14,10 +14,14 @@
 		<% @date = "Today"%>
 	<% end %>
 	
-	<h2 id="headline<%=c%>"><%=@date%></h2>
+	<h2 id="headline<%=c%>"><!--%=@date%--></h2>
 
 	<ul class="viewThumbs">
-		<%= render(:partial => "item", :collection => items) %>
+		<% if @view == 'grid' %>
+			<%= render(:partial => "griditem", :collection => items ) %>
+		<% else %>
+			<%= render(:partial => "listitem", :collection => items) %>
+		<% end %>		
 	</ul>
 <% end %>
 </div>

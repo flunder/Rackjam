@@ -1,0 +1,37 @@
+<li class="item">
+	
+	<% item = listitem %>
+	<div class="listImage">
+		<% if item.imageSrc != '' %>
+		<%= link_to (image_tag item.photo.url(:thumb), :alt => item.title), item.url, :target => '_blank', :class => 'image' %>
+		<% else %>
+		<%= image_tag 'noimage.png', :class => 'image' %>
+		<% end %>
+	</div>
+	
+	<div class="detailsOptionsWrap">
+		<div class="details">
+			<h3><%= truncate(item.title, :length => 150).capitalize %></h3>
+			<p><%= truncate(item.desc, :length => 250).capitalize %></p>
+			<% unless item.brand_list.empty? %>
+				<div class="brandTags">
+					<% item.brands.each do |k| %>
+						<%= link_to k.name.capitalize , '?brand=' << k.name%>
+					<% end %>
+				</div>
+			<% end %>
+		</div>
+	
+		<div class="options">
+			<ul class="details">
+				<li class="time"><%= time_ago_in_w(item.updated_at) %></li>
+				<li class="love"><a href="http://ascender.tumblr.com/post/5911457576/ascender-dark-version#notes">0</a></li>
+				<li class="site"><%= link_to item.site.capitalize, item.url %></li>
+				<li class="price last"><a href="#">£<%=item.price %></a></li>
+			</ul>
+		</div>
+	</div>
+		
+	<a href="#" class="overlay"></a>
+
+</li>
