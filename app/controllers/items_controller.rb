@@ -1,6 +1,6 @@
 class ItemsController < ApplicationController
 
-  respond_to :js, :html
+  respond_to :js, :html, :iphone
 
   def index
     
@@ -17,8 +17,6 @@ class ItemsController < ApplicationController
     end
     
     @view ||= 'grid'
-    
-    
     
     # Do the Brand selectio
     if params[:brand]
