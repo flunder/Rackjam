@@ -3,7 +3,7 @@ source 'http://rubygems.org'
 gem 'rails', '3.0.9'
 gem "jquery-rails", "~> 1.0.12"
 gem 'sqlite3'
-gem 'mysql'
+gem 'ruby-mysql'
 gem "will_paginate"
 gem "permalink_fu"
 gem 'scrapi'

@@ -37,19 +37,23 @@ class Item < ActiveRecord::Base
   def self.get() 
       tresh = 10; 
       # self.update_via_feed('gumtree', 'http://www.gumtree.com/cgi-bin/list_postings.pl?feed=rss&posting_cat=4709&search_terms=instruments', tresh)
-      self.update_via_feed('ebay', 'http://musical-instruments.shop.ebay.co.uk/Sequencers-Grooveboxes-/58721/i.html?LH_PrefLoc=0&LH_Price=30..%40c&rt=nc&_catref=1&_dlg=1&_dmpt=UK_Musical_Instruments_Sequencers_Grooveboxes_MJ&_ds=1&_mPrRngCbx=1&_rss=1', tresh)
-      self.update_via_feed('ebay', 'http://musical-instruments.shop.ebay.co.uk/Computer-Recording-Software-/23784/i.html?LH_PrefLoc=1&LH_Price=50..%40c&rt=nc&_catref=1&_dmpt=UK_MusicalInstruments_ComputerRecording_Software_SM&_mPrRngCbx=1&_rss=1', tresh)
-      self.update_via_feed('ebay', 'http://musical-instruments.shop.ebay.co.uk/Mixers-Mixer-Accessories-/23785/i.html?LH_PrefLoc=1&LH_Price=50..%40c&rt=nc&_catref=1&_dmpt=UK_Mixers&_mPrRngCbx=1&_rss=1', tresh)
-      self.update_via_feed('ebay', 'http://musical-instruments.shop.ebay.co.uk/Monitors-/23786/i.html?LH_PrefLoc=1&LH_Price=50..%40c&rt=nc&_catref=1&_dmpt=UK_ConElec_SpeakersPASystems_RL&_mPrRngCbx=1&_rss=1', tresh)
-      self.update_via_feed('ebay', 'http://musical-instruments.shop.ebay.co.uk/Midi-Controllers-/14987/i.html?LH_PrefLoc=1&LH_Price=50..%40c&rt=nc&_catref=1&_dmpt=Midi_Controllers&_mPrRngCbx=1&_rss=1', tresh)
-      self.update_via_feed('ebay', 'http://musical-instruments.shop.ebay.co.uk/Racks-Cases-/23789/i.html?LH_PrefLoc=1&LH_Price=50..%40c&rt=nc&_catref=1&_dmpt=UK_Musical_Instruments_Rack_Cases_MJ&_mPrRngCbx=1&_rss=1', tresh)
-      self.update_via_feed('ebay', 'http://musical-instruments.shop.ebay.co.uk/Other-Pro-Audio-Equipment-/3278/i.html?LH_PrefLoc=1&LH_Price=50..%40c&rt=nc&_catref=1&_mPrRngCbx=1&_rss=1', tresh)
-      self.update_via_feed('ebay', 'http://musical-instruments.shop.ebay.co.uk/Outboards-Effects-/23791/i.html?LH_PrefLoc=1&LH_Price=50..%40c&rt=nc&_catref=1&_dmpt=UK_Musical_Instruments_Outboards_Effects_MJ&_mPrRngCbx=1&_rss=1', tresh)
-      self.update_via_feed('ebay', 'http://musical-instruments.shop.ebay.co.uk/Midi-Audio-Interfaces-/123445/i.html?LH_PrefLoc=1&LH_Price=50..%40c&rt=nc&_catref=1&_dmpt=Midi_Controllers&_mPrRngCbx=1&_rss=1', tresh)
-      self.update_via_feed('ebay', 'http://musical-instruments.shop.ebay.co.uk/Drum-Machines-/38069/i.html?LH_PrefLoc=1&LH_Price=50..%40c&rt=nc&_catref=1&_dmpt=UK_Drum_Machines_Grooveboxes&_mPrRngCbx=1&_rss=1', tresh)
-      self.update_via_feed('ebay', 'http://musical-instruments.shop.ebay.co.uk/Samplers-Sampler-Accessories-/38070/i.html?LH_PrefLoc=1&LH_Price=50..%40c&rt=nc&_catref=1&_dmpt=UK_Musical_Instruments_Pro_Audio_Samplers_Accessories_CV&_mPrRngCbx=1&_rss=1', tresh)
-      self.update_via_feed('ebay', 'http://musical-instruments.shop.ebay.co.uk/Synthesisers-Sound-Modules-/38071/i.html?LH_PrefLoc=1&LH_Price=50..%40c&rt=nc&_catref=1&_dmpt=UK_Musical_Instruments_Pro_Audio_Synthesisers_CV&_mPrRngCbx=1&_rss=1', tresh)
-      self.update_via_feed('ebay', 'http://musical-instruments.shop.ebay.co.uk/Recorders-Rewriters-/15199/i.html?LH_PrefLoc=1&LH_Price=50..%40c&rt=nc&_catref=1&_dmpt=UK_Recorders_Rewriters&_mPrRngCbx=1&_rss=1', tresh)                        
+      #self.update_via_feed('ebay', 'http://musical-instruments.shop.ebay.co.uk/Sequencers-Grooveboxes-/58721/i.html?LH_PrefLoc=0&LH_Price=30..%40c&rt=nc&_catref=1&_dlg=1&_dmpt=UK_Musical_Instruments_Sequencers_Grooveboxes_MJ&_ds=1&_mPrRngCbx=1&_rss=1', tresh)
+      #self.update_via_feed('ebay', 'http://musical-instruments.shop.ebay.co.uk/Computer-Recording-Software-/23784/i.html?LH_PrefLoc=1&LH_Price=50..%40c&rt=nc&_catref=1&_dmpt=UK_MusicalInstruments_ComputerRecording_Software_SM&_mPrRngCbx=1&_rss=1', tresh)
+      #self.update_via_feed('ebay', 'http://musical-instruments.shop.ebay.co.uk/Mixers-Mixer-Accessories-/23785/i.html?LH_PrefLoc=1&LH_Price=50..%40c&rt=nc&_catref=1&_dmpt=UK_Mixers&_mPrRngCbx=1&_rss=1', tresh)
+      #self.update_via_feed('ebay', 'http://musical-instruments.shop.ebay.co.uk/Monitors-/23786/i.html?LH_PrefLoc=1&LH_Price=50..%40c&rt=nc&_catref=1&_dmpt=UK_ConElec_SpeakersPASystems_RL&_mPrRngCbx=1&_rss=1', tresh)
+      #self.update_via_feed('ebay', 'http://musical-instruments.shop.ebay.co.uk/Midi-Controllers-/14987/i.html?LH_PrefLoc=1&LH_Price=50..%40c&rt=nc&_catref=1&_dmpt=Midi_Controllers&_mPrRngCbx=1&_rss=1', tresh)
+      #self.update_via_feed('ebay', 'http://musical-instruments.shop.ebay.co.uk/Racks-Cases-/23789/i.html?LH_PrefLoc=1&LH_Price=50..%40c&rt=nc&_catref=1&_dmpt=UK_Musical_Instruments_Rack_Cases_MJ&_mPrRngCbx=1&_rss=1', tresh)
+      #self.update_via_feed('ebay', 'http://musical-instruments.shop.ebay.co.uk/Other-Pro-Audio-Equipment-/3278/i.html?LH_PrefLoc=1&LH_Price=50..%40c&rt=nc&_catref=1&_mPrRngCbx=1&_rss=1', tresh)
+      #self.update_via_feed('ebay', 'http://musical-instruments.shop.ebay.co.uk/Outboards-Effects-/23791/i.html?LH_PrefLoc=1&LH_Price=50..%40c&rt=nc&_catref=1&_dmpt=UK_Musical_Instruments_Outboards_Effects_MJ&_mPrRngCbx=1&_rss=1', tresh)
+      #self.update_via_feed('ebay', 'http://musical-instruments.shop.ebay.co.uk/Midi-Audio-Interfaces-/123445/i.html?LH_PrefLoc=1&LH_Price=50..%40c&rt=nc&_catref=1&_dmpt=Midi_Controllers&_mPrRngCbx=1&_rss=1', tresh)
+      #self.update_via_feed('ebay', 'http://musical-instruments.shop.ebay.co.uk/Drum-Machines-/38069/i.html?LH_PrefLoc=1&LH_Price=50..%40c&rt=nc&_catref=1&_dmpt=UK_Drum_Machines_Grooveboxes&_mPrRngCbx=1&_rss=1', tresh)
+      #self.update_via_feed('ebay', 'http://musical-instruments.shop.ebay.co.uk/Samplers-Sampler-Accessories-/38070/i.html?LH_PrefLoc=1&LH_Price=50..%40c&rt=nc&_catref=1&_dmpt=UK_Musical_Instruments_Pro_Audio_Samplers_Accessories_CV&_mPrRngCbx=1&_rss=1', tresh)
+      #self.update_via_feed('ebay', 'http://musical-instruments.shop.ebay.co.uk/Synthesisers-Sound-Modules-/38071/i.html?LH_PrefLoc=1&LH_Price=50..%40c&rt=nc&_catref=1&_dmpt=UK_Musical_Instruments_Pro_Audio_Synthesisers_CV&_mPrRngCbx=1&_rss=1', tresh)
+      #self.update_via_feed('ebay', 'http://musical-instruments.shop.ebay.co.uk/Recorders-Rewriters-/15199/i.html?LH_PrefLoc=1&LH_Price=50..%40c&rt=nc&_catref=1&_dmpt=UK_Recorders_Rewriters&_mPrRngCbx=1&_rss=1', tresh)                        
+      # self.update_via_feed('craig', 'http://london.craigslist.co.uk/ele/index.rss', tresh)
+      
+      
+      
   end
 
   def self.update_via_feed(sourceName, url, tresh)
@@ -60,6 +64,8 @@ class Item < ActiveRecord::Base
       feed.entries.each_with_index do |entry,index|
               
             item = feedSpecificFields(sourceName).scrape(open(entry.url).read)
+            
+            puts "#{item[0].imageSrc}"
             
             if !item[0].title  # No headline sounds like trouble, lets skip it
                 puts "Missing headline ~ wtf!"
@@ -101,7 +107,40 @@ class Item < ActiveRecord::Base
                     if (price.rindex('.'))
                       price = price[1..price.rindex('.')-1] # 1 for the leading q-mark
                     end
-                  end                
+                    
+                    if imageSrc.include?('ebaystatic') == true
+                      imageSrc = false 
+                      # image scraping failed
+                      # ebay uses javascript for displaying images sometimes ....
+                    end
+                    
+                  end        
+                  
+                  # -- CRAIG  ------------------------------------------- 
+                  if sourceName == 'craig'
+                                      
+                    if item[0].price.to_s.index('&#65533;') && item[0].price.to_s.length > 10
+                      price = item[0].price + ' ' # add a space at the end 
+                      price = price[price.rindex('&#65533;')+8..price.rindex(' ')] # .. the above added space
+                      price = price[0..price.index(' ')] # rid the postcode
+                    else
+                      price = '0' # no price found, lets 
+                    end
+                  end 
+
+                  # -- PRELOVED  ------------------------------------------- 
+                  if sourceName == 'preloved'
+                    price = item[0].price
+                    if (price.index('.'))
+                      price = price[0..price.index('.')] 
+                    end
+                    if (price.index(' '))
+                      price = price[0..price.index(' ')] 
+                    end
+                  end
+
+                  #END SPECIFOLICS ----------- **                  
+                          
                 #END SPECIFOLICS ----------- **
                 
                 price = self.cleanPrice(price)              
@@ -110,14 +149,16 @@ class Item < ActiveRecord::Base
                 if skip == 'no' 
 
                     if exists? :url => entry.url # exists? update!
+                      
                         puts "existed!"
+                        
                         @myItem = Item.find_by_url(entry.url) 
                         puts "#{@myItem.price} | #{price}"
                         if @myItem.price.to_i == price.to_i
                           puts "but has same price"
                         else
                           begin
-                            @myItem.update_attributes(
+                            @myItem.update_attributes!(
                               :url          => entry.url,
                               :title        => ic.iconv(title + ' ')[0..-2],
                               :imageSrc     => imageSrc,
@@ -199,7 +240,7 @@ class Item < ActiveRecord::Base
          return scraper = Scraper.define do
            array :items
            process ".posting", :items => Scraper.define {
-             process "h2", :headline => :text
+             process "h2", :title => :text
              process "#userbody", :desc => :text
              process "table img", :imageSrc => "@src"
              process "h2", :price => :text
