@@ -12,5 +12,3 @@ gem "paperclip", "~> 2.3.11"
 gem 'acts-as-taggable-on'
 gem 'oauth'
 gem "twitter", "~> 1.6.0"
-gem "ebayer", "~> 1.2.0"
- gem 'httparty'
