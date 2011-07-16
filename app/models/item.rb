@@ -37,7 +37,7 @@ class Item < ActiveRecord::Base
   # END
   
   def self.get() 
-      tresh = 10; 
+      tresh = 11; 
       self.update_via_feed('gumtree', 'http://www.gumtree.com/cgi-bin/list_postings.pl?feed=rss&posting_cat=4709&search_terms=instruments', tresh)
       #self.update_via_feed('ebay', 'http://musical-instruments.shop.ebay.co.uk/Sequencers-Grooveboxes-/58721/i.html?LH_PrefLoc=0&LH_Price=30..%40c&rt=nc&_catref=1&_dlg=1&_dmpt=UK_Musical_Instruments_Sequencers_Grooveboxes_MJ&_ds=1&_mPrRngCbx=1&_rss=1', tresh)
       #self.update_via_feed('ebay', 'http://musical-instruments.shop.ebay.co.uk/Computer-Recording-Software-/23784/i.html?LH_PrefLoc=1&LH_Price=50..%40c&rt=nc&_catref=1&_dmpt=UK_MusicalInstruments_ComputerRecording_Software_SM&_mPrRngCbx=1&_rss=1', tresh)
