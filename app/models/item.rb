@@ -1,8 +1,10 @@
 require 'rubygems'
+require 'htmlentities'
 require 'scrapi'
 require 'open-uri'
 require 'iconv'
 require 'csv'
+require 'cgi'
 
 class Item < ActiveRecord::Base
   
@@ -50,20 +52,23 @@ class Item < ActiveRecord::Base
       #self.update_via_feed('ebay', 'http://musical-instruments.shop.ebay.co.uk/Samplers-Sampler-Accessories-/38070/i.html?LH_PrefLoc=1&LH_Price=50..%40c&rt=nc&_catref=1&_dmpt=UK_Musical_Instruments_Pro_Audio_Samplers_Accessories_CV&_mPrRngCbx=1&_rss=1', tresh)
       #self.update_via_feed('ebay', 'http://musical-instruments.shop.ebay.co.uk/Synthesisers-Sound-Modules-/38071/i.html?LH_PrefLoc=1&LH_Price=50..%40c&rt=nc&_catref=1&_dmpt=UK_Musical_Instruments_Pro_Audio_Synthesisers_CV&_mPrRngCbx=1&_rss=1', tresh)
       #self.update_via_feed('ebay', 'http://musical-instruments.shop.ebay.co.uk/Recorders-Rewriters-/15199/i.html?LH_PrefLoc=1&LH_Price=50..%40c&rt=nc&_catref=1&_dmpt=UK_Recorders_Rewriters&_mPrRngCbx=1&_rss=1', tresh)                        
-      # self.update_via_feed('craig', 'http://london.craigslist.co.uk/ele/index.rss', tresh)
-      
-      
-      
+      self.update_via_feed('craig', 'http://london.craigslist.co.uk/ele/index.rss', tresh)
   end
 
-  def self.update_via_feed(sourceName, url, tresh)
+  def self.update_via_feed(sourceName, url, tresh = 10)
+    
+      mode = 'debug'
     
       ic = Iconv.new('UTF-8//IGNORE', 'UTF-8')
       feed = Feedzirra::Feed.fetch_and_parse(url)
   
       feed.entries.each_with_index do |entry,index|
               
-            item = feedSpecificFields(sourceName).scrape(open(entry.url).read)
+            item = feedSpecificFields(sourceName).scrape(open(entry.url).read, :parser=>:html_parser)
+            
+            #if index > 5 
+            #  break
+            #end
             
             puts "#{item[0].imageSrc}"
             
@@ -118,14 +123,24 @@ class Item < ActiveRecord::Base
                   
                   # -- CRAIG  ------------------------------------------- 
                   if sourceName == 'craig'
+                                     
+                    myString = CGI.escape(item[0].title)               
                                       
-                    if item[0].price.to_s.index('&#65533;') && item[0].price.to_s.length > 10
-                      price = item[0].price + ' ' # add a space at the end 
-                      price = price[price.rindex('&#65533;')+8..price.rindex(' ')] # .. the above added space
-                      price = price[0..price.index(' ')] # rid the postcode
+                    if myString.index('%A3') && myString.to_s.length > 10
+                      price = myString + ' ' # add a space at the end 
+                      price = price[price.rindex('%A3')+3..price.rindex(' ')] # .. the above added space
+                      if price.index('+')
+                        price = price[0..price.index('+')-1]
+                      end 
+                    elsif myString.index('%24') && myString.to_s.length > 10
+                      puts "Dodgy currency ($$$)" 
+                      skip = 'yes'
                     else
                       price = '0' # no price found, lets 
                     end
+                    
+                    puts "PRICE:#{price}"
+                    
                   end 
 
                   # -- PRELOVED  ------------------------------------------- 
@@ -139,14 +154,27 @@ class Item < ActiveRecord::Base
                     end
                   end
 
-                  #END SPECIFOLICS ----------- **                  
-                          
-                #END SPECIFOLICS ----------- **
+                #END SPECIFOLICS ----------- **                  
                 
                 price = self.cleanPrice(price)              
              
+                if mode == 'debug1'
+                  #puts item[0]
+                  puts "Title: #{item[0].title.encode}"
+                  newString = HTMLEntities.new.encode item[0].title
+                  puts newString
+                  puts ""
+                  newString = CGI.escape(item[0].title)
+                  puts newString
+                  puts ""
+                  puts "URL: #{entry.url} | HEADLINE: #{title} | IMAGESRC: #{imageSrc} | PRICE: #{price} | BLURB: #{desc[0.10]} | SITE: #{sourceName}"
+                  puts "indexCHECK: #{item[0].title.encode.index('&pound;')}"
+                  puts "indexCHECK: #{item[0].title.encode.index('&#163;')}"
+                  puts "indexCHECK: #{newString.index('%A3')}"
+                  puts "indexCHECK: #{newString.index('&#163;')}"                  
+                end
                 
-                if skip == 'no' 
+                if skip == 'no' || mode == 'debug'
 
                     if exists? :url => entry.url # exists? update!
                       
