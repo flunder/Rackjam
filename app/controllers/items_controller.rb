@@ -21,8 +21,8 @@ class ItemsController < ApplicationController
     # Selection by type
     if params[:type]
       @search_condition = "%" + params[:type] + "%"
-      @getItems = Item.find(:all, :conditions => ['title LIKE ? OR desc LIKE ?', @search_condition, @search_condition])
-      #@getItems = Item.find(:all, :conditions => ['title LIKE ?', @search_condition])
+      #@getItems = Item.find(:all, :conditions => ['title LIKE ? OR desc LIKE ?', @search_condition, @search_condition])
+      @getItems = Item.find(:all, :conditions => ['title LIKE ?', @search_condition])
     else
       @getItems = Item.all
     end
