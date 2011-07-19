@@ -7,11 +7,11 @@
 
 <h3>Filter by</h3>
 <ul id="filterList">
-	<li><%= link_to('Compressors', :type => "compressor" ) %></li>	
-	<li><%= link_to('Samplers', :type => "sampler" ) %></li>		
-	<li><%= link_to('Machines', :type => "machine" ) %></li>		
-	<li><%= link_to('Mics', :type => "mic" ) %></li>		
-	<li><%= link_to('Mixers', :type => "mixer" ) %></li>		
+	<li><%= link_to_if(params[:type] != 'compressor', 'Compressors', :type => "compressor" ) %></li>	
+	<li><%= link_to_if(params[:type] != 'sampler', 'Samplers', :type => "sampler" ) %></li>		
+	<li><%= link_to_if(params[:type] != 'machine', 'Machines', :type => "machine" ) %></li>		
+	<li><%= link_to_if(params[:type] != 'mic', 'Mics', :type => "mic" ) %></li>		
+	<li><%= link_to_if(params[:type] != 'mixer', 'Mixers', :type => "mixer" ) %></li>		
 </ul>
 
 <div id="box"></div>
