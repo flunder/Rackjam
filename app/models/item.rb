@@ -35,32 +35,48 @@ class Item < ActiveRecord::Base
   
   def self.get() 
       self.update_via_feed('gumtree', 'http://www.gumtree.com/cgi-bin/list_postings.pl?feed=rss&posting_cat=4709&search_terms=instruments')
-      self.update_via_feed('craig', 'http://london.craigslist.co.uk/ele/index.rss')
+      self.update_via_feed('craig', 'http://london.craigslist.co.uk/search/ele?query=&srchType=A&minAsk=50&maxAsk=&hasPic=1&format=rss')
       # self.update_via_feed('ebay', 'http://musical-instruments.shop.ebay.co.uk/Sequencers-Grooveboxes-/58721/i.html?LH_PrefLoc=0&LH_Price=30..%40c&rt=nc&_catref=1&_dlg=1&_dmpt=UK_Musical_Instruments_Sequencers_Grooveboxes_MJ&_ds=1&_mPrRngCbx=1&_rss=1')
   end
 
   def self.update_via_feed(source, url, tresh = 10)
     
       feed = Feedzirra::Feed.fetch_and_parse(url)
-      feed.entries.each_with_index do |entry,i|
+      feed.entries.each_with_index do |entry,index|
           @feedpage = open(entry.url).read
           @feeditem = feedSpecificFields(source).scrape(@feedpage, :parser => :html_parser)      
           @feeditem = validateItem(@feeditem)
-          @feeditem = reformatItem(@feeditem, source)
           
-          if exists? :url => entry.url || @feeditem == false
-            puts "existed or broken!"
+          if exists? :url => entry.url or @feeditem == false
+            puts "existed,broken or skipped!"
           else
+            @feeditem = reformatItem(@feeditem, source)
+            puts "insert"
             createItem(@feeditem,entry,source)
           end
+                    
+          #if index >= 3
+          #  break
+          #end
       end
   end
   
   def self.validateItem(item) 
       return false if item.title.empty?   
+      return false if skipMe(item) == true
       item.title = cleanString(item.title)
       item.desc = cleanString(item.desc)
       return item
+  end
+  
+  def self.skipMe(item)     
+    Skipword.all.each do |skipword|
+      itemContent = ' ' << item.title # << ' ' << item.desc << ' '
+      temp = itemContent.downcase.scan(' ' << skipword.keyword.downcase.chomp << ' ')
+      puts temp unless temp.empty?
+      return true unless temp.empty?
+    end
+    return false
   end
   
   def self.cleanString(string)

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110626194239) do
+ActiveRecord::Schema.define(:version => 20110719192712) do
 
   create_table "brands", :force => true do |t|
     t.string   "name"
@@ -31,6 +31,12 @@ ActiveRecord::Schema.define(:version => 20110626194239) do
     t.string   "photo_content_type"
     t.string   "photo_file_size"
     t.datetime "expires"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "skipwords", :force => true do |t|
+    t.string   "keyword"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

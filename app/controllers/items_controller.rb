@@ -18,12 +18,19 @@ class ItemsController < ApplicationController
     
     @view ||= 'grid'
     
-    # Do the Brand selectio
-    if params[:brand]
-      @getItems = Item.tagged_with(params[:brand])
-    else 
+    # Selection by type
+    if params[:type]
+      @search_condition = "%" + params[:type] + "%"
+      #@getItems = Item.find(:all, :conditions => ['title LIKE ? OR desc LIKE ?', @search_condition, @search_condition])
+      @getItems = Item.find(:all, :conditions => ['title LIKE ?', @search_condition])
+    else
       @getItems = Item.all
     end
+
+    # Selection by brand
+    if params[:brand]
+        @getItems = Item.tagged_with(params[:brand])
+    end    
     
     # Paginate
     @items = @getItems.paginate :page => params[:page]

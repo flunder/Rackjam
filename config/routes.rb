@@ -1,10 +1,12 @@
 Synth4::Application.routes.draw do
 
   resources :brands
-
+  resources :skipwords
+  
   root :to => "items#index"
   
   resources :items
+  
   match '/feed' => 'items#feed',
       :as => :feed,
       :defaults => { :format => 'atom' }

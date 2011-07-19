@@ -1,0 +1,21 @@
+<%= form_for(@skipword) do |f| %>
+  <% if @skipword.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@skipword.errors.count, "error") %> prohibited this skipword from being saved:</h2>
+
+      <ul>
+      <% @skipword.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :keyword %><br />
+    <%= f.text_field :keyword %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

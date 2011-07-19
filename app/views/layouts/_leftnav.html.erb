@@ -7,11 +7,11 @@
 
 <h3>Filter by</h3>
 <ul id="filterList">
-	<li><a href="#">Compressors</a></li>
-	<li><a href="#">Drum machines</a></li>	
-	<li><a href="#">Samplers</a></li>
-	<li><a href="#">Microphones</a></li>
-	<li><a href="#">Mixers</a></li>
+	<li><%= link_to('Compressors', :type => "compressor" ) %></li>	
+	<li><%= link_to('Samplers', :type => "sampler" ) %></li>		
+	<li><%= link_to('Machines', :type => "machine" ) %></li>		
+	<li><%= link_to('Mics', :type => "mic" ) %></li>		
+	<li><%= link_to('Mixers', :type => "mixer" ) %></li>		
 </ul>
 
 <div id="box"></div>

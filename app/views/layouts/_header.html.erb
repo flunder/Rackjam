@@ -19,9 +19,9 @@
 
 <% @brands = Item.brand_counts.order('name ASC') %>
 <% unless @brands.empty? %>
-
 	<form action="" id="brand_dropdown">
 		<select name="brand" onchange='this.form.submit()'>
+			<option value="all">Select Brand</option>
 			<% @brands.each do |brand| %>
 				<% if params[:brand] == brand.name.downcase %>
 					<option value="<%= brand %>" selected="selected"><%= brand.name.capitalize %></option>
