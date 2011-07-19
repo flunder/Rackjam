@@ -21,301 +21,196 @@ class Item < ActiveRecord::Base
   attr_accessor :image_url
   attr_accessor :image_remote_url
 
-  #validates_presence_of :name
-  before_create :dblcheck_file_name
-
-  #has_attached_file :image
+  # before_create :dblcheck_file_name
   before_validation :download_remote_image, :if => :image_url_provided?
   validates_presence_of :image_remote_url, :if => :image_url_provided?, :message => 'is invalid or inaccessible'  
   
   has_attached_file :photo,
-      :styles => { :thumb =>  ["200x134#", :png], :large =>  ["250x230#", :png] },
-      :path => ":rails_root/public/images/items/:id/:style/:basename.:extension",
-      :url  => "/images/items/:id/:style/:basename.:extension",
-      :default_url => "/images/empty.gif",
-      :default_style => :thumb
-  # END
+                    :styles => { :thumb =>  ["200x134#", :png], :large =>  ["250x230#", :png] },
+                    :path => ":rails_root/public/images/items/:id/:style/:basename.:extension",
+                    :url  => "/images/items/:id/:style/:basename.:extension",
+                    :default_url => "/images/noimage.png",
+                    :default_style => :thumb
+  # // PAPERCLIP ----------------------------------------
   
   def self.get() 
-      tresh = 11; 
-      self.update_via_feed('gumtree', 'http://www.gumtree.com/cgi-bin/list_postings.pl?feed=rss&posting_cat=4709&search_terms=instruments', tresh)
-      #self.update_via_feed('ebay', 'http://musical-instruments.shop.ebay.co.uk/Sequencers-Grooveboxes-/58721/i.html?LH_PrefLoc=0&LH_Price=30..%40c&rt=nc&_catref=1&_dlg=1&_dmpt=UK_Musical_Instruments_Sequencers_Grooveboxes_MJ&_ds=1&_mPrRngCbx=1&_rss=1', tresh)
-      #self.update_via_feed('ebay', 'http://musical-instruments.shop.ebay.co.uk/Computer-Recording-Software-/23784/i.html?LH_PrefLoc=1&LH_Price=50..%40c&rt=nc&_catref=1&_dmpt=UK_MusicalInstruments_ComputerRecording_Software_SM&_mPrRngCbx=1&_rss=1', tresh)
-      #self.update_via_feed('ebay', 'http://musical-instruments.shop.ebay.co.uk/Mixers-Mixer-Accessories-/23785/i.html?LH_PrefLoc=1&LH_Price=50..%40c&rt=nc&_catref=1&_dmpt=UK_Mixers&_mPrRngCbx=1&_rss=1', tresh)
-      #self.update_via_feed('ebay', 'http://musical-instruments.shop.ebay.co.uk/Monitors-/23786/i.html?LH_PrefLoc=1&LH_Price=50..%40c&rt=nc&_catref=1&_dmpt=UK_ConElec_SpeakersPASystems_RL&_mPrRngCbx=1&_rss=1', tresh)
-      #self.update_via_feed('ebay', 'http://musical-instruments.shop.ebay.co.uk/Midi-Controllers-/14987/i.html?LH_PrefLoc=1&LH_Price=50..%40c&rt=nc&_catref=1&_dmpt=Midi_Controllers&_mPrRngCbx=1&_rss=1', tresh)
-      #self.update_via_feed('ebay', 'http://musical-instruments.shop.ebay.co.uk/Racks-Cases-/23789/i.html?LH_PrefLoc=1&LH_Price=50..%40c&rt=nc&_catref=1&_dmpt=UK_Musical_Instruments_Rack_Cases_MJ&_mPrRngCbx=1&_rss=1', tresh)
-      #self.update_via_feed('ebay', 'http://musical-instruments.shop.ebay.co.uk/Other-Pro-Audio-Equipment-/3278/i.html?LH_PrefLoc=1&LH_Price=50..%40c&rt=nc&_catref=1&_mPrRngCbx=1&_rss=1', tresh)
-      #self.update_via_feed('ebay', 'http://musical-instruments.shop.ebay.co.uk/Outboards-Effects-/23791/i.html?LH_PrefLoc=1&LH_Price=50..%40c&rt=nc&_catref=1&_dmpt=UK_Musical_Instruments_Outboards_Effects_MJ&_mPrRngCbx=1&_rss=1', tresh)
-      #self.update_via_feed('ebay', 'http://musical-instruments.shop.ebay.co.uk/Midi-Audio-Interfaces-/123445/i.html?LH_PrefLoc=1&LH_Price=50..%40c&rt=nc&_catref=1&_dmpt=Midi_Controllers&_mPrRngCbx=1&_rss=1', tresh)
-      #self.update_via_feed('ebay', 'http://musical-instruments.shop.ebay.co.uk/Drum-Machines-/38069/i.html?LH_PrefLoc=1&LH_Price=50..%40c&rt=nc&_catref=1&_dmpt=UK_Drum_Machines_Grooveboxes&_mPrRngCbx=1&_rss=1', tresh)
-      #self.update_via_feed('ebay', 'http://musical-instruments.shop.ebay.co.uk/Samplers-Sampler-Accessories-/38070/i.html?LH_PrefLoc=1&LH_Price=50..%40c&rt=nc&_catref=1&_dmpt=UK_Musical_Instruments_Pro_Audio_Samplers_Accessories_CV&_mPrRngCbx=1&_rss=1', tresh)
-      #self.update_via_feed('ebay', 'http://musical-instruments.shop.ebay.co.uk/Synthesisers-Sound-Modules-/38071/i.html?LH_PrefLoc=1&LH_Price=50..%40c&rt=nc&_catref=1&_dmpt=UK_Musical_Instruments_Pro_Audio_Synthesisers_CV&_mPrRngCbx=1&_rss=1', tresh)
-      #self.update_via_feed('ebay', 'http://musical-instruments.shop.ebay.co.uk/Recorders-Rewriters-/15199/i.html?LH_PrefLoc=1&LH_Price=50..%40c&rt=nc&_catref=1&_dmpt=UK_Recorders_Rewriters&_mPrRngCbx=1&_rss=1', tresh)                        
-      self.update_via_feed('craig', 'http://london.craigslist.co.uk/ele/index.rss', tresh)
+      # self.update_via_feed('gumtree', 'http://www.gumtree.com/cgi-bin/list_postings.pl?feed=rss&posting_cat=4709&search_terms=instruments')
+      self.update_via_feed('craig', 'http://london.craigslist.co.uk/ele/index.rss')
+      # self.update_via_feed('ebay', 'http://musical-instruments.shop.ebay.co.uk/Sequencers-Grooveboxes-/58721/i.html?LH_PrefLoc=0&LH_Price=30..%40c&rt=nc&_catref=1&_dlg=1&_dmpt=UK_Musical_Instruments_Sequencers_Grooveboxes_MJ&_ds=1&_mPrRngCbx=1&_rss=1')
   end
 
-  def self.update_via_feed(sourceName, url, tresh = 10)
+  def self.update_via_feed(source, url, tresh = 10)
     
-      mode = 'debug'
-    
-      ic = Iconv.new('UTF-8//IGNORE', 'UTF-8')
       feed = Feedzirra::Feed.fetch_and_parse(url)
-  
-      feed.entries.each_with_index do |entry,index|
-              
-            item = feedSpecificFields(sourceName).scrape(open(entry.url).read, :parser=>:html_parser)
-            
-            #if index > 5 
-            #  break
-            #end
-            
-            puts "#{item[0].imageSrc}"
-            
-            if !item[0].title  # No headline sounds like trouble, lets skip it
-                puts "Missing headline ~ wtf!"
-            else
-              
-                # Cleaning up
-                skip = 'no';                   
-                if !item[0].imageSrc
-                  puts "missing image #{entry.url}" # no image =(
-                  imageSrc = ''
-                else 
-                  imageSrc = item[0].imageSrc # has image
-                end
-                
-                title = item[0].title.strip      
-                item[0].desc ||= " " 
-                desc  = item[0].desc.strip
-                                
-                # -- Specifolics -------------------------------------
-                # -- GUMTREE -----------------------------------------
-                if sourceName == 'gumtree' 
-                  price = item[0].price
-                  if (title.index('&amp;'))
-                    title = title[0..title.index('&amp;')-1] 
-                  end
-                end
-                
-                # -- EBAY  ------------------------------------------- 
-                  if sourceName == 'ebay' 
-
-                    # IGNORE SELLERS
-                    # if item[0].seller == 'fudgescyclestore' || item[0].seller == 'dragonssoup' || item[0].seller == 'tritoncycles' 
-                    #   skip = 'yes';
-                    # end 
-
-                    price = item[0].priceAuction
-
-                    # Cut the cents off
-                    if (price.rindex('.'))
-                      price = price[1..price.rindex('.')-1] # 1 for the leading q-mark
-                    end
-                    
-                    if imageSrc.include?('ebaystatic') == true
-                      imageSrc = false 
-                      # image scraping failed
-                      # ebay uses javascript for displaying images sometimes ....
-                    end
-                    
-                  end        
-                  
-                  # -- CRAIG  ------------------------------------------- 
-                  if sourceName == 'craig'
-                                     
-                    myString = CGI.escape(item[0].title)               
-                                      
-                    if myString.index('%A3') && myString.to_s.length > 10
-                      price = myString + ' ' # add a space at the end 
-                      price = price[price.rindex('%A3')+3..price.rindex(' ')] # .. the above added space
-                      if price.index('+')
-                        price = price[0..price.index('+')-1]
-                      end 
-                    elsif myString.index('%24') && myString.to_s.length > 10
-                      puts "Dodgy currency ($$$)" 
-                      skip = 'yes'
-                    else
-                      price = '0' # no price found, lets 
-                    end
-                    
-                    puts "PRICE:#{price}"
-                    
-                  end 
-
-                  # -- PRELOVED  ------------------------------------------- 
-                  if sourceName == 'preloved'
-                    price = item[0].price
-                    if (price.index('.'))
-                      price = price[0..price.index('.')] 
-                    end
-                    if (price.index(' '))
-                      price = price[0..price.index(' ')] 
-                    end
-                  end
-
-                #END SPECIFOLICS ----------- **                  
-                
-                price = self.cleanPrice(price)              
-             
-                if mode == 'debug1'
-                  #puts item[0]
-                  puts "Title: #{item[0].title.encode}"
-                  newString = HTMLEntities.new.encode item[0].title
-                  puts newString
-                  puts ""
-                  newString = CGI.escape(item[0].title)
-                  puts newString
-                  puts ""
-                  puts "URL: #{entry.url} | HEADLINE: #{title} | IMAGESRC: #{imageSrc} | PRICE: #{price} | BLURB: #{desc[0.10]} | SITE: #{sourceName}"
-                  puts "indexCHECK: #{item[0].title.encode.index('&pound;')}"
-                  puts "indexCHECK: #{item[0].title.encode.index('&#163;')}"
-                  puts "indexCHECK: #{newString.index('%A3')}"
-                  puts "indexCHECK: #{newString.index('&#163;')}"                  
-                end
-                
-                if skip == 'no' || mode == 'debug'
-
-                    if exists? :url => entry.url # exists? update!
-                      
-                        puts "existed!"
-                        
-                        @myItem = Item.find_by_url(entry.url) 
-                        puts "#{@myItem.price} | #{price}"
-                        if @myItem.price.to_i == price.to_i
-                          puts "but has same price"
-                        else
-                          begin
-                            @myItem.update_attributes!(
-                              :url          => entry.url,
-                              :title        => ic.iconv(title + ' ')[0..-2],
-                              :imageSrc     => imageSrc,
-                              :price        => price,
-                              :desc         => ic.iconv(desc + ' ')[0..-2],
-                              :site         => sourceName,
-                              :image_url    => imageSrc                            
-                            )
-                          rescue Exception => exc
-                            puts("Error: #{exc.message}")
-                          end
-                        end
-                        
-                        puts ""
-                    else # create
-                
-                      puts "URL: #{entry.url}"
-                      # puts "URL: #{entry.url} | HEADLINE: #{headline} | IMAGESRC: #{imageSrc} | PRICE: #{price} | BLURB: #{blurb[0.10]} | SITE: #{sourceName} [ EC: #{existsCounter} ]"
-
-                      begin
-                        create!(
-                          :url          => entry.url,
-                          :title        => ic.iconv(title + ' ')[0..-2],
-                          :imageSrc     => imageSrc,
-                          :price        => price,
-                          :desc         => ic.iconv(desc + ' ')[0..-2],
-                          :site         => sourceName,
-                          :image_url    => imageSrc
-                        )
-                      rescue Exception => exc
-                        puts("Error: #{exc.message}")
-                      end     
-
-                      self.categorize('',entry.url)
-                      puts ""
-                  end #existed
-                else 
-                  puts "skipping: #{entry.url} ~ on ignore list"
-              end #skip
-            
-            end #headline
-      end #feed.entries.loop
+      feed.entries.each_with_index do |entry,i|
+          @feedpage = open(entry.url).read
+          @feeditem = feedSpecificFields(source).scrape(@feedpage, :parser => :html_parser)      
+          @feeditem = validateItem(@feeditem)
+          @feeditem = reformatItem(@feeditem, source)
+          
+          if exists? :url => entry.url || @feeditem == false
+            puts "existed or broken!"
+          else
+            createItem(@feeditem,entry,source)
+          end
+      end
   end
   
-  def self.feedSpecificFields(sourceName)
+  def self.validateItem(item) 
+      return false if item.title.empty?   
+      item.title = cleanString(item.title)
+      item.desc = cleanString(item.desc)
+      return item
+  end
+  
+  def self.cleanString(string)
+    string = string.gsub(/[\n]+/, "").gsub(/[\r]+/, "")
+    string = string.rstrip.lstrip  
+    return string
+  end
+  
+  def self.reformatItem(item, source) 
+    
+    case source
 
-     if sourceName == 'gumtree'
-         return scraper = Scraper.define do
-           array :items
-           process "#main-content", :items => Scraper.define {
-             process "h1", :title => :text
-             process "#description", :desc => :text
-             process "#main-picture img", :imageSrc => "@src"
-             process "span.price", :price => :text
-             process "#posting-map img", :location => "@src"
-             result :title, :imageSrc, :desc, :price, :location
-           }
-           result :items
-         end
-     end
-     
-     if sourceName == 'ebay'
-        return scraper = Scraper.define do
-          array :items
-          process "body", :items => Scraper.define {
-            process "h1", :title => :text
-            process "h1", :desc => :text #tricky
-            # process "td.ipics-cell center img", :imageSrc => "@src"
-            process "div.vi-ipic1 center img", :imageSrc => "@src"
-            process "td.vi-is1-tbll>span>span", :priceAuction => :text
-            process "span.mbg-nw", :seller => :text
-            result :title, :imageSrc, :desc, :priceAuction, :seller
-          }
-          result :items
+    when 'gumtree'
+      if (item.title.index('&amp;'))
+        item.title = item.title[0..item.title.index('&amp;')-1] 
+      end
+    when 'ebay'
+      
+    when 'craig'
+        myString = CGI.escape(item.title) 
+        
+        if myString.index('%A3') && myString.to_s.length > 10 # contains £
+            price = myString + ' ' # add a space at the end 
+            price = price[price.rindex('%A3')+3..price.rindex(' ')] # .. the above added space
+            if price.index('+')
+              price = price[0..price.index('+')-1]
+            end 
+        elsif myString.index('%24') && myString.to_s.length > 10 # contains $
+            puts "Dodgy currency ($$$)" 
+            skip = 'yes'
+        else # no price here
+            price = '0' # no price found, lets set it to 0
         end
-     end
+      
+        item.price = price
+        return item
+      
+    when 'preloved'
+        price = item.price
+        if (price.index('.'))
+          price = price[0..price.index('.')] 
+        end
+        if (price.index(' '))
+          price = price[0..price.index(' ')] 
+        end
+        
+        item.price = price
+        return item    
+    end
+    
+    item.price = cleanPrice(item.price)      
+    return item
+  end  
+    
+  def self.feedSpecificFields(source)
 
-     if sourceName == 'craig'
-         return scraper = Scraper.define do
-           array :items
-           process ".posting", :items => Scraper.define {
-             process "h2", :title => :text
-             process "#userbody", :desc => :text
-             process "table img", :imageSrc => "@src"
-             process "h2", :price => :text
-             process "#posting-map img", :location => "@src"
-             result :title, :imageSrc, :desc, :price, :location
-           }
-           result :items
-         end
-     end
+      case source
 
-     if sourceName == 'preloved'
-       
-         return scraper = Scraper.define do
-           array :items
-           process ".layout100", :items => Scraper.define {
-             process "h1", :headline => :text
-             process "tr>td", :desc => :text
-             process ".lightbox", :imageSrc => "@href"
-             process "table tr:nth-child(2) td:nth-child(3)", :price => :text
-             result :headline, :imageSrc, :desc, :price
-           }
-           result :items
-         end
-     end
+          when 'gumtree'
+             scraper = Scraper.define do
+               process "#holder", :item => Scraper.define {
+                 process "h1", :title => :text
+                 process ".description-text", :desc => :text
+                 process ".gallery-main a.js_lightbox", :imageSrc => "@data-target"
+                 process "span.price", :price => :text
+                 process "#posting-map img", :location => "@src"                 
+                 result :title, :imageSrc, :desc, :price, :location
+               }
+               result :item
+             end
+             return scraper
+      
+          when 'ebay'
+              return scraper = Scraper.define do
+                process "body", :item => Scraper.define {
+                  process "h1", :title => :text
+                  process "h1", :desc => :text #tricky
+                  process "div.vi-ipic1 center img", :imageSrc => "@src"
+                  process "td.vi-is1-tbll>span>span", :priceAuction => :text
+                  process "span.mbg-nw", :seller => :text
+                  result :title, :imageSrc, :desc, :priceAuction, :seller
+                }
+                result :item
+              end
 
+        when 'craig'
+             return scraper = Scraper.define do
+               process ".posting", :item => Scraper.define {
+                 process "h2", :title => :text
+                 process "#userbody", :desc => :text
+                 process "table img", :imageSrc => "@src"
+                 process "h2", :price => :text
+                 process "#posting-map img", :location => "@src"
+                 result :title, :imageSrc, :desc, :price, :location 
+               }
+               result :item
+             end
+
+       when 'preloved'
+             return scraper = Scraper.define do
+               process ".layout100", :item => Scraper.define {
+                 process "h1", :headline => :text
+                 process "tr>td", :desc => :text
+                 process ".lightbox", :imageSrc => "@href"
+                 process "table tr:nth-child(2) td:nth-child(3)", :price => :text
+                 result :headline, :imageSrc, :desc, :price
+               }
+               result :item
+             end
+      end
   end
   
   def self.cleanPrice(price)
-    if price
       # remove the £
       price = price.gsub("&#163;", "")
       price = price.gsub("&pound;", "")
       price = price.gsub("&amp;pound&lt;", "")
-      
+    
       # replace , with .
       if price.index(",")
         price[","] = "."
       end
-  
+
       # remove all dots and single quotes
       price = price.tr_s(".", "")
       price = price.tr_s("'", "")
-    end
   end
   
   def dayInYear
     self.created_at.strftime('%j')
+  end
+  
+  def self.createItem(item,entry,source)
+    ic = Iconv.new('UTF-8//IGNORE', 'UTF-8')
+    
+    begin
+        create!(
+            :url          => entry.url,
+            :title        => ic.iconv(item.title + ' ')[0..-2],
+            :desc         => ic.iconv(item.desc + ' ')[0..-2],          
+            :imageSrc     => item.imageSrc,
+            :image_url    => item.imageSrc,
+            :price        => item.price,
+            :site         => source
+        )
+    rescue Exception => exc
+        puts("Error: #{exc.message}")
+    end     
+
+    self.categorize('',entry.url)
   end
   
   def self.categorize(itemID = '', itemURL = '')
@@ -329,23 +224,26 @@ class Item < ActiveRecord::Base
       myItem = Item.find_by_url(itemURL)    
     end
 
-    result = Array.new
+    if myItem
+
+      result = Array.new
     
-    # Match brands and dumo them into an array called result
-    allBrands = Brand.all
-    allBrands.each do |brand|
-      myString = ' ' << myItem.title << ' ' << myItem.desc << ' '
-      temp = myString.downcase.scan(' ' << brand.name.downcase.chomp << ' ')
-      if !temp.empty?
-        result << temp
+      # Match brands and dump them into an array called result
+      allBrands = Brand.all
+      allBrands.each do |brand|
+        myString = ' ' << myItem.title << ' ' << myItem.desc << ' '
+        temp = myString.downcase.scan(' ' << brand.name.downcase.chomp << ' ')
+        if !temp.empty?
+          result << temp
+        end
       end
-    end
     
-    # Update the item's tags with the result array
-    if result.empty? != true
-      puts "found brand(s): #{result}"
-      myItem.update_attributes(:brand_list => result)
-    end    
+      # Update the item's tags with the result array
+      if result.empty? != true
+        puts "found brand(s): #{result}"
+        myItem.update_attributes(:brand_list => result)
+      end    
+    end
     
   end
   
