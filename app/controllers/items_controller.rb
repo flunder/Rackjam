@@ -28,7 +28,7 @@ class ItemsController < ApplicationController
     end
 
     # Selection by brand
-    if params[:brand]
+    if params[:brand] and params[:brand] != 'all'
         @getItems = Item.tagged_with(params[:brand])
     end    
     

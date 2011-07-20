@@ -36,6 +36,8 @@ class Item < ActiveRecord::Base
   def self.get() 
       self.update_via_feed('gumtree', 'http://www.gumtree.com/cgi-bin/list_postings.pl?feed=rss&posting_cat=4709&search_terms=instruments')
       self.update_via_feed('craig', 'http://london.craigslist.co.uk/search/ele?query=&srchType=A&minAsk=50&maxAsk=&hasPic=1&format=rss')
+      self.update_via_feed('preloved', 'http://rss.preloved.co.uk/rss/listadverts?subcategoryid=&keyword=synth&type=for%20sale&membertype=private&searcharea=10&minprice=30')
+      self.update_via_feed('preloved', 'http://rss.preloved.co.uk/rss/listadverts?subcategoryid=570&keyword=&type=for%20sale&membertype=private&searcharea=10&minprice=30')
       # self.update_via_feed('ebay', 'http://musical-instruments.shop.ebay.co.uk/Sequencers-Grooveboxes-/58721/i.html?LH_PrefLoc=0&LH_Price=30..%40c&rt=nc&_catref=1&_dlg=1&_dmpt=UK_Musical_Instruments_Sequencers_Grooveboxes_MJ&_ds=1&_mPrRngCbx=1&_rss=1')
   end
 
@@ -44,20 +46,17 @@ class Item < ActiveRecord::Base
       feed = Feedzirra::Feed.fetch_and_parse(url)
       feed.entries.each_with_index do |entry,index|
           @feedpage = open(entry.url).read
-          @feeditem = feedSpecificFields(source).scrape(@feedpage, :parser => :html_parser)      
+          @feeditem = feedSpecificFields(source).scrape(@feedpage, :parser => :html_parser)           
           @feeditem = validateItem(@feeditem)
-          
+
           if exists? :url => entry.url or @feeditem == false
             puts "existed,broken or skipped!"
           else
             @feeditem = reformatItem(@feeditem, source)
-            puts "insert"
+            puts "insert (#{source})"
             createItem(@feeditem,entry,source)
           end
-                    
-          #if index >= 3
-          #  break
-          #end
+          
       end
   end
   
@@ -93,6 +92,7 @@ class Item < ActiveRecord::Base
       if (item.title.index('&amp;'))
         item.title = item.title[0..item.title.index('&amp;')-1] 
       end
+      
     when 'ebay'
       
     when 'craig'
@@ -112,7 +112,6 @@ class Item < ActiveRecord::Base
         end
       
         item.price = price
-        return item
       
     when 'preloved'
         price = item.price
@@ -123,8 +122,7 @@ class Item < ActiveRecord::Base
           price = price[0..price.index(' ')] 
         end
         
-        item.price = price
-        return item    
+        item.price = price  
     end
     
     item.price = cleanPrice(item.price)      
@@ -135,57 +133,57 @@ class Item < ActiveRecord::Base
 
       case source
 
-          when 'gumtree'
-             scraper = Scraper.define do
-               process "#holder", :item => Scraper.define {
-                 process "h1", :title => :text
-                 process ".description-text", :desc => :text
-                 process ".gallery-main a.js_lightbox", :imageSrc => "@data-target"
-                 process "span.price", :price => :text
-                 process "#posting-map img", :location => "@src"                 
-                 result :title, :imageSrc, :desc, :price, :location
-               }
-               result :item
-             end
-             return scraper
-      
-          when 'ebay'
-              return scraper = Scraper.define do
-                process "body", :item => Scraper.define {
-                  process "h1", :title => :text
-                  process "h1", :desc => :text #tricky
-                  process "div.vi-ipic1 center img", :imageSrc => "@src"
-                  process "td.vi-is1-tbll>span>span", :priceAuction => :text
-                  process "span.mbg-nw", :seller => :text
-                  result :title, :imageSrc, :desc, :priceAuction, :seller
-                }
-                result :item
-              end
+      when 'gumtree'
+         return scraper = Scraper.define do
+           process "#holder", :item => Scraper.define {
+             process "h1", :title => :text
+             process ".description-text", :desc => :text
+             process ".gallery-main a.js_lightbox", :imageSrc => "@data-target"
+             process "span.ad-price", :price => :text
+             process "span ad-location", :location => "@src"                 
+             result :title, :imageSrc, :desc, :price, :location
+           }
+           result :item
+         end
+  
+      when 'ebay'
+          return scraper = Scraper.define do
+            process "body", :item => Scraper.define {
+              process "h1", :title => :text
+              process "h1", :desc => :text #tricky
+              process "div.vi-ipic1 center img", :imageSrc => "@src"
+              process "td.vi-is1-tbll>span>span", :priceAuction => :text
+              process "span.mbg-nw", :seller => :text
+              result :title, :imageSrc, :desc, :priceAuction, :seller
+            }
+            result :item
+          end
 
-        when 'craig'
-             return scraper = Scraper.define do
-               process ".posting", :item => Scraper.define {
-                 process "h2", :title => :text
-                 process "#userbody", :desc => :text
-                 process "table img", :imageSrc => "@src"
-                 process "h2", :price => :text
-                 process "#posting-map img", :location => "@src"
-                 result :title, :imageSrc, :desc, :price, :location 
-               }
-               result :item
-             end
+      when 'craig'
+           return scraper = Scraper.define do
+             process ".posting", :item => Scraper.define {
+               process "h2", :title => :text
+               process "#userbody", :desc => :text
+               process "table img", :imageSrc => "@src"
+               process "h2", :price => :text
+               process "#posting-map img", :location => "@src"
+               result :title, :imageSrc, :desc, :price, :location 
+             }
+             result :item
+           end
 
-       when 'preloved'
-             return scraper = Scraper.define do
-               process ".layout100", :item => Scraper.define {
-                 process "h1", :headline => :text
-                 process "tr>td", :desc => :text
-                 process ".lightbox", :imageSrc => "@href"
-                 process "table tr:nth-child(2) td:nth-child(3)", :price => :text
-                 result :headline, :imageSrc, :desc, :price
-               }
-               result :item
-             end
+      when 'preloved'
+         return scraper = Scraper.define do
+           process ".layout100", :item => Scraper.define {
+             process "h1", :title => :text
+             process "tr>td", :desc => :text
+             process ".lightbox", :imageSrc => "@href"
+             process "table tr:nth-child(2) td:nth-child(3)", :price => :text
+             result :title, :imageSrc, :desc, :price
+           }
+           result :item
+         end
+         
       end
   end
   
@@ -194,7 +192,7 @@ class Item < ActiveRecord::Base
       price = price.gsub("&#163;", "")
       price = price.gsub("&pound;", "")
       price = price.gsub("&amp;pound&lt;", "")
-    
+
       # replace , with .
       if price.index(",")
         price[","] = "."
@@ -240,7 +238,7 @@ class Item < ActiveRecord::Base
       myItem = Item.find_by_url(itemURL)    
     end
 
-    if myItem
+    if myItem # using the magic if statement formula
 
       result = Array.new
     
