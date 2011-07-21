@@ -26,3 +26,12 @@ open(File.expand_path('../seeds/skips.txt', __FILE__)) do |skipwords|
 end
 
 puts "> Done"
+
+# Create a user
+u = User.new(
+  :display_name => "subzcat",
+  :email => "hi@larsattacks.co.uk",
+  :password => 'rackjam',
+  :confirmed_at => "2011-07-21 11:31:59.979597"
+)
+u.save!(:validate => false)

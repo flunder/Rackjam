@@ -30,9 +30,14 @@ GEM
     activesupport (3.0.9)
     acts-as-taggable-on (2.0.6)
     arel (2.0.10)
+    bcrypt-ruby (2.1.4)
     builder (2.1.2)
     cocaine (0.1.0)
     curb (0.7.15)
+    devise (1.4.2)
+      bcrypt-ruby (~> 2.1.2)
+      orm_adapter (~> 0.0.3)
+      warden (~> 1.0.3)
     erubis (2.6.6)
       abstract (>= 1.0.0)
     feedzirra (0.0.24)
@@ -58,6 +63,7 @@ GEM
     mime-types (1.16)
     nokogiri (1.5.0)
     oauth (0.4.5)
+    orm_adapter (0.0.5)
     paperclip (2.3.15)
       activerecord (>= 2.3.0)
       activesupport (>= 2.3.2)
@@ -87,7 +93,7 @@ GEM
     rake (0.9.2)
     rdoc (3.8)
     ruby-mysql (2.9.4)
-    sax-machine (0.0.16)
+    sax-machine (0.0.20)
       nokogiri (> 0.0.0)
     scrapi (2.0.0)
       tidy_ffi (>= 0.1.2)
@@ -98,6 +104,8 @@ GEM
     treetop (1.4.9)
       polyglot (>= 0.3.1)
     tzinfo (0.3.29)
+    warden (1.0.4)
+      rack (>= 1.0)
     will_paginate (2.3.15)
 
 PLATFORMS
@@ -105,6 +113,7 @@ PLATFORMS
 
 DEPENDENCIES
   acts-as-taggable-on
+  devise
   feedzirra
   htmlentities
   jquery-rails (~> 1.0.12)

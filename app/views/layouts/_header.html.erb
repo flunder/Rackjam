@@ -13,8 +13,7 @@
 		<%= link_to 'list', params.merge(:view => 'list'), :id => 'viewAsList', :class => 'selected'  %>
 	<% else %>
 		<%= link_to 'list', params.merge(:view => 'list'), :id => 'viewAsList' %>
-	<% end %>	
-	
+	<% end %>		
 </div>	
 
 <% @brands = Item.brand_counts.order('name ASC') %>
@@ -32,3 +31,6 @@
 		</select>
 	</form>
 <% end %>
+
+<p class="notice"><%= notice %></p>
+<p class="alert"><%= alert %></p>
