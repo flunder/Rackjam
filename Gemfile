@@ -15,3 +15,4 @@ gem 'htmlentities'
 # gem "twitter", "~> 1.6.0"
 gem "tzinfo", "~> 0.3.29"
 gem 'devise'
+gem 'jammit'

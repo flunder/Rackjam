@@ -1,6 +1,10 @@
 GEM
   remote: http://rubygems.org/
   specs:
+    POpen4 (0.1.4)
+      Platform (>= 0.4.0)
+      open4
+    Platform (0.4.0)
     abstract (1.0.0)
     actionmailer (3.0.9)
       actionpack (= 3.0.9)
@@ -50,6 +54,8 @@ GEM
     ffi (1.0.9)
     htmlentities (4.3.0)
     i18n (0.5.0)
+    jammit (0.6.3)
+      yui-compressor (>= 0.9.3)
     jquery-rails (1.0.12)
       railties (~> 3.0)
       thor (~> 0.14)
@@ -63,6 +69,7 @@ GEM
     mime-types (1.16)
     nokogiri (1.5.0)
     oauth (0.4.5)
+    open4 (1.1.0)
     orm_adapter (0.0.5)
     paperclip (2.3.15)
       activerecord (>= 2.3.0)
@@ -107,6 +114,8 @@ GEM
     warden (1.0.4)
       rack (>= 1.0)
     will_paginate (2.3.15)
+    yui-compressor (0.9.6)
+      POpen4 (>= 0.1.4)
 
 PLATFORMS
   ruby
@@ -116,6 +125,7 @@ DEPENDENCIES
   devise
   feedzirra
   htmlentities
+  jammit
   jquery-rails (~> 1.0.12)
   oauth
   paperclip (~> 2.3.11)
