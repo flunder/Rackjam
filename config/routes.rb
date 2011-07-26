@@ -1,6 +1,6 @@
 Synth4::Application.routes.draw do
 
-root :to => "items#index"
+  root :to => "items#index"
 
   resources :brands
   resources :skipwords

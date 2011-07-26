@@ -3,12 +3,16 @@ embed_assets:           on
 compress_assets:        on          
 gzip_assets:            on          
 javascript_compressor:  yui  
-compressor_options:
-  compilation_level: "ADVANCED_OPTIMIZATIONS"
+#compressor_options:
+#	compilation_level: "ADVANCED_OPTIMIZATIONS"
 
 javascripts:
+
+  templates: 
+    - app/views/items/*.jst
+
   common:
-    - public/javascripts/jquery.minjs
+    - public/javascripts/jquery.min.js
     - public/javascripts/cookies.jquery.js
     - public/javascripts/jquery_ujs.js
     - public/javascripts/isotope/jquery.isotope.min.js

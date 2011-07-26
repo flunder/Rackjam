@@ -1,6 +1,6 @@
 class ItemsController < ApplicationController
 
-  respond_to :js, :html, :iphone
+  respond_to :js, :html, :json, :iphone
 
   def index
     
