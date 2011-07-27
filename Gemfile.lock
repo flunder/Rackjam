@@ -99,7 +99,7 @@ GEM
       thor (~> 0.14.4)
     rake (0.9.2)
     rdoc (3.8)
-    ruby-mysql (2.9.4)
+    ruby-mysql (2.9.3)
     sax-machine (0.0.20)
       nokogiri (> 0.0.0)
     scrapi (2.0.0)
@@ -131,7 +131,7 @@ DEPENDENCIES
   paperclip (~> 2.3.11)
   permalink_fu
   rails (= 3.0.9)
-  ruby-mysql
+  ruby-mysql (= 2.9.3)
   scrapi
   sqlite3
   tzinfo (~> 0.3.29)

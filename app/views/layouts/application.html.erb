@@ -3,8 +3,8 @@
 
 <head>
   <title>Rackjam</title>
-  <%= include_stylesheets :common, :media => 'all' %>
-  <%= include_javascripts :common %>
+  <%= include_stylesheets :rackjam, :media => 'all' %>
+  <%= include_javascripts :rackjam %>
   <%= auto_discovery_link_tag :atom, "/feed" %>
   <%= auto_discovery_link_tag :rss, "/feed.rss" %>
   <%= csrf_meta_tag %>
