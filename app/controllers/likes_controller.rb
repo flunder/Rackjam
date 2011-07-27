@@ -1,32 +1,22 @@
 class LikesController < ApplicationController
   
   before_filter :authenticate_user!
+  respond_to :js, :html, :json
   
   def index
-    @likes = Like.all
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.xml  { render :xml => @likes }
-    end
+    @likes = current_user.likes.all
+    respond_with @likes
   end
 
   def show
     @like = Like.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.xml  { render :xml => @like }
-    end
+    respond_with @like
   end
 
   def new
     @like = Like.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.xml  { render :xml => @like }
-    end
+ 
+    respond_with @like
   end
 
   def edit
@@ -36,29 +26,19 @@ class LikesController < ApplicationController
   def create
     @like = Like.new(params[:like])
 
-    respond_to do |format|
-      if @like.save
-        format.html { redirect_to(@like, :notice => 'Like was successfully created.') }
-        format.xml  { render :xml => @like, :status => :created, :location => @like }
-      else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @like.errors, :status => :unprocessable_entity }
-      end
+    if @like.save
+      flash[:notice] = "Item was successfully created."
     end
+    respond_with(@like)
   end
 
   def update
     @like = Like.find(params[:id])
 
-    respond_to do |format|
-      if @like.update_attributes(params[:like])
-        format.html { redirect_to(@like, :notice => 'Like was successfully updated.') }
-        format.xml  { head :ok }
-      else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @like.errors, :status => :unprocessable_entity }
-      end
+    if @like.update_attributes(params[:like])
+      flash[:notice] = "Item was successfully updated."
     end
+    respond_with(@like)
   end
 
   def destroy

@@ -1,7 +1,8 @@
 <h3 id="dash">Dashboard</h3>
 <ul id="dashList">
 	<li id="d_about"><a href="#">About</a></li>
-	<% if user_signed_in? %><li><a href="#">Account</a></li><% end %>	
+	<% if user_signed_in? %><li><a href="#">Account</a></li><% end %>
+    <% if user_signed_in? %><li id="dash_likes"><a href="#">Likes</a></li><% end %>	
 	<% if user_signed_in? %><li><%= link_to_unless_current 'Log out', destroy_user_session_path %><% end %>
 	<% if !user_signed_in? %><li id="d_log"><%= link_to 'Sign in', new_user_session_path %></li><% end %>
 	<% if !user_signed_in? %><li id="d_reg">Register</li><% end %>
