@@ -1,40 +1,12 @@
 class ItemsController < ApplicationController
 
+  before_filter :get_view
   respond_to :js, :html, :json, :iphone
 
   def index
-    
-    if params[:view]
-      @view = params[:view]
-      cookies[:view] = { :value => @view, :expires => 24.hours.from_now }
-    else
-      # Get view from cookie    
-      if cookies[:view] 
-        @view = cookies[:view] 
-      else
-        cookies[:view] = { :value => "grid", :expires => 24.hours.from_now }
-      end
-    end
-    
-    @view ||= 'grid'
-    
-    # Selection by type
-    if params[:type]
-      @search_condition = "%" + params[:type] + "%"
-      #@getItems = Item.find(:all, :conditions => ['title LIKE ? OR desc LIKE ?', @search_condition, @search_condition])
-      @getItems = Item.find(:all, :conditions => ['title LIKE ?', @search_condition])
-    else
-      @getItems = Item.all
-    end
-
-    # Selection by brand
-    if params[:brand] and params[:brand] != 'all'
-        @getItems = Item.tagged_with(params[:brand])
-    end    
-    
-    # Paginate
-    @items = @getItems.paginate :page => params[:page]
-    
+    @getItems = Item.type(params[:type]) if params[:type] else @getItems = Item.all              # Selection by type
+    @getItems = Item.tagged_with(params[:brand]) if params[:brand] and params[:brand] != 'all'   # Selection by Brand
+    @items = @getItems.paginate :page => params[:page]                                           # Paginate
     respond_with @items
   end
 
@@ -86,7 +58,7 @@ class ItemsController < ApplicationController
   end 
   
   def feed
-    @title = "SynthFeed" # this will be the name of the feed displayed on the feed reader
+    @title = "Rackjam feed" # this will be the name of the feed displayed on the feed reader
     @feed_items = Item.all
     @updated = @feed_items.first.updated_at unless @feed_items.empty? # this will be our Feed's update timestamp
 
@@ -95,5 +67,22 @@ class ItemsController < ApplicationController
       format.rss { redirect_to feed_path(:format => :atom), :status => :moved_permanently } # we want the RSS feed to redirect permanently to the ATOM feed
     end
   end
+    
+  def get_view
+    
+    if params[:view]
+      @view = params[:view]
+      cookies[:view] = { :value => @view, :expires => 24.hours.from_now }
+    else
+      # Get view from cookie    
+      if cookies[:view] 
+        @view = cookies[:view] 
+      else
+        cookies[:view] = { :value => "grid", :expires => 24.hours.from_now }
+      end
+    end    
+    
+    @view ||= 'grid'
+  end  
     
 end
