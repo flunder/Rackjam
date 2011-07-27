@@ -35,13 +35,8 @@ class Item < ActiveRecord::Base
   
   def self.type(q)
     q = "%" + q + "%"
-    # where(['title LIKE ?', q])
     where(['title LIKE ? OR desc LIKE ?', q, q])    
   end
-
-  def self.hasImage2()
-    where(:imageSrc)
-  end 
   
   def self.get() 
       self.update_via_feed('gumtree', 'http://www.gumtree.com/cgi-bin/list_postings.pl?feed=rss&posting_cat=4709&search_terms=instruments')

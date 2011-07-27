@@ -4,7 +4,12 @@ class ItemsController < ApplicationController
   respond_to :js, :html, :json, :iphone
 
   def index
-    @getItems = Item.type(params[:type]) if params[:type] else @getItems = Item.all              # Selection by type
+    # Selection by type
+    if params[:type] 
+      @getItems = Item.type(params[:type]) 
+    else 
+      @getItems = Item.all             
+    end
     @getItems = Item.tagged_with(params[:brand]) if params[:brand] and params[:brand] != 'all'   # Selection by Brand
     @items = @getItems.paginate :page => params[:page]                                           # Paginate
     respond_with @items

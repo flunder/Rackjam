@@ -1,4 +1,4 @@
-<h1><a href="/">Rackjam</a><span>v0.3</h1>
+<h1><a href="/">Rackjam</a><span>v0.35</span></h1>
 
 <div id="viewAs">
 	<span>Layout View</span>
@@ -18,7 +18,7 @@
 
 <% @brands = Item.brand_counts.order('name ASC') %>
 <% unless @brands.empty? %>
-	<form action="" id="brand_dropdown">
+	<form action="/" id="brand_dropdown">
 		<select name="brand" onchange='this.form.submit()'>
 			<option value="all">Select Brand</option>
 			<% @brands.each do |brand| %>
