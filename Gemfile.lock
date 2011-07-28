@@ -113,7 +113,7 @@ GEM
     tzinfo (0.3.29)
     warden (1.0.4)
       rack (>= 1.0)
-    will_paginate (2.3.15)
+    will_paginate (3.0.pre4)
     yui-compressor (0.9.6)
       POpen4 (>= 0.1.4)
 
@@ -135,4 +135,4 @@ DEPENDENCIES
   scrapi
   sqlite3
   tzinfo (~> 0.3.29)
-  will_paginate
+  will_paginate (~> 3.0.pre2)

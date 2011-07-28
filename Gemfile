@@ -4,7 +4,7 @@ gem 'rails', '3.0.9'
 gem "jquery-rails", "~> 1.0.12"
 gem 'sqlite3'
 gem 'ruby-mysql', '2.9.3'
-gem "will_paginate"
+gem "will_paginate", "~> 3.0.pre2"
 gem "permalink_fu"
 gem 'scrapi'
 gem 'feedzirra'
