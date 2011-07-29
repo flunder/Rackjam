@@ -1,9 +1,9 @@
 <!--% @liked = current_user.likes.where(:item_id => item.id) %-->
 
 
-<%= form_for Like.create, :remote => true do |f| %>
+<!--%= form_for Like.create, :remote => true do |f| %>
 	<!-- should really be assigned in likes:create -->	
-    <%= f.hidden_field :user_id, :value => current_user.id %> 
- 	<%= f.hidden_field :item_id, :value => item.id %>
-	<%= image_submit_tag("http://static.tumblr.com/fftf9xi/Hkml5z3k3/icon_notes.png", :class => 'like_submit', :alt => 'keep me') %>
-<% end %>
+    <!--%= f.hidden_field :user_id, :value => current_user.id %> 
+ 	<!--%= f.hidden_field :item_id, :value => item.id %>
+	<!--%= image_submit_tag("http://static.tumblr.com/fftf9xi/Hkml5z3k3/icon_notes.png", :class => 'like_submit', :alt => 'keep me') %>
+<!--% end %>
