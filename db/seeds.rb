@@ -32,6 +32,6 @@ u = User.new(
   :display_name => "subzcat",
   :email => "hi@larsattacks.co.uk",
   :password => 'rackjam',
-  :confirmed_at => "2011-07-21 11:31:59.979597"
+  :confirmed_at => "2011-07-21 11:31"
 )
 u.save!(:validate => false)

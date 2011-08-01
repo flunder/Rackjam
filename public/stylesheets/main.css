@@ -12,19 +12,19 @@ body{ font-family:Helvetica, Arial, Verdana; color:#666; font-size:12px; line-he
 a { color: #2e3326; text-decoration: none;}
 a img { border: 0px; }
 a:hover { color: black; }
-h1 { float: left; margin-left: 30px; padding-top: 7px; }
+h1 { float: left; margin-left: 30px; padding-top: 7px;float: left; font-size: 1.1em; margin-left: 30px; padding-top: 7px; position: relative; top: 4px; font-weight: 900; text-shadow: 0 2px 0 #111111;  }
 h2 { }
 h3 { font-weight: bold; margin: 0; }
 
 /* h1 { font-family: raleway,sans-serif; } */
 /* h1 {  font-family: ff-cocon-web-pro,sans-serif; font-style: normal; font-weight: 700; text-shadow: 0 2px 0 #111111; } */
 /* h1 { font-family: chippewa-falls !important; font-size: 1.2em; text-shadow: 0 2px 0 #111111;  } */
-h1 {  font-family: domyouji; }
+h1 {  font-family: orbitron;  }
 
 #header { position: fixed; font-size: 2em; color: black; width: 100%; background: rgba(0, 0, 0, 0.85); padding: 25px 0px; color: #9ff6d4; border-bottom: 1px solid #555; z-index: 100;}
 #header a { color: white; }
 #header a:hover { color: #ccc; }
-#header h1 span { color: red !important; font-size: 0.5em; margin-left: 0.3em; }
+#header h1 span { color: red !important; font-size: 0.5em; margin-left: 0.3em; display: none; }
 #header #viewAs { position: absolute; left: 230px; top: 35px;}
 #header #viewAs span { float: left; margin-right: 10px; font-weight: bold; font-size: 0.5em; color: #777; padding-top: 1px; }
 #header #viewAs a#viewAsList { opacity: 0.4; background: url("../images/icons/list.gif") no-repeat; float: left; height: 12px; margin-right: 8px; text-indent: -77777px; width: 17px;}
@@ -63,6 +63,9 @@ h1 {  font-family: domyouji; }
 .details li a { padding-top: 0px;  }
 
 .details li.time { cursor: default; padding-left: 16px; background: url("http://static.tumblr.com/fftf9xi/GCtl5z3ut/icon_timeago.png") no-repeat; float: left;   }
+.details li.love a { opacity: 0.5; background: url("../images/icons/like_grey.png") no-repeat; float: left; text-indent: -77777px; width: 15px; }
+.details li.love a:hover,
+.details li.love a.liked { background: url("../images/icons/like.png") no-repeat;  opacity: 0.8; }
 .details li.love .like_submit { opacity: 0.5; position: relative; top: 1px; } 
 .details li.love .like_submit:hover { opacity: 1; }
 .details li.price a {  }
