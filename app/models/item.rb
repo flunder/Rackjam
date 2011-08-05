@@ -9,7 +9,7 @@ require 'cgi'
 class Item < ActiveRecord::Base
   
   cattr_reader :per_page
-  @@per_page = 10
+  @@per_page = 60
   
   acts_as_taggable_on :brands
   
@@ -17,7 +17,7 @@ class Item < ActiveRecord::Base
   default_scope :order => ["updated_at DESC"]
 
   def self.hasImage()  
-      where("imageSrc != '' AND photo_file_size > '1000'")  
+      where("imageSrc != '' AND photo_file_size > '2000'")  
   end  
   
   def getFixed()
@@ -53,10 +53,10 @@ class Item < ActiveRecord::Base
   end
   
   def self.get() 
-      self.update_via_feed('gumtree', 'http://www.gumtree.com/cgi-bin/list_postings.pl?feed=rss&posting_cat=4709&search_terms=instruments')
-      self.update_via_feed('craig', 'http://london.craigslist.co.uk/search/ele?query=&srchType=A&minAsk=50&maxAsk=&hasPic=1&format=rss')
-      self.update_via_feed('preloved', 'http://rss.preloved.co.uk/rss/listadverts?subcategoryid=&keyword=synth&type=for%20sale&membertype=private&searcharea=10&minprice=30')
-      self.update_via_feed('preloved', 'http://rss.preloved.co.uk/rss/listadverts?subcategoryid=570&keyword=&type=for%20sale&membertype=private&searcharea=10&minprice=30')
+      # self.update_via_feed('gumtree', 'http://www.gumtree.com/cgi-bin/list_postings.pl?feed=rss&posting_cat=4709&search_terms=instruments')
+      #self.update_via_feed('craig', 'http://london.craigslist.co.uk/search/ele?query=&srchType=A&minAsk=50&maxAsk=&hasPic=1&format=rss')
+      #self.update_via_feed('preloved', 'http://rss.preloved.co.uk/rss/listadverts?subcategoryid=&keyword=synth&type=for%20sale&membertype=private&searcharea=10&minprice=30')
+      #self.update_via_feed('preloved', 'http://rss.preloved.co.uk/rss/listadverts?subcategoryid=570&keyword=&type=for%20sale&membertype=private&searcharea=10&minprice=30')
       self.update_via_feed('ebay', 'http://musical-instruments.shop.ebay.co.uk/Sequencers-Grooveboxes-/58721/i.html?LH_PrefLoc=0&LH_Price=30..%40c&rt=nc&_catref=1&_dlg=1&_dmpt=UK_Musical_Instruments_Sequencers_Grooveboxes_MJ&_ds=1&_mPrRngCbx=1&_rss=1')
   end
 
@@ -116,6 +116,8 @@ class Item < ActiveRecord::Base
       if (item.price.rindex('.'))
           item.price = item.price[0..item.price.rindex('.')] 
       end
+      
+      item.price.gsub!(/[^0-9]/,'')
       
     when 'craig'
         myString = CGI.escape(item.title) 
@@ -224,7 +226,6 @@ class Item < ActiveRecord::Base
       # remove all dots and single quotes
       price = price.tr_s(".", "")
       price = price.tr_s("'", "")
-      price.gsub!(/[^0-9]/,'')
   end
   
   def dayInYear
