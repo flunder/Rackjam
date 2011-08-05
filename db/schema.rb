@@ -29,7 +29,7 @@ ActiveRecord::Schema.define(:version => 20110727140058) do
     t.text     "imageSrc"
     t.string   "photo_file_name"
     t.string   "photo_content_type"
-    t.string   "photo_file_size"
+    t.integer  "photo_file_size"
     t.datetime "expires"
     t.datetime "created_at"
     t.datetime "updated_at"

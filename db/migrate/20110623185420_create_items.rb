@@ -10,7 +10,7 @@ class CreateItems < ActiveRecord::Migration
       t.text       :imageSrc      
       t.string     :photo_file_name
       t.string     :photo_content_type
-      t.string     :photo_file_size      
+      t.integer    :photo_file_size      
       t.datetime   :expires      
       t.timestamps
     end

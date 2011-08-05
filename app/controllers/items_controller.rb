@@ -6,12 +6,13 @@ class ItemsController < ApplicationController
   def index
     # Selection by type
     if params[:type] 
-      @getItems = Item.type(params[:type]) 
+      @getItems = Item.type(params[:type])
     else 
-      @getItems = Item.all             
+      @getItems = Item.hasimage         
     end
     @getItems = Item.tagged_with(params[:brand]) if params[:brand] and params[:brand] != 'all'   # Selection by Brand
     @items = @getItems.paginate :page => params[:page]                                           # Paginate
+
     respond_with @items
   end
 

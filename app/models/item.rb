@@ -15,13 +15,25 @@ class Item < ActiveRecord::Base
   
   # SCOPES ---------------------------------------------
   default_scope :order => ["updated_at DESC"]
-  scope :hasimage, :conditions => ["imageSrc != ''"]
+
+  def self.hasImage()  
+      where("imageSrc != '' AND photo_file_size > '1000'")  
+  end  
+  
+  def getFixed()
+    if self.site == 'ebay'
+      return "~ "
+    end
+  end
+  
+  scope :hasimage, hasImage()
   
   # PAPERCLIP ------------------------------------------
   attr_accessor :image_url
   attr_accessor :image_remote_url
 
   # before_create :dblcheck_file_name
+  before_create :dblcheck_file_name
   before_validation :download_remote_image, :if => :image_url_provided?
   validates_presence_of :image_remote_url, :if => :image_url_provided?, :message => 'is invalid or inaccessible'  
   
@@ -34,16 +46,18 @@ class Item < ActiveRecord::Base
   # // PAPERCLIP ----------------------------------------
   
   def self.type(q)
-    q = "%" + q + "%"
-    where(['title LIKE ? OR desc LIKE ?', q, q])    
+    # q = "%" + q + "%"
+    # where(['title LIKE ? OR desc LIKE ?', q, q])    
+    q = "%#{q}%"
+    where("title LIKE ?", q).where("desc LIKE ?", q)
   end
   
   def self.get() 
-      self.update_via_feed('gumtree', 'http://www.gumtree.com/cgi-bin/list_postings.pl?feed=rss&posting_cat=4709&search_terms=instruments')
-      self.update_via_feed('craig', 'http://london.craigslist.co.uk/search/ele?query=&srchType=A&minAsk=50&maxAsk=&hasPic=1&format=rss')
-      self.update_via_feed('preloved', 'http://rss.preloved.co.uk/rss/listadverts?subcategoryid=&keyword=synth&type=for%20sale&membertype=private&searcharea=10&minprice=30')
-      self.update_via_feed('preloved', 'http://rss.preloved.co.uk/rss/listadverts?subcategoryid=570&keyword=&type=for%20sale&membertype=private&searcharea=10&minprice=30')
-      # self.update_via_feed('ebay', 'http://musical-instruments.shop.ebay.co.uk/Sequencers-Grooveboxes-/58721/i.html?LH_PrefLoc=0&LH_Price=30..%40c&rt=nc&_catref=1&_dlg=1&_dmpt=UK_Musical_Instruments_Sequencers_Grooveboxes_MJ&_ds=1&_mPrRngCbx=1&_rss=1')
+      #self.update_via_feed('gumtree', 'http://www.gumtree.com/cgi-bin/list_postings.pl?feed=rss&posting_cat=4709&search_terms=instruments')
+      #self.update_via_feed('craig', 'http://london.craigslist.co.uk/search/ele?query=&srchType=A&minAsk=50&maxAsk=&hasPic=1&format=rss')
+      #self.update_via_feed('preloved', 'http://rss.preloved.co.uk/rss/listadverts?subcategoryid=&keyword=synth&type=for%20sale&membertype=private&searcharea=10&minprice=30')
+      #self.update_via_feed('preloved', 'http://rss.preloved.co.uk/rss/listadverts?subcategoryid=570&keyword=&type=for%20sale&membertype=private&searcharea=10&minprice=30')
+      self.update_via_feed('ebay', 'http://musical-instruments.shop.ebay.co.uk/Sequencers-Grooveboxes-/58721/i.html?LH_PrefLoc=0&LH_Price=30..%40c&rt=nc&_catref=1&_dlg=1&_dmpt=UK_Musical_Instruments_Sequencers_Grooveboxes_MJ&_ds=1&_mPrRngCbx=1&_rss=1')
   end
 
   def self.update_via_feed(source, url, tresh = 10)
@@ -99,6 +113,9 @@ class Item < ActiveRecord::Base
       end
       
     when 'ebay'
+      if (item.price.rindex('.'))
+          item.price = item.price[0..item.price.rindex('.')] 
+      end
       
     when 'craig'
         myString = CGI.escape(item.title) 
@@ -157,9 +174,10 @@ class Item < ActiveRecord::Base
               process "h1", :title => :text
               process "h1", :desc => :text #tricky
               process "div.vi-ipic1 center img", :imageSrc => "@src"
-              process "td.vi-is1-tbll>span>span", :priceAuction => :text
+              process "td.vi-is1-tbll>span>span:first-child", :price => :text
+              #process "table.vi-is1", :price => :text 
               process "span.mbg-nw", :seller => :text
-              result :title, :imageSrc, :desc, :priceAuction, :seller
+              result :title, :imageSrc, :desc, :price, :seller
             }
             result :item
           end
@@ -206,6 +224,7 @@ class Item < ActiveRecord::Base
       # remove all dots and single quotes
       price = price.tr_s(".", "")
       price = price.tr_s("'", "")
+      price.gsub!(/[^0-9]/,'')
   end
   
   def dayInYear
@@ -269,10 +288,8 @@ class Item < ActiveRecord::Base
   private
     
     def dblcheck_file_name
-      #some fallback mechanism to fix the nofilename issue
-      if photo_file_name.nil?
+      # Always generate a new filename
         self.photo.instance_write(:file_name, "#{ActiveSupport::SecureRandom.hex(6)}.png")
-      end
     end
 
     def image_url_provided?
