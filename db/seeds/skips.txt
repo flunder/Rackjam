@@ -26,3 +26,6 @@ jaggos
 dre
 mastering
 sunglasses
+acer
+dell
+disco light
