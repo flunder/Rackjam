@@ -48,7 +48,7 @@ class Item < ActiveRecord::Base
   def self.type(q)
     q = "%" + q + "%"
     #where(['title LIKE ? OR desc LIKE ?', q, q])    
-    where(['desc LIKE ?', q, q])    
+    where(['desc LIKE ?', q])    
   end
   
   def self.get() 
