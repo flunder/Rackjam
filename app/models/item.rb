@@ -46,9 +46,8 @@ class Item < ActiveRecord::Base
   # // PAPERCLIP ----------------------------------------
   
   def self.type(q)
-    q = "%" + q + "%"
-    #where(['title LIKE ? OR desc LIKE ?', q, q])    
-    where('desc LIKE ?', q)    
+      query = "%#{q}%"
+      where("items.title LIKE ?", query).where("items.desc LIKE ?", query)
   end
   
   def self.get() 
