@@ -84,6 +84,7 @@ h1 {  font-family: orbitron;  }
 #leftNav #filterList a:hover { color: black; }
 #leftNav #box { background: none repeat scroll 0 0 #eee; height: 60px; margin-top: 25px; width: 135px; }
 #leftNav #copyLA { border-top: 1px solid #EEE; color: #333333; float: left; font-weight: bold; margin-top: 10px; padding-top: 10px; width: 135px; }
+#leftNav #fb { margin-top: 15px; width: 150px; overflow: hidden; } 
 
 .registrations {  line-height: 1.4em; }
 .registrations form label {  float: left; font-weight: bold;  }

@@ -10,7 +10,7 @@
 	
 	<div class="details">
 		<h3><%= truncate(item.title, :length => 100).capitalize %></h3>
-		<p><%= truncate(item.desc, :length => 150).capitalize %></p>
+		<p><%=h truncate(item.desc, :length => 150).capitalize %></p>
 		<% unless item.brand_list.empty? %>
 			<div class="brandTags">
 				<% item.brands.each do |k| %>
