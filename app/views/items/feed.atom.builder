@@ -1,25 +1,16 @@
-atom_feed :language => 'en-US' do |feed|
+atom_feed :language => 'en-gb' do |feed|
   
-  feed.title = @title
-  feed.updated = @updated
-  
-  @feed_items.each do |item|
-    
-    next if item.updated_at.blank?
-
-    feed.entry(item) do |entry|
-      entry.url(item.url)
-      entry.title(item.title.strip)
-      entry.content(item.desc.strip, :type => 'html')
-
-      # the strftime is needed to work with Google Reader.
-      entry.updated(item.updated_at.strftime("%Y-%m-%dT%H:%M:%SZ")) 
-
+  feed.title "Rackjam feed"
+  feed.updated @feed_items.first.updated_at
+              
+  @feed_items.each do |article|
+    feed.entry article, :published => article.updated_at do |entry|
+      entry.title article.title
+      entry.summary article.title, :type => 'html'
+      
       entry.author do |author|
-        author.name("xxl")
+        author.name article.title
       end
     end
   end
-
-
 end
