@@ -2,7 +2,7 @@ atom_feed :language => 'en-gb' do |feed|
   
   feed.title "Rackjam feed"
   feed.updated @feed_items.first.updated_at
-  feed.language "en-gb"
+  feed.language "en-GB"
   feed.url "http://rackjam.co.uk/feed"
               
   @feed_items.each do |feed_item|
@@ -12,7 +12,7 @@ atom_feed :language => 'en-gb' do |feed|
       
       @content = ''
 
-      if image_tag(feed_item.photo.url(:thumb)) 
+      if feed_item.imageSrc != ''
         @content << image_tag(feed_item.photo.url(:thumb)) << "<br/>"
       end
       
