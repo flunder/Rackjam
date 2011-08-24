@@ -65,7 +65,7 @@ class ItemsController < ApplicationController
   
   def feed
     @title = "Rackjam feed" # this will be the name of the feed displayed on the feed reader
-    @feed_items = Item.all
+    @feed_items = Item.all(:limit => 30)
     
     respond_to do |format|
       format.atom { render :layout => false }
