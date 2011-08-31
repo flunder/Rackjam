@@ -91,3 +91,65 @@ h1 {  font-family: orbitron;  }
 .registrations input[id='user_submit'] { margin-top: 10px; }
 
 #paginationWrap { clear: both; font-size: 1.3em; left: 200px; margin-bottom: 25px; position: relative; width: 400px; }
+
+
+#staticResults {	
+	margin-left: 200px;
+    margin-top: 90px;
+}
+
+#staticResults h3 {	
+	color: #333;
+	font-size: 26px;
+    line-height: 32px;
+}
+
+#staticResults h4 {
+	color: #333;
+	margin: 20px 0 15px 0;
+	font-size: 15px;
+    font-weight: bold;
+	
+}
+
+#staticResults.form .row {
+	clear: both;
+    margin: 0;
+    padding: 0 0 10px;
+    position: relative;
+}
+
+#staticResults.form input[type="text"],
+#staticResults.form input[type="email"],
+#staticResults.form input[type="password"] {
+	-moz-border-radius: 0.3em 0.3em 0.3em 0.3em;
+    border: 1px solid #999999;
+    height: 20px;
+    padding: 4px 5px;
+	width: 220px;
+	font-size: 13px;
+}
+
+#staticResults.form .js label { display: none; }
+#staticResults.form .js .defaultValue { display: none; }
+
+#staticResults.form .initValue { color: #999; }
+#staticResults.form .func a { margin-left: 33px; }
+#staticResults.form  #user_remember_me { margin-left: 0px; } 
+
+
+#staticResults.form input[type="submit"] {
+    -moz-border-radius: 0.4em 0.4em 0.4em 0.4em;
+    background-color: #333333;
+    border: medium none;
+    color: #FFFFFF;
+    cursor: pointer;
+    float: none;
+    height: 30px;
+    line-height: 22px;
+    margin: 0;
+    padding: 2px 15px 3px;
+    text-indent: 0;
+    white-space: nowrap;
+	font-size: 12px;
+}

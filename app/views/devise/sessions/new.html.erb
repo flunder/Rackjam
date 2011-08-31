@@ -1,18 +1,33 @@
-<div id="results" class="<%=controller.controller_name %>">
-	<h2>Sign in</h2>
+<div id="staticResults" class="<%=controller.controller_name %> form">
+	<h3>Sign in</h3>
+	<h4>Sign in using your Rackjam account</h4>
 
-	<%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
-	  <p><%= f.label :email %><br />
-	  <%= f.email_field :email %></p>
+	<%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>	
+		<div class="row js">
+			<%= f.label :email, 'Email address', :class => 'overlay_text' %>
+			<%= f.email_field :email %>
+			<span class="defaultValue">Email address</span>
+		</div>
 
-	  <p><%= f.label :password %><br />
-	  <%= f.password_field :password %></p>
+		<div class="row js">
+			<%= f.label :email, 'Password', :class => 'overlay_text' %>
+			<%= f.password_field :password %>
+			<span class="defaultValue">Password</span>
+		</div>
 
-	  <% if devise_mapping.rememberable? -%>
-	    <p><%= f.check_box :remember_me %> <%= f.label :remember_me %></p>
-	  <% end -%>
+		<div class="row func">
+			<% if devise_mapping.rememberable? -%>
+		 		<%= f.check_box :remember_me %> <%= f.label :remember_me %>
+			<% end -%>
+			<%- if devise_mapping.recoverable? && controller_name != 'passwords' %>
+			  <%= link_to "Forgot password?", new_password_path(resource_name) %><br />
+			<% end -%>			
+		</div>
 
-	  <p><%= f.submit "Sign in" %></p>
+		<div class="row func2">
+			<%= f.submit "Sign in" %>
+			
+		</div>
 	<% end %>
 
 	<%= render :partial => "devise/shared/links" %>
