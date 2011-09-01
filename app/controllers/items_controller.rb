@@ -8,7 +8,7 @@ class ItemsController < ApplicationController
     if params[:type] 
       @getItems = Item.type(params[:type])
     else 
-      @getItems = Item.hasimage         
+      @getItems = Item.hasimage.within(10.days.ago)         
     end
     @getItems = Item.tagged_with(params[:brand]) if params[:brand] and params[:brand] != 'all'   # Selection by Brand
     @items = @getItems.paginate :page => params[:page]                                           # Paginate

@@ -26,6 +26,10 @@ class Item < ActiveRecord::Base
     end
   end
   
+  scope :within, lambda { |date|
+      {:conditions => ["created_at > ?", date || 7.days.ago]}
+  }
+    
   scope :hasimage, hasImage()
   
   # PAPERCLIP ------------------------------------------
