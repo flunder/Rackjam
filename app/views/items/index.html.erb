@@ -16,18 +16,23 @@
 	<% end %>
 	
 	<h2 id="headline<%=c%>"><!--%=@date%--></h2>
-
-	<ul class="viewThumbs">
-		<% if @view == 'grid' %>
+	
+	<% if @view == 'grid' %>
+		<ul class="viewThumbs">
 			<%= render(:partial => "griditem", :collection => items ) %>
-		<% else %>
+		</ul>	
+	<% else %>
+		<ul class="viewThumbs">	
 			<%= render(:partial => "listitem", :collection => items) %>
-		<% end %>		
-	</ul>
+		</ul>
+		<ul class="listItems">
+			<%= render(:partial => "listitemmin", :collection => items) %>
+		</ul>
+	<% end %>	
+	
 <% end %>
 </div>
 
 <div id="paginationWrap">
 	<%= will_paginate @items %>
-	<!--%= link_to 'New Item', new_item_path %-->
 </div>

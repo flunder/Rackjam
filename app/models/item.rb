@@ -42,7 +42,7 @@ class Item < ActiveRecord::Base
   validates_presence_of :image_remote_url, :if => :image_url_provided?, :message => 'is invalid or inaccessible'  
   
   has_attached_file :photo,
-                    :styles => { :thumb =>  ["200x134#", :png], :large =>  ["250x230#", :png] },
+                    :styles => { :small =>  ["50x50#", :png], :thumb =>  ["200x134#", :png], :large =>  ["250x230#", :png] },
                     :path => ":rails_root/public/images/items/:id/:style/:basename.:extension",
                     :url  => "/images/items/:id/:style/:basename.:extension",
                     :default_url => "/images/noimage.png",
@@ -63,6 +63,9 @@ class Item < ActiveRecord::Base
       self.update_via_feed('ebay', 'http://musical-instruments.shop.ebay.co.uk/Outboards-Effects-/23791/i.html?LH_PrefLoc=0&LH_Price=30..%40c&rt=nc&_catref=1&_dlg=1&_dmpt=UK_Musical_Instruments_Outboards_Effects_MJ&_ds=1&_mPrRngCbx=1&_rss=1')
       self.update_via_feed('ebay', 'http://musical-instruments.shop.ebay.co.uk/Synthesisers-Sound-Modules-/38071/i.html?LH_PrefLoc=0&LH_Price=30..%40c&rt=nc&_catref=1&_dlg=1&_dmpt=UK_Musical_Instruments_Pro_Audio_Synthesisers_CV&_ds=1&_mPrRngCbx=1&_rss=1')
       self.update_via_feed('ebay', 'http://musical-instruments.shop.ebay.co.uk/Drum-Machines-/38069/i.html?LH_PrefLoc=0&LH_Price=30..%40c&rt=nc&_catref=1&_dlg=1&_dmpt=UK_Drum_Machines_Grooveboxes&_ds=1&_mPrRngCbx=1&_rss=1')
+      self.update_via_feed('ebay', 'http://musical-instruments.shop.ebay.co.uk/Midi-Audio-Interfaces-/123445/i.html?LH_PrefLoc=0&LH_Price=30..%40c&rt=nc&_catref=1&_dlg=1&_dmpt=UK_Drum_Machines_Grooveboxes&_ds=1&_mPrRngCbx=1&_rss=1')      
+      self.update_via_feed('ebay', 'http://musical-instruments.shop.ebay.co.uk/Monitors-/23786/i.html?LH_PrefLoc=0&LH_Price=30..%40c&rt=nc&_catref=1&_dlg=1&_dmpt=UK_Drum_Machines_Grooveboxes&_ds=1&_mPrRngCbx=1&_rss=1')            
+      self.update_via_feed('ebay', 'http://musical-instruments.shop.ebay.co.uk/Midi-Controllers-/14987/i.html?LH_PrefLoc=0&LH_Price=30..%40c&rt=nc&_catref=1&_dlg=1&_dmpt=UK_Drum_Machines_Grooveboxes&_ds=1&_mPrRngCbx=1&_rss=1')                  
   end
 
   def self.update_via_feed(source, url, tresh = 10)
@@ -114,7 +117,7 @@ class Item < ActiveRecord::Base
 
     when 'gumtree'
       if (item.title.index('&amp;'))
-        item.title = item.title[0..item.title.index('&amp;')-1] 
+          item.title = item.title[0..item.title.index('&amp;')-1] 
       end
       
     when 'ebay'

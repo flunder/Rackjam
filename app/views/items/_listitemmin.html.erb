@@ -1,10 +1,10 @@
 <li class="item">
 	
-	<% item = listitem %>
+	<% item = listitemmin %>
 	
 	<div class="listImage">
 		<% if item.imageSrc != '' %>
-		<%= link_to (image_tag item.photo.url(:thumb), :alt => item.title), item.url, :target => '_blank', :class => 'image' %>
+		<%= link_to (image_tag item.photo.url(:small), :alt => item.title), item.url, :target => '_blank', :class => 'image' %>
 		<% else %>
 		<%= image_tag 'noimage.png', :class => 'image' %>
 		<% end %>
@@ -15,13 +15,6 @@
 		<div class="details">
 			<h3><%= truncate(item.title, :length => 150).capitalize %></h3>
 			<p><%= truncate(item.desc, :length => 250).capitalize %></p>
-			<% unless item.brand_list.empty? %>
-				<div class="brandTags">
-					<% item.brands.each do |k| %>
-						<%= link_to k.name.capitalize, :brand => k.name %>
-					<% end %>
-				</div>
-			<% end %>
 		</div>
 	
 		<div class="options">
