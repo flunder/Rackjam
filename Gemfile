@@ -1,5 +1,6 @@
 source 'http://rubygems.org'
 
+# JAM 
 gem 'rails', '3.0.9'
 gem "jquery-rails", "~> 1.0.12"
 gem 'sqlite3'
@@ -14,4 +15,9 @@ gem 'oauth'
 gem 'htmlentities'
 gem "tzinfo", "~> 0.3.29"
 gem 'devise'
+
+# REDUCED COMPRESSED JAM 
 gem 'jammit'
+
+# EXTRA EXTRA EXTRA JAMCHECKER 
+gem "airbrake"
