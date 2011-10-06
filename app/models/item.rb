@@ -1,7 +1,9 @@
+# -*- coding: utf-8 -*-
+
 require 'rubygems'
 require 'htmlentities'
-require 'scrapi'
 require 'open-uri'
+require 'scrapi'
 require 'iconv'
 require 'csv'
 require 'cgi'
@@ -76,8 +78,8 @@ class Item < ActiveRecord::Base
           @feeditem = feedSpecificFields(source).scrape(@feedpage, :parser => :html_parser)           
           @feeditem = validateItem(@feeditem)
 
-          puts ">> #{entry.url}\n"
-          puts "#{@feeditem}\n\n"
+          #puts ">> #{entry.url}\n"
+          #puts "#{@feeditem}\n\n"
 
           if exists? :url => entry.url or @feeditem == false
             puts "existed,broken or skipped!"
@@ -86,7 +88,7 @@ class Item < ActiveRecord::Base
             puts "insert (#{source})"
             createItem(@feeditem,entry,source)
           end
-          
+
       end
   end
   
