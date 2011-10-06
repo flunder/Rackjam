@@ -76,6 +76,9 @@ class Item < ActiveRecord::Base
           @feeditem = feedSpecificFields(source).scrape(@feedpage, :parser => :html_parser)           
           @feeditem = validateItem(@feeditem)
 
+          puts ">> #{entry.url}\n"
+          puts "#{@feeditem}\n\n"
+
           if exists? :url => entry.url or @feeditem == false
             puts "existed,broken or skipped!"
           else

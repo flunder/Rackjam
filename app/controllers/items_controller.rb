@@ -89,5 +89,9 @@ class ItemsController < ApplicationController
     
     @view ||= 'grid'
   end  
+  
+  def debug
+    #Item.get();
+  end
     
 end

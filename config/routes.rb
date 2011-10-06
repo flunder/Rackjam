@@ -12,8 +12,9 @@ Synth4::Application.routes.draw do
              :as => :feed,
              :defaults => { :format => 'atom' }
       
-  match "get/" => "items#get"
+  match "get/"           => "items#get"
   match "categorize/:id" => "items#categorize"
+  match "debug/"         => "items#debug"  
   
   devise_for :users, 
              :path => '',
