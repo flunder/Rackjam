@@ -1,10 +1,11 @@
 source 'http://rubygems.org'
 
 # JAM 
-gem 'rails', '3.0.9'
+gem 'rails'
 gem "jquery-rails", "~> 1.0.12"
 gem 'sqlite3'
-gem 'ruby-mysql'
+#gem 'ruby-mysql'
+gem 'mysql2'
 gem "will_paginate", "~> 3.0.pre2"
 gem "permalink_fu"
 gem 'scrapi'

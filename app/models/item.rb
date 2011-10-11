@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+# encoding: UTF-8
 
 require 'rubygems'
 require 'htmlentities'
@@ -70,15 +70,63 @@ class Item < ActiveRecord::Base
       self.update_via_feed('ebay', 'http://musical-instruments.shop.ebay.co.uk/Midi-Controllers-/14987/i.html?LH_PrefLoc=0&LH_Price=30..%40c&rt=nc&_catref=1&_dlg=1&_dmpt=UK_Drum_Machines_Grooveboxes&_ds=1&_mPrRngCbx=1&_rss=1')                  
   end
 
+
+
+  def self.getone(source, url) 
+
+    # DEBUG
+    
+    puts ">> Checking #{url}\n"
+    
+    @feedpage = open(url).read
+    puts ">> Read!\n"    
+    
+    @feeditem = feedSpecificFields(source)
+    puts ">> Applied fields"
+    
+    @feeditem = @feeditem.scrape(Iconv.conv('ASCII//IGNORE', @feedpage.encoding.to_s, @feedpage), :parser=>:html_parser)
+    puts ">> Parsed!\n"       
+    
+    @feeditem = validateItem(@feeditem)
+    puts ">> Validated\n"
+    
+    @feeditem = reformatItem(@feeditem, source)
+    puts ">> Formatted\n"
+    
+    puts @feeditem
+    
+    ic = Iconv.new('US-ASCII//IGNORE', 'UTF-8')
+    @feeditem.title = ic.iconv(@feeditem.title)
+    @feeditem.desc = ic.iconv(@feeditem.desc)    
+    
+    begin
+         create!(
+             :url          => url,
+             :title        => @feeditem.title,
+             :desc         => @feeditem.desc,          
+             :imageSrc     => @feeditem.imageSrc,
+             :image_url    => @feeditem.imageSrc,
+             :price        => @feeditem.price,
+             :site         => source
+         )
+     rescue Exception => exc
+         puts("Error: #{exc.message}")
+     end
+  end
+
   def self.update_via_feed(source, url, tresh = 10)
     
       feed = Feedzirra::Feed.fetch_and_parse(url)
       feed.entries.each_with_index do |entry,index|
+        
+          puts ">> Checking #{entry.url}\n"
+        
           @feedpage = open(entry.url).read
-          @feeditem = feedSpecificFields(source).scrape(@feedpage, :parser => :html_parser)           
+          @feeditem = feedSpecificFields(source)
+          @feeditem = @feeditem.scrape(Iconv.conv('ASCII//IGNORE', @feedpage.encoding.to_s, @feedpage), :parser=>:html_parser)          
           @feeditem = validateItem(@feeditem)
 
-          #puts ">> #{entry.url}\n"
+
           #puts "#{@feeditem}\n\n"
 
           if exists? :url => entry.url or @feeditem == false
@@ -162,7 +210,12 @@ class Item < ActiveRecord::Base
         item.price = price  
     end
     
-    item.price = cleanPrice(item.price)      
+    item.price = cleanPrice(item.price)    
+    
+    ic = Iconv.new('US-ASCII//IGNORE', 'UTF-8')
+    item.title = ic.iconv(item.title)
+    item.desc = ic.iconv(item.desc)
+      
     return item
   end  
     

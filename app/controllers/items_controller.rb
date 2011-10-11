@@ -57,6 +57,11 @@ class ItemsController < ApplicationController
     Item.get();
     render :nothing => true
   end
+  
+  def getone
+    Item.getone(params[:url]);
+    render :nothing => true
+  end
  
   def categorize
     Item.categorize(params[:id]);

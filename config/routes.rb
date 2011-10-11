@@ -13,6 +13,7 @@ Synth4::Application.routes.draw do
              :defaults => { :format => 'atom' }
       
   match "get/"           => "items#get"
+  match "getone/:url"    => "items#getone"
   match "categorize/:id" => "items#categorize"
   match "debug/"         => "items#debug"  
   
