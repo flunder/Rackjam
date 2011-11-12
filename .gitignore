@@ -5,3 +5,5 @@ log/*.log
 tmp/
 public/images/items/*
 public/assets/*
+Gemfile
+Gemfile.lock
