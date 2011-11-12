@@ -44,28 +44,28 @@ $(document).ready(function() {
 	    });  
 	
 		  /* Hover functions */
-  		function makeTall(){ 
-								
+  		function hoveredItem(){ 
 					$.ajax({
 					  url: "/interests.js",
-						data: "id=" + $(this).attr('id'),					
-					  context: document.body,
-					  success: function(){
-					    $(this).addClass("done");
-					  }
+						data: "id=" + $(this).attr('id')
 					});
-					
 			}
-			function makeShort(){ }
-
+			
+			function clickedItem(id){ 
+					$.ajax({
+					  url: "/interests.js",
+						data: "id=" + id
+					});
+			}
+			
 			var config = {    
-				over: makeTall, // function = onMouseOver callback (REQUIRED)    
+				over: hoveredItem, // function = onMouseOver callback (REQUIRED)    
 				timeout: 5000, // number = milliseconds delay before onMouseOut    
-				out: makeShort, // function = onMouseOut callback (REQUIRED)    
+				// out: someFunc, // function = onMouseOut callback (REQUIRED)    
 				interval: 700
 			};
 			
 			$("#results li").hoverIntent(config)
-
+			$("#results li").click(function(){ clickedItem($(this).attr('id')); })
 	
 });	

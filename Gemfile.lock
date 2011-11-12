@@ -41,7 +41,7 @@ GEM
     bcrypt-ruby (3.0.1)
     builder (2.1.2)
     cocaine (0.2.0)
-    curb (0.7.16)
+    curb (0.7.15)
     devise (1.4.9)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.0.3)
@@ -132,6 +132,7 @@ PLATFORMS
 DEPENDENCIES
   acts-as-taggable-on
   airbrake
+  curb (= 0.7.15)
   devise
   feedzirra
   htmlentities
@@ -141,7 +142,7 @@ DEPENDENCIES
   oauth
   paperclip (~> 2.3.11)
   permalink_fu
-  rails (= 3.0.8)
+  rails
   scrapi
   sqlite3
   tzinfo (~> 0.3.29)
