@@ -10,13 +10,15 @@ require 'cgi'
 
 class Item < ActiveRecord::Base
   
+  has_one :interest
+  
   cattr_reader :per_page
   @@per_page = 60
   
   acts_as_taggable_on :brands
   
   # SCOPES ---------------------------------------------
-  default_scope :order => ["updated_at DESC"]
+  # default_scope :order => ["updated_at DESC"]
 
   def self.hasImage()  
       where("imageSrc != '' AND photo_file_size > '2000'")  
@@ -57,10 +59,10 @@ class Item < ActiveRecord::Base
   end
   
   def self.get() 
-      self.update_via_feed('gumtree', 'http://www.gumtree.com/cgi-bin/list_postings.pl?feed=rss&posting_cat=4709&search_terms=instruments')
-      self.update_via_feed('craig', 'http://london.craigslist.co.uk/search/ele?query=&srchType=A&minAsk=50&maxAsk=&hasPic=1&format=rss')
-      self.update_via_feed('preloved', 'http://rss.preloved.co.uk/rss/listadverts?subcategoryid=&keyword=synth&type=for%20sale&membertype=private&searcharea=10&minprice=30')
-      self.update_via_feed('preloved', 'http://rss.preloved.co.uk/rss/listadverts?subcategoryid=570&keyword=&type=for%20sale&membertype=private&searcharea=10&minprice=30')
+      #self.update_via_feed('gumtree', 'http://www.gumtree.com/cgi-bin/list_postings.pl?feed=rss&posting_cat=4709&search_terms=instruments')
+      #self.update_via_feed('craig', 'http://london.craigslist.co.uk/search/ele?query=&srchType=A&minAsk=50&maxAsk=&hasPic=1&format=rss')
+      #self.update_via_feed('preloved', 'http://rss.preloved.co.uk/rss/listadverts?subcategoryid=&keyword=synth&type=for%20sale&membertype=private&searcharea=10&minprice=30')
+      #self.update_via_feed('preloved', 'http://rss.preloved.co.uk/rss/listadverts?subcategoryid=570&keyword=&type=for%20sale&membertype=private&searcharea=10&minprice=30')
       self.update_via_feed('ebay', 'http://musical-instruments.shop.ebay.co.uk/Sequencers-Grooveboxes-/58721/i.html?LH_PrefLoc=0&LH_Price=30..%40c&rt=nc&_catref=1&_dlg=1&_dmpt=UK_Musical_Instruments_Sequencers_Grooveboxes_MJ&_ds=1&_mPrRngCbx=1&_rss=1')
       self.update_via_feed('ebay', 'http://musical-instruments.shop.ebay.co.uk/Outboards-Effects-/23791/i.html?LH_PrefLoc=0&LH_Price=30..%40c&rt=nc&_catref=1&_dlg=1&_dmpt=UK_Musical_Instruments_Outboards_Effects_MJ&_ds=1&_mPrRngCbx=1&_rss=1')
       self.update_via_feed('ebay', 'http://musical-instruments.shop.ebay.co.uk/Synthesisers-Sound-Modules-/38071/i.html?LH_PrefLoc=0&LH_Price=30..%40c&rt=nc&_catref=1&_dlg=1&_dmpt=UK_Musical_Instruments_Pro_Audio_Synthesisers_CV&_ds=1&_mPrRngCbx=1&_rss=1')
@@ -120,12 +122,10 @@ class Item < ActiveRecord::Base
       feed.entries.each_with_index do |entry,index|
         
           puts ">> Checking #{entry.url}\n"
-        
           @feedpage = open(entry.url).read
           @feeditem = feedSpecificFields(source)
           @feeditem = @feeditem.scrape(Iconv.conv('ASCII//IGNORE', @feedpage.encoding.to_s, @feedpage), :parser=>:html_parser)          
           @feeditem = validateItem(@feeditem)
-
 
           #puts "#{@feeditem}\n\n"
 
@@ -144,7 +144,7 @@ class Item < ActiveRecord::Base
       return false if item.title.empty?   
       return false if skipMe(item) == true
       item.title = cleanString(item.title)
-      item.desc = cleanString(item.desc)
+      item.desc = cleanString(item.desc)      
       return item
   end
   
@@ -152,7 +152,7 @@ class Item < ActiveRecord::Base
     Skipword.all.each do |skipword|
       itemContent = ' ' << item.title # << ' ' << item.desc << ' '
       temp = itemContent.downcase.scan(' ' << skipword.keyword.downcase.chomp << ' ')
-      puts temp unless temp.empty?
+      puts "skip: #{temp}" unless temp.empty?
       return true unless temp.empty?
     end
     return false

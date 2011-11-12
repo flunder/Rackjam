@@ -1,6 +1,6 @@
-<li class="item">
-	
-	<% item = griditem %>
+<% item = griditem %>
+
+<li class="item" id="<%= item.id %>">
 	
 	<% if item.imageSrc != '' %>
 	<%= link_to (image_tag item.photo.url(:thumb), :alt => item.title), item.url, :target => '_blank', :class => 'image' %>

@@ -4,8 +4,8 @@ source 'http://rubygems.org'
 gem 'rails'
 gem "jquery-rails", "~> 1.0.12"
 gem 'sqlite3'
-#gem 'ruby-mysql'
-gem 'mysql2'
+gem 'ruby-mysql'
+#gem 'mysql2', "0.2.13"
 gem "will_paginate", "~> 3.0.pre2"
 gem "permalink_fu"
 gem 'scrapi'

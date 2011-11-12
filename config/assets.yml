@@ -1,4 +1,5 @@
-package_assets:         on      
+package_assets:         off      
+
 embed_assets:           off         
 compress_assets:        on          
 gzip_assets:            on          
@@ -14,6 +15,7 @@ javascripts:
     - public/javascripts/jquery_ujs.js
     - public/javascripts/isotope/jquery.isotope.min.js
     - public/javascripts/application.js
+    - public/javascripts/jquery.hoverintent.minified.js
 
 stylesheets:
   rackjam:

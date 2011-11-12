@@ -11,13 +11,14 @@ $(function(){
 });
 
 $(document).ready(function(){
-	$('#noticeMain').click(function(){
-		$(this).fadeOut('slow');				
-		$.cookie( "rackjamnotice", "closed", { expires: 2 } ); 	
-	})
+		$('#noticeMain').click(function(){
+				$(this).fadeOut('slow');				
+				$.cookie( "rackjamnotice", "closed", { expires: 2 } ); 	
+		})
 });
 
 $(document).ready(function() {
+	
 	    $('.form span.defaultValue').each(function() {
     
 	        var defaultValue = $(this).text();
@@ -41,4 +42,30 @@ $(document).ready(function() {
 	            $(this).val($(this).attr("default")).addClass('initValue');
 	        }
 	    });  
+	
+		  /* Hover functions */
+  		function makeTall(){ 
+								
+					$.ajax({
+					  url: "/interests.js",
+						data: "id=" + $(this).attr('id'),					
+					  context: document.body,
+					  success: function(){
+					    $(this).addClass("done");
+					  }
+					});
+					
+			}
+			function makeShort(){ }
+
+			var config = {    
+				over: makeTall, // function = onMouseOver callback (REQUIRED)    
+				timeout: 5000, // number = milliseconds delay before onMouseOut    
+				out: makeShort, // function = onMouseOut callback (REQUIRED)    
+				interval: 700
+			};
+			
+			$("#results li").hoverIntent(config)
+
+	
 });	

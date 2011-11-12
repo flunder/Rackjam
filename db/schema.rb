@@ -1,3 +1,4 @@
+# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -10,13 +11,18 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110727140058) do
+ActiveRecord::Schema.define(:version => 20111112182020) do
 
   create_table "brands", :force => true do |t|
     t.string   "name"
     t.string   "permalink"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "interests", :force => true do |t|
+    t.string "item_id"
+    t.string "item_count"
   end
 
   create_table "items", :force => true do |t|

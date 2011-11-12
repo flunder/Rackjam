@@ -1,14 +1,16 @@
 Synth4::Application.routes.draw do
 
-  resources :likes
-
   root :to => "items#index"
 
   resources :brands
   resources :skipwords
   resources :items
+  resources :interests
+  resources :likes
   
-  match '/feed' => 'items#feed',
+  match '/hot'   => 'items#top'
+  
+  match '/feed'  => 'items#feed',
              :as => :feed,
              :defaults => { :format => 'atom' }
       
