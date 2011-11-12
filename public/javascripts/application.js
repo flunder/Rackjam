@@ -58,10 +58,12 @@ $(document).ready(function() {
 					});
 			}
 			
+			function someFunc() {}
+			
 			var config = {    
 				over: hoveredItem, // function = onMouseOver callback (REQUIRED)    
 				timeout: 5000, // number = milliseconds delay before onMouseOut    
-				// out: someFunc, // function = onMouseOut callback (REQUIRED)    
+				out: someFunc, // function = onMouseOut callback (REQUIRED)    
 				interval: 700
 			};
 			
