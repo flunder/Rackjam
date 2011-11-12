@@ -59,10 +59,10 @@ class Item < ActiveRecord::Base
   end
   
   def self.get() 
-      #self.update_via_feed('gumtree', 'http://www.gumtree.com/cgi-bin/list_postings.pl?feed=rss&posting_cat=4709&search_terms=instruments')
-      #self.update_via_feed('craig', 'http://london.craigslist.co.uk/search/ele?query=&srchType=A&minAsk=50&maxAsk=&hasPic=1&format=rss')
-      #self.update_via_feed('preloved', 'http://rss.preloved.co.uk/rss/listadverts?subcategoryid=&keyword=synth&type=for%20sale&membertype=private&searcharea=10&minprice=30')
-      #self.update_via_feed('preloved', 'http://rss.preloved.co.uk/rss/listadverts?subcategoryid=570&keyword=&type=for%20sale&membertype=private&searcharea=10&minprice=30')
+      self.update_via_feed('gumtree', 'http://www.gumtree.com/cgi-bin/list_postings.pl?feed=rss&posting_cat=4709&search_terms=instruments')
+      self.update_via_feed('craig', 'http://london.craigslist.co.uk/search/ele?query=&srchType=A&minAsk=50&maxAsk=&hasPic=1&format=rss')
+      self.update_via_feed('preloved', 'http://rss.preloved.co.uk/rss/listadverts?subcategoryid=&keyword=synth&type=for%20sale&membertype=private&searcharea=10&minprice=30')
+      self.update_via_feed('preloved', 'http://rss.preloved.co.uk/rss/listadverts?subcategoryid=570&keyword=&type=for%20sale&membertype=private&searcharea=10&minprice=30')
       self.update_via_feed('ebay', 'http://musical-instruments.shop.ebay.co.uk/Sequencers-Grooveboxes-/58721/i.html?LH_PrefLoc=0&LH_Price=30..%40c&rt=nc&_catref=1&_dlg=1&_dmpt=UK_Musical_Instruments_Sequencers_Grooveboxes_MJ&_ds=1&_mPrRngCbx=1&_rss=1')
       self.update_via_feed('ebay', 'http://musical-instruments.shop.ebay.co.uk/Outboards-Effects-/23791/i.html?LH_PrefLoc=0&LH_Price=30..%40c&rt=nc&_catref=1&_dlg=1&_dmpt=UK_Musical_Instruments_Outboards_Effects_MJ&_ds=1&_mPrRngCbx=1&_rss=1')
       self.update_via_feed('ebay', 'http://musical-instruments.shop.ebay.co.uk/Synthesisers-Sound-Modules-/38071/i.html?LH_PrefLoc=0&LH_Price=30..%40c&rt=nc&_catref=1&_dlg=1&_dmpt=UK_Musical_Instruments_Pro_Audio_Synthesisers_CV&_ds=1&_mPrRngCbx=1&_rss=1')
@@ -124,7 +124,7 @@ class Item < ActiveRecord::Base
           puts ">> Checking #{entry.url}\n"
           @feedpage = open(entry.url).read
           @feeditem = feedSpecificFields(source)
-          @feeditem = @feeditem.scrape(Iconv.conv('ASCII//IGNORE', @feedpage.encoding.to_s, @feedpage), :parser=>:html_parser)          
+          @feeditem = @feeditem.scrape(Iconv.conv('UTF8//IGNORE', @feedpage.encoding.to_s, @feedpage), :parser=>:html_parser)          
           @feeditem = validateItem(@feeditem)
 
           #puts "#{@feeditem}\n\n"
@@ -159,6 +159,7 @@ class Item < ActiveRecord::Base
   end
   
   def self.cleanString(string)
+	string ||= " "
     string = string.gsub(/[\n]+/, "").gsub(/[\r]+/, "")
     string = string.rstrip.lstrip  
     return string
@@ -174,11 +175,16 @@ class Item < ActiveRecord::Base
       end
       
     when 'ebay'
+	  item.price ||= " "
       if (item.price.rindex('.'))
           item.price = item.price[0..item.price.rindex('.')] 
       end
       
       item.price.gsub!(/[^0-9]/,'')
+      
+      ic = Iconv.new('US-ASCII//IGNORE', 'UTF-8')
+      item.title = ic.iconv(item.title)
+      item.desc = ic.iconv(item.desc)      
       
     when 'craig'
         myString = CGI.escape(item.title) 
