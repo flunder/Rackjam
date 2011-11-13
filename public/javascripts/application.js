@@ -1,4 +1,9 @@
 $(document).ready(function(){
+
+		$('#brand_dropdown select').selectmenu({
+				width: 200
+		});
+
 	
 		/* NOTICE */
 		$('#noticeMain').click(function(){
@@ -27,6 +32,7 @@ $(document).ready(function(){
 				// vertical: true
     });
 
+		/*
 		$('#box').hover(
 			function() {
 				$(this).fadeTo('slow', 1);
@@ -35,8 +41,8 @@ $(document).ready(function(){
 				$(this).fadeTo('slow', 0.7);
 			}
 		)
-
-		
+		*/
+				
 });
 
 
