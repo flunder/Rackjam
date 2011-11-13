@@ -2,7 +2,7 @@ class Interest < ActiveRecord::Base
   
   belongs_to :item 
   
-  def self.updateOne(hovered_item_id)
+  def self.updateOne(hovered_item_id, value)
 
     @exists = Interest.exists?(:item_id => hovered_item_id.to_s)
 
@@ -10,12 +10,12 @@ class Interest < ActiveRecord::Base
         @myItem = Interest.find_by_item_id(hovered_item_id)
         Interest.update(
             @myItem.id, # id
-            :item_count   => @myItem.item_count.to_i + 1,
+            :item_count   => @myItem.item_count.to_i + value.to_i,
         )
     else 
         create!(
             :item_id      => hovered_item_id,
-            :item_count   => 1,
+            :item_count   => value.to_i,
         )  
     end 
    

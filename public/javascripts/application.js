@@ -70,24 +70,24 @@ $(document).ready(function() {
   		function hoveredItem(){ 
 					$.ajax({
 					  url: "/interests.js",
-						data: "id=" + $(this).attr('id')
+						data: { id: $(this).attr('id'), value: + "1" }
 					});
 			}
 			
 			function clickedItem(id){ 
 					$.ajax({
 					  url: "/interests.js",
-						data: "id=" + id
+						data:  { id: id, value: + "3" }
 					});
 			}
 			
-			function someFunc() {}
+			function someFunc() {  }
 			
 			var config = {    
-				over: hoveredItem, // function = onMouseOver callback (REQUIRED)    
-				timeout: 5000, // number = milliseconds delay before onMouseOut    
-				out: someFunc, // function = onMouseOut callback (REQUIRED)    
-				interval: 700
+				over: someFunc, // function = onMouseOver callback (REQUIRED)    
+				timeout: 2500, // number = milliseconds delay before onMouseOut    
+				out: hoveredItem, // function = onMouseOut callback (REQUIRED)    
+				interval: 75
 			};
 			
 			$("#results li").hoverIntent(config)
