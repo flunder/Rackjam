@@ -1,4 +1,12 @@
-$(function(){
+$(document).ready(function(){
+	
+		/* NOTICE */
+		$('#noticeMain').click(function(){
+				$(this).fadeOut('slow');				
+				$.cookie( "rackjamnotice", "closed", { expires: 2 } ); 	
+		})
+		
+		/* ISOTOPE */
   	$('#results.items.grid').isotope({
     	itemSelector: '.item',
 			layoutMode : 'fitRows',
@@ -7,15 +15,30 @@ $(function(){
 		     easing: 'linear',
 		     queue: false
 		   }
+    });		
+
+		$("#box").jCarouselLite({
+				auto: 10000,
+				speed: 700,
+				circular: true,
+				visible: 1,
+				easing: 'easeInOutCubic',
+				start: Math.floor(Math.random()*$("#box ul li").length)
+				// vertical: true
     });
+
+		$('#box').hover(
+			function() {
+				$(this).fadeTo('slow', 1);
+			}, 
+			function() {
+				$(this).fadeTo('slow', 0.7);
+			}
+		)
+
+		
 });
 
-$(document).ready(function(){
-		$('#noticeMain').click(function(){
-				$(this).fadeOut('slow');				
-				$.cookie( "rackjamnotice", "closed", { expires: 2 } ); 	
-		})
-});
 
 $(document).ready(function() {
 	
