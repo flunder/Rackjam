@@ -55,7 +55,8 @@ class Item < ActiveRecord::Base
   
   def self.type(q)
       query = "%#{q}%"
-      where("items.title LIKE ?", query).where("items.desc LIKE ?", query)
+      # where("items.title LIKE ?", query).where("items.desc LIKE ?", query) ~ causes AND in sql
+      where("items.title LIKE ? or items.desc LIKE ?", query, query)
   end
   
   def self.get() 
