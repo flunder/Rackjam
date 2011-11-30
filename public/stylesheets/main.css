@@ -21,7 +21,7 @@ h3 { font-weight: bold; margin: 0; }
 /* h1 { font-family: chippewa-falls !important; font-size: 1.2em; text-shadow: 0 2px 0 #111111;  } */
 h1 {  font-family: orbitron;  }
 
-#header { position: fixed; font-size: 2em; color: black; width: 100%; background: rgba(0, 0, 0, 0.9); padding: 25px 0px; color: #9ff6d4; border-bottom: 1px solid #555; z-index: 100;}
+#header { position: fixed; font-size: 2em; color: black; width: 100%; background: rgba(0, 0, 0, 0.9); padding: 25px 0 22px 0; color: #9ff6d4; border-bottom: 1px solid #555; z-index: 100;}
 #header a { color: white; }
 #header a:hover { color: #ccc; }
 #header h1 span { color: red !important; font-size: 0.5em; margin-left: 0.3em; display: none; }
