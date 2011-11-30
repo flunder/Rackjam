@@ -59,6 +59,11 @@ class Item < ActiveRecord::Base
       where("items.title LIKE ? or items.desc LIKE ?", query, query)
   end
   
+  def self.search(q)
+      query = "%#{q}%"
+      where("items.title LIKE ? or items.desc LIKE ?", query, query)
+  end
+  
   def self.get() 
       self.update_via_feed('gumtree', 'http://www.gumtree.com/cgi-bin/list_postings.pl?feed=rss&posting_cat=4709&search_terms=instruments')
       self.update_via_feed('craig', 'http://london.craigslist.co.uk/search/ele?query=&srchType=A&minAsk=50&maxAsk=&hasPic=1&format=rss')

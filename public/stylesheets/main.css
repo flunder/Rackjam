@@ -147,7 +147,6 @@ h1 {  font-family: orbitron;  }
 #staticResults.form .func a { margin-left: 33px; }
 #staticResults.form  #user_remember_me { margin-left: 0px; } 
 
-
 #staticResults.form input[type="submit"] {
     -moz-border-radius: 0.4em 0.4em 0.4em 0.4em;
     background-color: #333333;
@@ -161,6 +160,23 @@ h1 {  font-family: orbitron;  }
     padding: 2px 15px 3px;
     text-indent: 0;
     white-space: nowrap;
-	font-size: 12px;
+	  font-size: 12px;
 }
+
+form#brand_dropdown { width: 378px; }
+form#brand_dropdown div { float: left; }
+form#brand_dropdown select { float: left; }
+form#brand_dropdown #search { 
+background: url("/images/searchbox.png") no-repeat scroll 0 -30px transparent;
+  border: medium none;
+  font-size: 12px;
+  height: 16px;
+  line-height: 0.1em;
+  margin-left: 12px;
+  margin-top: 1px;
+  padding: 7px 37px 5px 14px;
+  width: 113px;
+}
+
+
 

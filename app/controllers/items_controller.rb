@@ -4,12 +4,19 @@ class ItemsController < ApplicationController
   respond_to :js, :html, :json, :iphone
 
   def index
+    
     # Selection by type
     if params[:type] 
       @getItems = Item.type(params[:type])
     else 
       @getItems = Item.hasimage.within(10.days.ago)         
     end
+    
+    # Search
+    if params[:search] 
+      @getItems = @getItems.search(params[:search])     
+    end   
+    
     @getItems = Item.tagged_with(params[:brand]) if params[:brand] and params[:brand] != 'all'   # Selection by Brand
     @getItems = @getItems.order("updated_at DESC")
     @items = @getItems.paginate :page => params[:page]                                           # Paginate
