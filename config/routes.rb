@@ -8,8 +8,8 @@ Synth4::Application.routes.draw do
   resources :interests
   resources :likes
   
+  match '/about' => "static#about"  
   match '/hot'   => 'items#top'
-  
   match '/feed'  => 'items#feed',
              :as => :feed,
              :defaults => { :format => 'atom' }

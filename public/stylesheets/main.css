@@ -118,8 +118,7 @@ h1 {  font-family: orbitron;  }
 	color: #333;
 	margin: 20px 0 15px 0;
 	font-size: 15px;
-    font-weight: bold;
-	
+  font-weight: bold;
 }
 
 #staticResults.form .row {
@@ -180,3 +179,7 @@ background: url("/images/searchbox.png") no-repeat scroll 0 -30px transparent;
 
 #intro { margin-bottom: 20px; color: white; line-height: 1.2em; width: 100px; background: #eee; padding: 15px; color: #333; font-weight: bold;}
 
+#intro { -webkit-border-radius:10px; -moz-border-radius:10px; -o-border-radius:10px; border-radius:10px; background: #eee !important; position: relative; left: -5px; top: -5px; }
+
+/* Static pages */
+.about { font-size: 5em; line-height: 1em; letter-spacing: -3px; width: 566px; font-weight: bold; }

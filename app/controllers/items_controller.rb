@@ -1,7 +1,7 @@
 class ItemsController < ApplicationController
 
   before_filter :get_view
-  respond_to :js, :html, :json, :iphone
+  respond_to :js, :html, :json #, :iphone
 
   def index
     
@@ -28,7 +28,6 @@ class ItemsController < ApplicationController
     @getItems = Item.hasimage.within(10.days.ago).joins(:interest).order('interests.item_count DESC')
     @items = @getItems.paginate :page => params[:page]  
     render "items/index"
-
   end
 
   def show
