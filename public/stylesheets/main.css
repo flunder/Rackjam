@@ -178,5 +178,5 @@ background: url("/images/searchbox.png") no-repeat scroll 0 -30px transparent;
   width: 113px;
 }
 
-
+#intro { margin-bottom: 20px; color: white; line-height: 1.2em; width: 100px; background: #eee; padding: 15px; color: #333; font-weight: bold;}
 

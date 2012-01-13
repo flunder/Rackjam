@@ -1,6 +1,8 @@
 Access Music
+Access Virus
 Adam
 Akai
+Akg
 Alesis
 Analogue Systems
 Applied Acoustics
@@ -21,12 +23,15 @@ Clavia
 Con Brio
 Creamware
 Crumar
-Dave Smith Instruments
+Danelectro
+Dave Smith
 Dbx
 Denon
 Digidesign
+Digitech
 Doepfer
 Drawmer
+Dynaudio
 Edirol
 EDP
 Electrix Pro
@@ -35,11 +40,13 @@ Elektron
 Elka
 EML
 EMS
+Epiphone
 E-mu
 Encore Electronics
 Ensoniq
 Fairlight
 Farfisa
+Fender
 FBT Electronica
 Focusrite
 Fostex
@@ -47,14 +54,18 @@ Formanta
 Future Retro
 Generalmusic
 Gemini
+Genelec
+Gibson
 GForce Software
 Gleeman
 Hammond
 Hartmann
 Hohner
+Hughes & Kettner
 IK Multimedia
 Image Line
 Jen Electronics
+Joe meek 
 JoMoX
 Kam
 Kawai
@@ -64,6 +75,7 @@ Koblo
 Korg
 Krk
 Kurzweil
+Lexicon
 Line 6
 Linn Electronics
 Logan Electronics
@@ -81,7 +93,9 @@ MOTU
 Mutronics
 Native Instruments
 New England Digital
+Neumann
 Novation
+Numark
 Oberheim
 Octave
 OSC
@@ -97,6 +111,8 @@ Red Sound Systems
 Rode
 Rhodes
 Roland
+Rme
+Rocktron
 RSF Synthesizers
 Samson
 Se electronics
@@ -110,6 +126,7 @@ Sony
 Sherman
 Siel
 Sonic Foundry
+Soundcraft
 SoundMaster
 Spectral Audio
 Steinberg
@@ -119,7 +136,9 @@ Synhouse
 Syntecno
 Synthesizers.com
 Synton
+Tascam
 TC|Works
+Tc electronics
 Technics
 Technosaurus
 Teisco
@@ -131,4 +150,5 @@ Way Out Ware
 Wiard
 Will Systems
 Wurlitzer
+Vox
 Yamaha
