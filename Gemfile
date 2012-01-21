@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
 
 # JAM 
-gem 'rails'
+gem 'rails', '3.1.3'
 gem "jquery-rails", "~> 1.0.12"
 gem 'sqlite3'
 # gem 'ruby-mysql'

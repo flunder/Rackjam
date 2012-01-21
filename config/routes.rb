@@ -20,7 +20,6 @@ Synth4::Application.routes.draw do
   match "debug/"         => "items#debug"  
   
   devise_for :users, 
-             :path => '',
              :path_prefix => '',
              :path_names => { :sign_in => "login", :sign_out => "logout", :sign_up => "register" } do
                  get "/login", :to => "devise/sessions#new"
