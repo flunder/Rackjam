@@ -23,8 +23,10 @@ Synth4::Application.routes.draw do
              :path_prefix => '',
              :path_names => { :sign_in => "login", :sign_out => "logout", :sign_up => "register" } do
                  get "/login", :to => "devise/sessions#new"
-                 get "/logout", :to => "devise/sessions#destroy" 
+                 get "/users/logout", :to => "devise/sessions#destroy" 
                  get "/register", :to => "devise/registrations#new" 
              end
+
+ 
 
 end
