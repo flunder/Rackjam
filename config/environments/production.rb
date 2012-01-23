@@ -19,7 +19,7 @@ Synth4::Application.configure do
   # just comment this out and Rails will serve the files
 
   # See everything in the log (default is :info)
-  # config.log_level = :debug
+  config.log_level = :debug
 
   # Use a different logger for distributed setups
   # config.logger = SyslogLogger.new
@@ -47,5 +47,19 @@ Synth4::Application.configure do
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
   config.action_mailer.default_url_options = { :host => 'http://www.rackjam.co.uk' }
+  
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+      :address        => "smtp.gmail.com",    
+      :port           => 587,    
+      :domain         => "bikeshd.co.uk",    
+      :user_name      => "bikeshdlondon@googlemail.com",
+      :password       => "bikeshdlondon1234",
+      :authentication => :plain,      
+      :tls            => :true,      
+      :enable_starttls_auto => true
+  }
+  config.action_mailer.perform_deliveries = :true
+  config.action_mailer.raise_delivery_errors = :true  
   
 end
