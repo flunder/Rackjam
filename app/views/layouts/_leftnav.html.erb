@@ -8,9 +8,9 @@
 	<li id="d_about"><a href="/about">About</a></li>
 	<% if user_signed_in? %><li><a href="#">Account</a></li><% end %>
     <% if user_signed_in? %><li id="dash_likes"><a href="#">Likes</a></li><% end %>	
-	<% if user_signed_in? %><li><%= link_to_unless_current 'Log out', destroy_user_session_path %><% end %>
-	<% if !user_signed_in? %><li id="d_log"><%= link_to 'Sign in', new_user_session_path %></li><% end %>
-	<% if !user_signed_in? %><li id="d_reg">Register</li><% end %>
+	<% if user_signed_in? %><li><%= link_to_unless_current 'Logout', destroy_user_session_path %><% end %>
+	<% if !user_signed_in? %><li><%= link_to 'Register', new_user_registration_path %> or <%= link_to 'Sign in', new_user_session_path %></li><% end %>
+
 </ul>	
 
 <h3>Filter by</h3>
