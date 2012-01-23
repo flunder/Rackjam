@@ -1,6 +1,11 @@
-<div id="intro">
-	We list gear from London and UK!
-</div>	
+<% @cookie_value = cookies[:rackjamnotice] %>
+
+<% if @cookie_value != 'closed' %>
+	<div id="intro">
+		<%= Twitter.user_timeline("rackjam").first.text %>
+		<a href="#" id="closeIntro">x</a>
+	</div>
+<% end %>
 
 <h3 id="dash">Dashboard</h3>
 
@@ -10,7 +15,6 @@
     <% if user_signed_in? %><li id="dash_likes"><a href="#">Likes</a></li><% end %>	
 	<% if user_signed_in? %><li><%= link_to 'Logout', destroy_user_session_path %><% end %>
 	<% if !user_signed_in? %><li><%= link_to 'Register', new_user_registration_path %> or <%= link_to 'Sign in', new_user_session_path %></li><% end %>
-
 </ul>	
 
 <h3>Filter by</h3>

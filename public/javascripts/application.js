@@ -1,13 +1,15 @@
 $(document).ready(function(){
 
+
+		/* Brands-dropdown */
 		$('#brand_dropdown select').selectmenu({
 				width: 200
 		});
 
 	
 		/* NOTICE */
-		$('#noticeMain').click(function(){
-				$(this).fadeOut('slow');				
+		$('#closeIntro').click(function(){
+				$(this).parent('div').slideUp('slow');				
 				$.cookie( "rackjamnotice", "closed", { expires: 2 } ); 	
 		})
 		
@@ -22,6 +24,7 @@ $(document).ready(function(){
 		   }
     });		
 
+		/* Adverts slider */
 		$("#box").jCarouselLite({
 				auto: 10000,
 				speed: 700,
