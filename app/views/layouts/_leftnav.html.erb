@@ -19,10 +19,18 @@
 	<% if !user_signed_in? %><li><%= link_to 'Register', new_user_registration_path %> or <%= link_to 'Sign in', new_user_session_path %></li><% end %>
 </ul>	
 
-<h3>Likes</h3>
-<ul id="filterList">
-	<li>asfaf</li>
-</ul>	
+<% if user_signed_in? %>
+	<h3>My Likes</h3>
+	<% @myLikes = current_user.likes.all %>
+		<ul id="likesList">
+			<% if @myLikes.size > 0 %>
+			<li>
+				<a href=""><img src="http://cdn.official.fm/user_avatars/136/136133_tiny.jpg?t=12_01_25__06_24_37" width="25"/></a>
+				<a href="" class="itemName">asfasfas</a>		
+			</li>
+			<% end %>
+		</ul>	
+<% end %>
 
 <h3>Filter by</h3>
 <ul id="filterList">

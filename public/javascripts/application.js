@@ -102,7 +102,7 @@ $(document).ready(function() {
 	        }
 	    });  
 	
-		  /* Hover functions for HOT */
+		  /* Hover functions for HOT ----------------------------- */
   		function hoveredItem(){ 
 					$.ajax({
 					  url: "/interests.js",
@@ -126,7 +126,23 @@ $(document).ready(function() {
 				interval: 75
 			};
 			
-			$("#results li").hoverIntent(config)
-			$("#results li").click(function(){ clickedItem($(this).attr('id')); })
+			// $("#results li").hoverIntent(config)
+			// $("#results li").click(function(){ clickedItem($(this).attr('id')); })
+	
+});	
+
+$(document).ready(function() {
+	
+	$('.love').click(function(){
+		
+			var id = $(this).parents('li').attr('id');
+		
+			$.ajax({
+			  url: "/likes/new",
+				data:  { id: id }
+			});
+		
+			return false;
+	})
 	
 });	

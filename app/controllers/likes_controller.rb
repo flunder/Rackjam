@@ -17,9 +17,15 @@ class LikesController < ApplicationController
   end
 
   def new
-    @like = Like.new
- 
-    respond_with @like
+    
+    if request.xhr? 
+      Like.updateOne(params[:id], current_user.id.to_i);      
+      render :nothing => true
+    else 
+      @like = Like.new
+      respond_with @like
+    end
+    
   end
 
   def edit
