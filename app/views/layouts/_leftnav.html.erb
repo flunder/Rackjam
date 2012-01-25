@@ -12,10 +12,16 @@
 <ul id="dashList">
 	<% if user_signed_in? %><li>ID: <%= current_user.id %></li><% end %>
 	<li id="d_about"><%= link_to_unless_current 'About', about_path %></a></li>
+	<li id="d_hot"><%= link_to_unless_current 'Whats hot', hot_path %></a></li>	
 	<% if user_signed_in? %><li><%= link_to_unless_current 'Account', edit_user_registration_path %></li><% end %>
     <% if user_signed_in? %><li id="dash_likes"><%= link_to_unless_current 'Likes', likes_path %></li><% end %>	
 	<% if user_signed_in? %><li><%= link_to 'Logout', destroy_user_session_path %><% end %>
 	<% if !user_signed_in? %><li><%= link_to 'Register', new_user_registration_path %> or <%= link_to 'Sign in', new_user_session_path %></li><% end %>
+</ul>	
+
+<h3>Likes</h3>
+<ul id="filterList">
+	<li>asfaf</li>
 </ul>	
 
 <h3>Filter by</h3>

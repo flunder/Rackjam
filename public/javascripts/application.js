@@ -50,35 +50,33 @@ $(document).ready(function(){
 
 $(document).ready(function() {
 	
-		// sumbit the searchform on enter for b0rked browsers 
-		$('.smartInput').keypress(function(e){
-			if(e.which == 13){
-		  	$('form').submit();
-		   }
-		 });	
-
-		// initial state
-		$(".smartInput").each(function() {
-			if( !this.value.length ) {
-				$(this).css({ backgroundPosition:"0px 0px" });
-			}
-		})
+			// smartInput 
 		
-		// focus & blur states
-		$(".smartInput").focus(function() {
-			if( !this.value.length ) {
-				$(this).css({ backgroundPosition:"0px -29px" });
-			}
-		}).blur(function() {
-			if( !this.value.length ) {
-				$(this).css({ backgroundPosition:"0px 0px" });
-			}
-		});		
+			// sumbit the searchform on enter for b0rked browsers 
+			$('.smartInput').keypress(function(e){
+				if(e.which == 13){
+			  	$('form').submit();
+			   }
+			 });	
 
-})
+			// initial state
+			$(".smartInput").each(function() {
+				if( !this.value.length ) {
+					$(this).css({ backgroundPosition:"0px 0px" });
+				}
+			})
+	
+			// focus & blur states
+			$(".smartInput").focus(function() {
+				if( !this.value.length ) {
+					$(this).css({ backgroundPosition:"0px -29px" });
+				}
+			}).blur(function() {
+				if( !this.value.length ) {
+					$(this).css({ backgroundPosition:"0px 0px" });
+				}
+			});		
 
-
-$(document).ready(function() {
 	
 	    $('.form span.defaultValue').each(function() {
     
@@ -104,7 +102,7 @@ $(document).ready(function() {
 	        }
 	    });  
 	
-		  /* Hover functions */
+		  /* Hover functions for HOT */
   		function hoveredItem(){ 
 					$.ajax({
 					  url: "/interests.js",
