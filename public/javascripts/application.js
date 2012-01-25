@@ -126,8 +126,8 @@ $(document).ready(function() {
 				interval: 75
 			};
 			
-			//$("#results li").hoverIntent(config)
-			//$("#results li").click(function(){ clickedItem($(this).attr('id')); })
+			$("#results li").hoverIntent(config)
+			$("#results li").click(function(){ clickedItem($(this).attr('id')); })
 	
 });	
 
@@ -145,14 +145,14 @@ $(document).ready(function() {
   				success: function (msg) {
 							if (state == 'unliked') {
 									$(heart).attr('class','liked')
-									// $(heart).css("background-image","url(../images/icons/like.png)").animate({opacity: 1},500)
-						
 							} else if (state == 'liked') {
 									$(heart).attr('class','unliked')
-									// $(heart).css("background-image","url(../images/icons/like_grey.png)").animate({opacity: 0.5},500)
-									
 							}
+					},
+					error: function(){
+						window.location = "/users/login";		
 					}
+					
 			});
 		
 			return false;
