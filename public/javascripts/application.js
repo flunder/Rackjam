@@ -138,7 +138,11 @@ $(document).ready(function() {
 			var heart = $(this).find('a');
 			var item = $(this).parents('li');
 			var state = heart.attr('class');
-		
+			
+			//$(heart).ajaxStart(function() {
+			//  $(item).addClass('loading');
+			//});
+			
 			$.ajax({
 			  	url: "/likes/new",
 					data:  { id: item.attr('id') },

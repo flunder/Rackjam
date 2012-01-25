@@ -234,3 +234,5 @@ background: none repeat scroll 0 0 white;
    width: 580px;
 }
 
+.loading { background: red; }
+
