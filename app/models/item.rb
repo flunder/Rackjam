@@ -11,6 +11,7 @@ require 'cgi'
 class Item < ActiveRecord::Base
   
   has_one :interest
+  has_many :likes
   
   cattr_reader :per_page
   @@per_page = 60

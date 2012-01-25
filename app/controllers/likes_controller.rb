@@ -5,6 +5,9 @@ class LikesController < ApplicationController
   
   def index
     @likes = current_user.likes.all
+    
+    #select * from items where user = 1 
+    
     respond_with @likes
   end
 

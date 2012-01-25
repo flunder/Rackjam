@@ -1,25 +1,27 @@
-<h1>Listing likes</h1>
+<div id="staticResults" class="<%=controller.controller_name %>">
+	<h3>Listing likes</h3>
 
-<table>
-  <tr>
-    <th>User</th>
-    <th>Item</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
+	<table>
+	  <tr>
+	    <th>User</th>
+	    <th>Item</th>
+	    <th></th>
+	    <th></th>
+	    <th></th>
+	  </tr>
 
-<% @likes.each do |like| %>
-  <tr>
-    <td><%= like.user_id %></td>
-    <td><%= like.item_id %></td>
-    <td><%= link_to 'Show', like %></td>
-    <td><%= link_to 'Edit', edit_like_path(like) %></td>
-    <td><%= link_to 'Destroy', like, :confirm => 'Are you sure?', :method => :delete %></td>
-  </tr>
-<% end %>
-</table>
+	<% @likes.each do |like| %>
+	  <tr>
+	    <td><%= like.user_id %></td>
+	    <td><%= like.item_id %></td>
+	    <td><%= link_to 'Show', like %></td>
+	    <td><%= link_to 'Edit', edit_like_path(like) %></td>
+	    <td><%= link_to 'Destroy', like, :confirm => 'Are you sure?', :method => :delete %></td>
+	  </tr>
+	<% end %>
+	</table>
 
-<br />
+	<br />
 
-<%= link_to 'New Like', new_like_path %>
+	<%= link_to 'New Like', new_like_path %>
+</div>

@@ -1,9 +1,9 @@
 <% if user_signed_in? %>
 	<% @liked = current_user.likes.where(:item_id => item.id) %>
 	<% if @liked.exists? %>	
-		<a href="" class="liked">&nbsp;</a>
+		<%= link_to 'unlike', likes_path, :class => 'liked', :remote => true %>
 	<% else %>
-		<a href="" class="unliked">&nbsp;</a>
+		<%= link_to 'like', new_like_path, :class => 'unliked', :remote => true %>
 	<% end %>
 <% else %>
 	<%= link_to 'x', new_user_session_path %>
