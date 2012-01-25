@@ -10,7 +10,7 @@
 <h3 id="dash">Dashboard</h3>
 
 <ul id="dashList">
-	<li>ID: <%= current_user.id %></li>
+	<% if user_signed_in? %><li>ID: <%= current_user.id %></li><% end %>
 	<li id="d_about"><%= link_to_unless_current 'About', about_path %></a></li>
 	<% if user_signed_in? %><li><%= link_to_unless_current 'Account', edit_user_registration_path %></li><% end %>
     <% if user_signed_in? %><li id="dash_likes"><%= link_to_unless_current 'Likes', likes_path %></li><% end %>	
