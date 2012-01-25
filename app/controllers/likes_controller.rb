@@ -21,6 +21,7 @@ class LikesController < ApplicationController
     if request.xhr? 
       Like.updateOne(params[:id], current_user.id.to_i);      
       render :nothing => true
+      # render :js 
     else 
       @like = Like.new
       respond_with @like
