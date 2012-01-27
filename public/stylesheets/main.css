@@ -37,15 +37,21 @@ h1 {  font-family: orbitron;  }
 #results { margin-top: 90px; margin-left: 200px;  }
 #results.items ul { list-style-type:none; clear:both; float:left; }
 #results.items.grid ul img { float:left; width:200px; max-width:200px; min-width:200px; max-height:134px; min-height:134px; overflow:hidden; }
-#results.items.grid ul li.item { width:200px; overflow:hidden; float:left; margin-right: 30px; margin-bottom: 30px; color: #222; border-bottom: 1px solid #EFEFEF; }
+#results.items.grid ul li.item { width:200px; overflow:hidden; float:left; margin-right: 30px; margin-bottom: 30px; color: #222; }
 #results.items.grid ul li.item .image { margin-bottom: 10px; float: left; }
 #results.items.grid ul li.item .options { border-top: 1px solid #DDD; float: left; margin-top: 5px; width: 100%; }
+#results.items ul li.item .shortDesc { padding: 0px;  float: left;  font-size: 11px; line-height: 1.35em; }
 #results.items ul li.item .details { padding: 0px;  float: left;  font-size: 11px; line-height: 1.35em; }
 #results.items ul li.item .details .brandTags { margin-top: 4px;}
 #results.items ul li.item .details .brandTags a { color: #bbb; font-weight: bold;  padding-right: 5px; }
 #results.items ul li.item .details .brandTags a:hover { color: red; }
-#results.items ul li.item .options ul.details { list-style-type: none; margin: 0; padding: 6px 0 4px 0; width: 100%;	 }
-#results.items ul li.item .options ul.details li { display: inline-block; margin-right: 8px; font-weight: bold; }
+#results.items ul li.item ul.details { list-style-type: none; margin: 5px 0 0 0; padding: 6px 0 4px 0; width: 100%;	 border-top: 1px solid #DDDDDD; border-bottom: 1px solid #EFEFEF; }
+#results.items ul li.item ul.details li { display: inline-block; margin-right: 8px; font-weight: bold; }
+
+/* makes it all align, should remove the shortdesc from dom as well if i go down this path 
+.shortDesc { height: 60px;}
+.shortDesc p { display: none; }
+*/
 
 #results.items.list ul.viewThumbs { clear: none; }
 #results.items.list ul.listItems { clear: none; }

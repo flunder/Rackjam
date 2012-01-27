@@ -8,7 +8,7 @@
 	<%= image_tag 'noimage.png', :class => 'image' %>
 	<% end %>
 	
-	<div class="details">
+	<div class="shortDesc">
 		<h3><%= truncate(item.title, :length => 100).capitalize %></h3>
 		<p><%=h truncate(item.desc, :length => 150).capitalize %></p>
 		<% unless item.brand_list.empty? %>
@@ -19,16 +19,12 @@
 			</div>
 		<% end %>
 	</div>
-	
-	<div class="options">
-		<ul class="details">
-			<li class="time"><%= time_ago_in_w(item.updated_at) %></li>
-			<li class="love"><%= render :partial => "items/like", :locals => { :item => item } %></li>
-			<li class="site"><%= link_to item.site.capitalize, item.url %></li>
-			<li class="price last"><a href="#"><%=item.getFixed %>&pound;<%=item.price %></a></li>
-		</ul>
-	</div>
-		
-	<a href="#" class="overlay"></a>
+
+	<ul class="details">
+		<li class="time"><%= time_ago_in_w(item.updated_at) %></li>
+		<li class="love"><%= render :partial => "items/like", :locals => { :item => item } %></li>
+		<li class="site"><%= link_to item.site.capitalize, item.url %></li>
+		<li class="price last"><a href="#"><%=item.getFixed %>&pound;<%=item.price %></a></li>
+	</ul>
 
 </li>

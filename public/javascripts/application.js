@@ -1,56 +1,51 @@
 $(document).ready(function(){
 
-
-		/* Brands-dropdown */
-		$('#brand_dropdown select').selectmenu({
-				width: 200
-		});
+			/* Setup Brand-dropdown */
+			$('#brand_dropdown select').selectmenu({
+					width: 200
+			});
 
 	
-		/* NOTICE */
-		$('#closeIntro').click(function(){
-				$(this).parent('div').slideUp('slow');				
-				$.cookie( "rackjamnotice", "closed", { expires: 2 } ); 	
-		})
+			/* Rackjam NOTICE cookie handling */
+			$('#closeIntro').click(function(){
+					$(this).parent('div').slideUp('slow');				
+					$.cookie( "rackjamnotice", "closed", { expires: 2 } ); 	
+			})
 		
-		/* ISOTOPE */
-  	$('#results.items.grid').isotope({
-    	itemSelector: '.item',
-			layoutMode : 'fitRows',
-			animationOptions: {
-		     duration: 500,
-		     easing: 'linear',
-		     queue: false
-		   }
-    });		
+			/* ISOTOPE */
+	  	$('#results.items.grid').isotope({
+	    	itemSelector: '.item',
+				layoutMode : 'fitRows',
+				animationOptions: {
+			     duration: 500,
+			     easing: 'linear',
+			     queue: false
+			   }
+	    });		
 
-		/* Adverts slider */
-		$("#box").jCarouselLite({
-				auto: 10000,
-				speed: 700,
-				circular: true,
-				visible: 1,
-				easing: 'easeInOutCubic',
-				start: Math.floor(Math.random()*$("#box ul li").length)
-				// vertical: true
-    });
+			/* Adverts slider */
+			$("#box").jCarouselLite({
+					auto: 10000,
+					speed: 700,
+					circular: true,
+					visible: 1,
+					easing: 'easeInOutCubic',
+					start: Math.floor(Math.random()*$("#box ul li").length)
+					,vertical: true
+	    });
 
-		/*
-		$('#box').hover(
-			function() {
-				$(this).fadeTo('slow', 1);
-			}, 
-			function() {
-				$(this).fadeTo('slow', 0.7);
-			}
-		)
-		*/
+			/*
+			$('#box').hover(
+				function() {
+					$(this).fadeTo('slow', 1);
+				}, 
+				function() {
+					$(this).fadeTo('slow', 0.7);
+				}
+			)
+			*/
 				
-});
-
-$(document).ready(function() {
-	
-			// smartInput 
+			// smartInputs ---------------------------------------------- 
 		
 			// sumbit the searchform on enter for b0rked browsers 
 			$('.smartInput').keypress(function(e){
@@ -77,7 +72,7 @@ $(document).ready(function() {
 				}
 			});		
 
-	
+	    /* login form js values */
 	    $('.form span.defaultValue').each(function() {
     
 	        var defaultValue = $(this).text();
@@ -102,7 +97,7 @@ $(document).ready(function() {
 	        }
 	    });  
 	
-		  /* Hover functions for HOT ----------------------------- */
+		  /* Hover ajax functions for /HOT ----------------------------- */
   		function hoveredItem(){ 
 					$.ajax({
 					  url: "/interests.js",
@@ -123,43 +118,41 @@ $(document).ready(function() {
 				over: someFunc, // function = onMouseOver callback (REQUIRED)    
 				timeout: 2500, // number = milliseconds delay before onMouseOut    
 				out: hoveredItem, // function = onMouseOut callback (REQUIRED)    
-				interval: 75
+				interval: 300
 			};
 			
 			$("#results li").hoverIntent(config)
 			$("#results li").click(function(){ clickedItem($(this).attr('id')); })
 	
-});	
 
-$(document).ready(function() {
-	
-	$('.love').click(function(){
+	    /* Love click handler ----------------- */
+			$('.love').click(function(){
 		
-			var heart = $(this).find('a');
-			var item = $(this).parents('li');
-			var state = heart.attr('class');
+					var heart = $(this).find('a');
+					var item = $(this).parents('li');
+					var state = heart.attr('class');
 			
-			//$(heart).ajaxStart(function() {
-			//  $(item).addClass('loading');
-			//});
+					//$(heart).ajaxStart(function() {
+					//  $(item).addClass('loading');
+					//});
 			
-			$.ajax({
-			  	url: "/likes/new",
-					data:  { id: item.attr('id') },
-  				success: function (msg) {
-							if (state == 'unliked') {
-									$(heart).attr('class','liked')
-							} else if (state == 'liked') {
-									$(heart).attr('class','unliked')
+					$.ajax({
+					  	url: "/likes/new",
+							data:  { id: item.attr('id') },
+		  				success: function (msg) {
+									if (state == 'unliked') {
+											$(heart).attr('class','liked')
+									} else if (state == 'liked') {
+											$(heart).attr('class','unliked')
+									}
+							},
+							error: function(){
+								window.location = "/users/login";		
 							}
-					},
-					error: function(){
-						window.location = "/users/login";		
-					}
 					
-			});
+					});
 		
-			return false;
-	})
+					return false;
+			})
 	
 });	
