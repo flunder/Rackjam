@@ -12,6 +12,7 @@ class Item < ActiveRecord::Base
   
   has_one :interest
   has_many :likes
+  has_many :alerts
   
   cattr_reader :per_page
   @@per_page = 60

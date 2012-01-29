@@ -1,5 +1,7 @@
 Synth4::Application.routes.draw do
 
+  resources :alerts
+
   root :to => "items#index"
 
   resources :brands
