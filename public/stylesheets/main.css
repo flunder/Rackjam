@@ -133,6 +133,7 @@ p.alert {
 #leftNav #filterList li a { color: #aaa; font-weight: normal; }
 #leftNav #filterList a:hover { color: black; }
 #leftNav #box { background: none repeat scroll 0 0 #eee; height: 62px !important; margin-top: 25px; width: 137px !important; overflow: hidden; /* filter: alpha(opacity=70); -khtml-opacity: 0.7; -moz-opacity: 0.7;  opacity: 0.7;*/ }
+#leftNav #box li { height: 62px; }
 #leftNav #copyLA { border-top: 1px solid #EEE; color: #333333; float: left; font-weight: bold; margin-top: 10px; padding-top: 10px; width: 135px; }
 #leftNav #fb { margin-top: 15px; width: 150px; overflow: hidden; height: 21px; } 
 
@@ -209,6 +210,8 @@ p.alert {
 	font-size: 12px;
 }
 
+
+
 form#brand_dropdown { width: 378px; }
 form#brand_dropdown div { float: left; }
 form#brand_dropdown select { float: left; }
@@ -236,9 +239,17 @@ background: none repeat scroll 0 0 white;
    line-height: 0.95em;
    padding: 25px;
    position: relative;
+   left: 10px;
    right: 25px;
    width: 580px;
 }
+
+#main {  height: 100%; position: relative;  }
+#main .nineonine { background: url("../images/large/909vbcut.png") no-repeat scroll 220px 0 #FFFFFF; }
+#main #imageOverlay { height: 100%;  width: 100%;  position: absolute;  z-index: 1; top: 0; left: 0; display: none; }
+#main #staticResults {  z-index: 10; }
+#main #leftNav { z-index: 100; }
+
 
 .loading { background: red; }
 
