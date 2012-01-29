@@ -11,6 +11,11 @@ class AlertsController < ApplicationController
     end
   end
 
+  def run
+    @result =  Alert.runAlertsForUser(2);
+    render :nothing => true
+  end
+
   # GET /alerts/1
   # GET /alerts/1.json
   def show
