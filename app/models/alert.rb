@@ -8,9 +8,11 @@ class Alert < ActiveRecord::Base
     @results = Array.new
     @alerts = Alert.where(:user_id => userId) # needs user and time limit
     
-    @alerts.each do |alert| 
+    @alerts.each do |alert|
+      puts alert.freetext
       @searchTerm = "%#{alert.freetext}%"
-      @items = Item.where("title LIKE ? OR desc LIKE ?", @searchTerm, @searchTerm)  
+      @searchPrice = "#{alert.price.to_i}"
+      @items = Item.where("title LIKE ? OR desc LIKE ? AND price < ?", @searchTerm, @searchTerm, @searchPrice).limit(100)  
       @results << @items unless @items.size == 0
     end
     

@@ -9,7 +9,7 @@ $(document).ready(function(){
 	/* Rackjam NOTICE cookie handling */
 	$('#closeIntro').click(function(){
 			$(this).parent('div').slideUp('slow');				
-			$.cookie( "rackjamnotice", "closed", { expires: 2 } ); 	
+			$.cookie( "rackjamnotice", "closed", { expires: 3 } ); 	
 	})
 	
 		/* ISOTOPE */

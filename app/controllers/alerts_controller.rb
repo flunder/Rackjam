@@ -12,12 +12,10 @@ class AlertsController < ApplicationController
   end
 
   def run
-    @result =  Alert.runAlertsForUser(2);
+    @result =  Alert.runAlertsForUser(current_user.id);
     render :nothing => true
   end
 
-  # GET /alerts/1
-  # GET /alerts/1.json
   def show
     @alert = Alert.find(params[:id])
 
@@ -27,8 +25,6 @@ class AlertsController < ApplicationController
     end
   end
 
-  # GET /alerts/new
-  # GET /alerts/new.json
   def new
     @alert = Alert.new
 
@@ -38,15 +34,18 @@ class AlertsController < ApplicationController
     end
   end
 
-  # GET /alerts/1/edit
   def edit
     @alert = Alert.find(params[:id])
   end
 
-  # POST /alerts
-  # POST /alerts.json
   def create
-    @alert = Alert.new(params[:alert])
+    
+    @alert = Alert.new(
+      :user_id => current_user.id,
+      :freetext => params[:alert][:freetext],
+      :price => params[:alert][:price],
+      :site => params[:alert][:site]
+    )
 
     respond_to do |format|
       if @alert.save
@@ -59,8 +58,6 @@ class AlertsController < ApplicationController
     end
   end
 
-  # PUT /alerts/1
-  # PUT /alerts/1.json
   def update
     @alert = Alert.find(params[:id])
 
@@ -75,8 +72,6 @@ class AlertsController < ApplicationController
     end
   end
 
-  # DELETE /alerts/1
-  # DELETE /alerts/1.json
   def destroy
     @alert = Alert.find(params[:id])
     @alert.destroy
