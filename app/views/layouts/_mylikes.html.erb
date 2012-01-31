@@ -1,0 +1,12 @@
+<% if user_signed_in? %>
+	<h3>My Likes</h3>
+	<% @myLikes = current_user.likes.all %>
+		<ul id="likesList">
+			<% if @myLikes.size > 0 %>
+			<li>
+				<a href=""><img src="http://cdn.official.fm/user_avatars/136/136133_tiny.jpg?t=12_01_25__06_24_37" width="25"/></a>
+				<a href="" class="itemName">asfasfas</a>		
+			</li>
+			<% end %>
+		</ul>	
+<% end %>

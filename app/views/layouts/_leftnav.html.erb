@@ -1,61 +1,7 @@
-<% @cookie_value = cookies[:rackjamnotice] %>
-
-<% if @cookie_value != 'closed' %>
-	<div id="intro">
-		<%= Twitter.user_timeline("rackjam").first.text %>
-		<a href="#" id="closeIntro">x</a>
-	</div>
-<% end %>
-
-<h3 id="dash">Dashboard</h3>
-
-<ul id="dashList">
-	<% if user_signed_in? %><li>ID: <%= current_user.id %></li><% end %>
-	<li id="d_about"><%= link_to_unless_current 'About', about_path %></a></li>
-	<li id="d_hot"><%= link_to_unless_current 'Whats hot', hot_path %></a></li>	
-	<% if user_signed_in? %><li><%= link_to_unless_current 'Account', edit_user_registration_path %></li><% end %>
-	<% if user_signed_in? %><li><%= link_to_unless_current 'Alerts', alerts_path %></li><% end %>	
-    <% if user_signed_in? %><li id="dash_likes"><%= link_to_unless_current 'Likes', likes_path %></li><% end %>	
-	<% if user_signed_in? %><li><%= link_to 'Logout', destroy_user_session_path %><% end %>
-	<% if !user_signed_in? %><li><%= link_to 'Register', new_user_registration_path %> or <%= link_to 'Sign in', new_user_session_path %></li><% end %>
-</ul>	
-
-<% if user_signed_in? %>
-	<h3>My Likes</h3>
-	<% @myLikes = current_user.likes.all %>
-		<ul id="likesList">
-			<% if @myLikes.size > 0 %>
-			<li>
-				<a href=""><img src="http://cdn.official.fm/user_avatars/136/136133_tiny.jpg?t=12_01_25__06_24_37" width="25"/></a>
-				<a href="" class="itemName">asfasfas</a>		
-			</li>
-			<% end %>
-		</ul>	
-<% end %>
-
-<h3>Filter by</h3>
-<ul id="filterList">
-	<li><%= link_to_if(params[:type], 'No filters') %></li>	
-	<li><%= link_to_if(params[:type] != 'compressor', 'Compressors', :type => "compressor" ) %></li>	
-	<li><%= link_to_if(params[:type] != 'sampler', 'Samplers', :type => "sampler" ) %></li>	
-	<li><%= link_to_if(params[:type] != 'synth', 'Synth', :type => "synth" ) %></li>			
-	<li><%= link_to_if(params[:type] != 'machine', 'Machines', :type => "machine" ) %></li>		
-	<li><%= link_to_if(params[:type] != 'mic', 'Mics', :type => "mic" ) %></li>		
-	<li><%= link_to_if(params[:type] != 'mixer', 'Mixers', :type => "mixer" ) %></li>		
-</ul>
-
-<div id="fb">
-	<div id="fb-root"></div>
-	<script src="http://connect.facebook.net/en_US/all.js#appId=222715851108793&amp;xfbml=1"></script>
-	<fb:like href="http://www.facebook.com/home.php#!/pages/Rackjam/222715851108793" send="false" layout="button_count" width="450" show_faces="false" font=""></fb:like>
-</div>
-
-<div id="box">
-	<ul>
-		<li><a href="http://www.snufflr.net"><img src="/images/ads/ad-snuffler.png" /></a></li>
-		<li><a href="http://www.bikeshd.co.uk/"><img src="/images/ads/ad-bikeshd.png" /></a></li>			
-		<li><a href="http://www.larsattacks.co.uk"><img src="/images/ads/ad-la.png" /></a></li>			
-	</ul>
-</div>
+<%= render 'layouts/notice' %>
+<%= render 'layouts/dashboard' %>
+<%= render 'layouts/mylikes' %>
+<%= render 'layouts/filter' %>
+<%= render 'layouts/social' %>
 
 <a href="http://www.larsattacks.co.uk" id="copyLA">&copy; LA 2011</a>
