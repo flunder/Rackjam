@@ -91,23 +91,6 @@ class ItemsController < ApplicationController
       format.rss { redirect_to feed_path(:format => :atom), :status => :moved_permanently } # we want the RSS feed to redirect permanently to the ATOM feed
     end
   end
-    
-  def get_view
-    
-    if params[:view]
-      @view = params[:view]
-      cookies[:view] = { :value => @view, :expires => 24.hours.from_now }
-    else
-      # Get view from cookie    
-      if cookies[:view] 
-        @view = cookies[:view] 
-      else
-        cookies[:view] = { :value => "grid", :expires => 24.hours.from_now }
-      end
-    end    
-    
-    @view ||= 'grid'
-  end  
   
   def debug
     #Item.get();

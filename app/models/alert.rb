@@ -16,12 +16,14 @@ class Alert < ActiveRecord::Base
       @results << @items unless @items.size == 0
     end
     
-    puts @results
-    return @results
+
+    puts "#{@results}**"
     
     #@user = User.first
     #UserMailer.welcome_email(@user).deliver
-    mail(:to => 'larsf2005@gmail.com', :subject => "Registered")  
+    #mail(:to => 'larsf2005@gmail.com', :subject => "Registered")  
+    
+    return @results
     
   end
   

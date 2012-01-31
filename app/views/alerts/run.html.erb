@@ -1,0 +1,10 @@
+<div id="results" class="<%=controller.controller_name %> items <%=@view%>">
+	<h3 id="headline">Results</h3>
+	<h4 id="headline2"></h4>
+	
+	<ul class="viewThumbs">
+		<%= render(:partial => "items/griditem", :collection => @result[0] ) %>
+	</ul>
+	
+
+</div>

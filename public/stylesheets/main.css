@@ -35,7 +35,7 @@ h1 {  font-family: orbitron;  }
 #header #brand_dropdown select { width: 200px; font-size: 12px; color: #222222; padding: 2px 2px 2px 10px;;}
 
 #results { margin-top: 90px; margin-left: 200px;  }
-#results.items ul { list-style-type:none; clear:both; float:left; }
+#results.items ul { list-style-type:none; clear:both; float:left; position: relative; }
 #results.items.grid ul img { float:left; width:200px; max-width:200px; min-width:200px; max-height:134px; min-height:134px; overflow:hidden; }
 #results.items.grid ul li.item { width:200px; overflow:hidden; float:left; margin-right: 30px; margin-bottom: 30px; color: #222; }
 #results.items.grid ul li.item .image { margin-bottom: 10px; float: left; }
@@ -253,3 +253,15 @@ background: none repeat scroll 0 0 white;
 
 .loading { background: red; }
 
+h3#headline {
+    color: #333333;
+    font-size: 26px;
+    line-height: 32px;
+}
+
+h4#headline2 {
+    color: #333333;
+    font-size: 15px;
+    font-weight: bold;
+    margin: 20px 0 15px;
+}

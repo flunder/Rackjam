@@ -1,6 +1,7 @@
 class AlertsController < ApplicationController
 
   before_filter :authenticate_user!
+  before_filter :get_view
 
   def index
     @alerts = Alert.all
@@ -12,8 +13,7 @@ class AlertsController < ApplicationController
   end
 
   def run
-    @result =  Alert.runAlertsForUser(current_user.id);
-    render :nothing => true
+    @result =  Alert.runAlertsForUser(current_user.id); 
   end
 
   def show
