@@ -14,6 +14,7 @@ class AlertsController < ApplicationController
 
   def run
     @result =  Alert.runAlertsForUser(current_user.id); 
+    @items = @result[0]
   end
 
   def show

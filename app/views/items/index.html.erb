@@ -1,36 +1,5 @@
-<!--%= render "layouts/notice" %-->
-
-<% c = 0; %>
 <div id="results" class="<%=controller.controller_name %> <%=@view%>">
-<% @items.group_by(&:dayInYear).each do |dayInYear, items| %>
-  	<% t = Time.new %>
-	<% c += 1 %>
-
-	<% @dateNow ||= Time.gm(t.year,t.month,t.day,t.hour,t.min,t.sec) %>	
-	<% @differenceDays = (dayInYear.to_i - @dateNow.strftime("%j").to_i) %>
-	<% @date = @dateNow + @differenceDays.to_f.days %>
-	<% @date = @date.strftime("%d/%m/%Y") %>
-	
-	<% if (@dateNow.strftime("%d/%m/%Y") == @date)%>
-		<% @date = "Today"%>
-	<% end %>
-	
-	<h2 id="headline<%=c%>"><!--%=@date%--></h2>
-	
-	<% if @view == 'grid' %>
-		<ul class="viewThumbs">
-			<%= render(:partial => "griditem", :collection => items ) %>
-		</ul>	
-	<% else %>
-		<ul class="viewThumbs">	
-			<%= render(:partial => "listitem", :collection => items) %>
-		</ul>
-		<ul class="listItems">
-			<%= render(:partial => "listitemmin", :collection => items) %>
-		</ul>
-	<% end %>	
-	
-<% end %>
+	<%= render 'view' %>
 </div>
 
 <div id="paginationWrap">

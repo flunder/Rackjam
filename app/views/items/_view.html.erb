@@ -1,0 +1,9 @@
+<% if @view == 'grid' %>
+	<ul class="viewThumbs">
+		<%= render(:partial => "items/griditem", :collection => @items ) %>
+	</ul>	
+<% else %>
+	<ul class="viewThumbs">	
+		<%= render(:partial => "items/listitem", :collection => @items) %>
+	</ul>
+<% end %>
