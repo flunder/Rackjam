@@ -146,6 +146,9 @@ class Item < ActiveRecord::Base
               @feeditem = reformatItem(@feeditem, source)
               puts "insert (#{source})"
               createItem(@feeditem,entry,source)
+              # Alert
+              @createdItem = Item.where(:url => entry.url)
+              Alert.checkid(@createdItem.first.id) 
             end
           else 
             puts 'existed'

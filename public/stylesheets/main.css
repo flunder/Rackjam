@@ -116,7 +116,7 @@ p.alert { position: absolute; top: 120px; left: 200px;  font-size: 14px; -moz-bo
 .registrations.regEdit p { margin-bottom: 5px; }
 .registrations input[id='user_submit'] { margin-top: 10px; }
 
-#paginationWrap { clear: both; font-size: 1.3em; left: 200px; margin-bottom: 50px; margin-top: 20px; position: relative; width: 70%; }
+#paginationWrap { clear: both; font-size: 1.3em; left: 200px; margin-bottom: 25px; margin-top: 20px; position: relative; width: 70%; }
 #paginationWrap .pagination { font-weight: bold; font-size: 0.8em; }
 #paginationWrap .pagination * { -moz-border-radius: 5px; -webkit-border-radius: 5px; -khtml-border-radius: 5px; border-radius: 5px; margin: 0 5px; line-height: 3.5em; }
 #paginationWrap .pagination .previous_page { background: #ddd; padding: 10px 20px; color: #333; }

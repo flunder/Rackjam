@@ -16,6 +16,11 @@ class AlertsController < ApplicationController
     @result =  Alert.runAlertsForUser(current_user.id); 
     @items = @result[0]
   end
+  
+  def checkid
+    Alert.checkid(params[:id])
+    render :nothing => true
+  end
 
   def show
     @alert = Alert.find(params[:id])

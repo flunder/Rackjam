@@ -3,7 +3,36 @@ class Alert < ActiveRecord::Base
   belongs_to :user
   belongs_to :item
   
+  def self.checkid(id)
+    
+    # Alert check at insert time  
+      
+    @users = User.all
+    @users.each do |user|
+      
+      @userId = user.id
+      @alerts = user.alerts
+      
+      # Only get the Item if there are alerts
+      @myItem = Item.where("id = ?", id).first if @alerts
+      
+      user.alerts.each do |alert|
+        @alertFreetext = "%#{alert.freetext}%"
+        puts "running alert for user: #{@userId} for '#{@alertFreetext}'"
+        @myItem = Item.where("id = ? AND (title LIKE ? OR desc LIKE ?)", id, @alertFreetext, @alertFreetext) # need to do pricing
+        
+        puts "hit" if @myItem.size != 0
+
+      end
+      
+    end
+
+    puts "** ALERT RUN *******"
+  end
+  
   def self.runAlertsForUser(userId) 
+    
+    # More like a newsletter
   
     @results = Array.new
     @alerts = Alert.where(:user_id => userId) # needs user and time limit

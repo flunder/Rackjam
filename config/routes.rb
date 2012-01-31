@@ -21,6 +21,7 @@ Synth4::Application.routes.draw do
   match "categorize/:id" => "items#categorize"
   match "debug/"         => "items#debug"  
   match "runalerts/"     => "alerts#run"
+  match "checkid/:id"    => "alerts#checkid"  
   
   devise_for :users, 
              :path_prefix => '',
