@@ -130,19 +130,25 @@ class Item < ActiveRecord::Base
       feed.entries.each_with_index do |entry,index|
         
           puts ">> Checking #{entry.url}\n"
-          @feedpage = open(entry.url).read
-          @feeditem = feedSpecificFields(source)
-          @feeditem = @feeditem.scrape(Iconv.conv('UTF8//IGNORE', @feedpage.encoding.to_s, @feedpage), :parser=>:html_parser)          
-          @feeditem = validateItem(@feeditem)
+          
+          @exists = Item.exists?(:url => entry.url)
+          if !@exists 
+            @feedpage = open(entry.url).read
+            @feeditem = feedSpecificFields(source)
+            @feeditem = @feeditem.scrape(Iconv.conv('UTF8//IGNORE', @feedpage.encoding.to_s, @feedpage), :parser=>:html_parser)          
+            @feeditem = validateItem(@feeditem)
 
-          #puts "#{@feeditem}\n\n"
+            #puts "#{@feeditem}\n\n"
 
-          if exists? :url => entry.url or @feeditem == false
-            puts "existed,broken or skipped!"
-          else
-            @feeditem = reformatItem(@feeditem, source)
-            puts "insert (#{source})"
-            createItem(@feeditem,entry,source)
+            if exists? :url => entry.url or @feeditem == false
+              puts "existed,broken or skipped!"
+            else
+              @feeditem = reformatItem(@feeditem, source)
+              puts "insert (#{source})"
+              createItem(@feeditem,entry,source)
+            end
+          else 
+            puts 'existed'
           end
 
       end

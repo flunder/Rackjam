@@ -142,8 +142,17 @@ p.alert {
 .registrations.regEdit p { margin-bottom: 5px; }
 .registrations input[id='user_submit'] { margin-top: 10px; }
 
-#paginationWrap { clear: both; font-size: 1.3em; left: 200px; margin-bottom: 25px; position: relative; width: 400px; }
-
+#paginationWrap { clear: both; font-size: 1.3em; left: 200px; margin-bottom: 50px; margin-top: 20px; position: relative; width: 400px; }
+#paginationWrap .pagination { font-weight: bold; font-size: 0.8em}
+#paginationWrap .pagination * { -moz-border-radius: 5px; -webkit-border-radius: 5px; -khtml-border-radius: 5px; border-radius: 5px; margin: 0 5px; }
+#paginationWrap .pagination .previous_page { background: #ddd; padding: 10px 20px; color: #333;  }
+#paginationWrap .pagination .next_page { background: #ddd; padding: 10px 20px; color: #333; }
+#paginationWrap .pagination a { background: #ddd; padding: 10px 15px; color: #333; }
+#paginationWrap .pagination .gap { background: #ddd; padding: 10px 15px; color: #333; }
+#paginationWrap .pagination em { background: #333; padding: 10px 15px; color: white; }
+#paginationWrap .pagination a:hover, 
+#paginationWrap .pagination em:hover { background: #222; color: white; }
+#paginationWrap .pagination .disabled { color: #aaa; }
 
 #staticResults {	
 	margin-left: 200px;
@@ -192,10 +201,10 @@ p.alert {
 #staticResults.form  #user_remember_me { margin-left: 0px; } 
 
 #staticResults.form input[type="submit"] {
- 	-moz-border-radius: 0.4em; 
-	-webkit-border-radius: 0.4em; 
-	-khtml-border-radius: 0.4em; 
-	border-radius: 0.4em; 
+ 		-moz-border-radius: 0.4em; 
+		-webkit-border-radius: 0.4em; 
+		-khtml-border-radius: 0.4em; 
+		border-radius: 0.4em; 
     background-color: #333333;
     border: medium none;
     color: #FFFFFF;
@@ -210,7 +219,9 @@ p.alert {
 	font-size: 12px;
 }
 
-
+#staticResults.form input[type="submit"]:hover {
+	background-color: #222;
+}
 
 form#brand_dropdown { width: 378px; }
 form#brand_dropdown div { float: left; }
@@ -253,15 +264,6 @@ background: none repeat scroll 0 0 white;
 
 .loading { background: red; }
 
-h3#headline {
-    color: #333333;
-    font-size: 26px;
-    line-height: 32px;
-}
+h3#headline { color: #333333; font-size: 26px; line-height: 32px; }
+h4#headline2 { color: #333333; font-size: 15px; font-weight: bold; margin: 20px 0 15px; }
 
-h4#headline2 {
-    color: #333333;
-    font-size: 15px;
-    font-weight: bold;
-    margin: 20px 0 15px;
-}
