@@ -4,7 +4,7 @@ class AlertsController < ApplicationController
   before_filter :get_view
 
   def index
-    @alerts = Alert.all
+    @alerts = current_user.alerts
 
     respond_to do |format|
       format.html # index.html.erb
@@ -17,14 +17,22 @@ class AlertsController < ApplicationController
     @items = @result[0]
   end
   
-  def checkid
-    Alert.checkid(params[:id])
+  def checkid    
+    Alert.checkId(params[:id])
+    render :nothing => true
+  end
+
+  def checkalert    
+    @itemId = params[:itemId]
+    @userId = params[:userId]
+    @alertId = params[:alertId]        
+
+    Alert.checkAlert(@itemId, @userId, @alertId)
     render :nothing => true
   end
 
   def show
     @alert = Alert.find(params[:id])
-
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @alert }

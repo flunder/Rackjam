@@ -11,6 +11,7 @@
 	    <th></th>
 	    <th></th>
 	    <th></th>
+ 	    <th></th>
 	  </tr>
 
 	<% @alerts.each do |alert| %>
@@ -22,6 +23,7 @@
 	    <td><%= link_to 'Show', alert %></td>
 	    <td><%= link_to 'Edit', edit_alert_path(alert) %></td>
 	    <td><%= link_to 'Destroy', alert, confirm: 'Are you sure?', method: :delete %></td>
+		<td><%= link_to 'Run', { :controller => "/alerts", :action => "checkalert", :alertId => alert.id, :userId => current_user.id } %></td>
 	  </tr>
 	<% end %>
 	</table>

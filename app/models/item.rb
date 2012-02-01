@@ -148,7 +148,8 @@ class Item < ActiveRecord::Base
               createItem(@feeditem,entry,source)
               # Alert
               @createdItem = Item.where(:url => entry.url)
-              Alert.checkid(@createdItem.first.id) 
+              #Alert.checkid(@createdItem.first.id) 
+              Alert.checkAlert(@createdItem.first.id, false, false)               
             end
           else 
             puts 'existed'

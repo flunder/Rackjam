@@ -126,7 +126,7 @@ p.alert { position: absolute; top: 120px; left: 200px;  font-size: 14px; -moz-bo
 #paginationWrap .pagination em { background: #333; padding: 10px 15px; color: white; }
 #paginationWrap .pagination a:hover, 
 #paginationWrap .pagination em:hover { background: #222; color: white; }
-#paginationWrap .pagination .disabled { color: #aaa; }
+#paginationWrap .pagination .disabled { color: #aaa; display: none; }
 
 #staticResults { margin-left: 200px; margin-top: 90px; }
 #staticResults h3 {	color: #333; font-size: 26px; line-height: 32px; }
