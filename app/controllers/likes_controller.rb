@@ -5,9 +5,6 @@ class LikesController < ApplicationController
   
   def index
     @likes = current_user.likes.all
-    
-    #select * from items where user = 1 
-    
     respond_with @likes
   end
 
@@ -21,7 +18,6 @@ class LikesController < ApplicationController
     if request.xhr? 
       Like.updateOne(params[:id], current_user.id.to_i);      
       render :nothing => true
-      # render :js 
     else 
       @like = Like.new
       respond_with @like

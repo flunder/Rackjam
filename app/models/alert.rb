@@ -39,44 +39,16 @@ class Alert < ActiveRecord::Base
                         )
                       end
                   end
-              end
-              
+              end    
           end
-      end 
-        
+      end         
   end
-  
-  def self.checkId(id)
-    
-    # Alert check at insert time  
-      
-    @users = User.all
-    @users.each do |user|
-      
-      @userId = user.id
-      @alerts = user.alerts
-      
-      # Only get the Item if there are alerts
-      # safes us time and it won't go into the each loop anyways
-      @myItem = Item.where("id = ?", id).first if @alerts
-      
-      @alerts.each do |alert|
-        @alertFreetext = "%#{alert.freetext}%"
-        puts "running alert for user: #{@userId} for '#{@alertFreetext}'"
-        @myItem = Item.where("id = ? AND (title LIKE ? OR desc LIKE ?)", id, @alertFreetext, @alertFreetext) # need to do pricing and time limit
-        
-        puts "hit" if @myItem.size != 0
 
-      end
-      
-    end
-
-    puts "** ALERT RUN *******"
-  end
   
   def self.runAlertsForUser(userId) 
     
     # More like a newsletter
+    # ~ use it as saved searches?
   
     @results = Array.new
     @alerts = Alert.where(:user_id => userId) # needs user and time limit
@@ -89,12 +61,8 @@ class Alert < ActiveRecord::Base
       @results << @items unless @items.size == 0
     end
     
-
     puts "#{@results}**"
-    
-    #@user = User.first
-    #UserMailer.welcome_email(@user).deliver
-    #mail(:to => 'larsf2005@gmail.com', :subject => "Registered")  
+    # Create notification ?
     
     return @results
     

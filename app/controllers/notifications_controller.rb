@@ -3,7 +3,7 @@ class NotificationsController < ApplicationController
   before_filter :authenticate_user!
 
   def index
-    @notifications = current_user.notifications
+    @notifications = current_user.notifications.order('item_id DESC')
 
     respond_to do |format|
       format.html # index.html.erb
@@ -18,6 +18,11 @@ class NotificationsController < ApplicationController
       format.html # show.html.erb
       format.json { render json: @notification }
     end
+  end
+
+  def run
+    Notification.run()
+    render :nothing => true
   end
 
   def new

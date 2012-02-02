@@ -18,13 +18,13 @@ Synth4::Application.routes.draw do
              :as => :feed,
              :defaults => { :format => 'atom' }
       
-  match "get/"           => "items#get"
-  match "getone/:url"    => "items#getone"
-  match "categorize/:id" => "items#categorize"
-  match "debug/"         => "items#debug"  
-  match "runalerts/"     => "alerts#run"
-  match "checkid/:id"    => "alerts#checkid" 
-  match "checkalert"     => "alerts#checkalert"    
+  match "get/"             => "items#get"
+  match "getone/:url"      => "items#getone"
+  match "categorize/:id"   => "items#categorize"
+  match "debug/"           => "items#debug"  
+  match "runalerts/"       => "alerts#run"
+  match "checkalert"       => "alerts#checkalert"    
+  match "runnotifications" => "notifications#run"      
   
   devise_for :users, 
              :path_prefix => '',

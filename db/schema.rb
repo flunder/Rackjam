@@ -107,6 +107,7 @@ ActiveRecord::Schema.define(:version => 20120202000011) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "twittername"
+    t.string   "username"
   end
 
   add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token", :unique => true

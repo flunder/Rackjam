@@ -1,8 +1,9 @@
 <div id="staticResults" class="<%=controller.controller_name %>">
-	<h3>Listing notifications</h3>
+	<h3>My Notifications</h3>
 
 	<table>
 	  <tr>
+		<th>User</th>
 	    <th>Item</th>	
 	    <th>Status</th>			
 	    <th></th>
@@ -12,6 +13,7 @@
 
 	<% @notifications.each do |notification| %>
 	  <tr>
+	    <td><%= notification.user_id %></td>				
 	    <td><%= notification.item_id %></td>		
 	    <td><%= notification.status %></td>			
 	    <td><%= link_to 'Show', notification %></td>
