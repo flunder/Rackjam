@@ -5,9 +5,9 @@ class Alert < ActiveRecord::Base
   
   def self.checkAlert(itemId, userId, alertId)
     
-      # itemId  = item to check for or all : can be used for a single item from the scraper
-      # userId  = user to check for or its all of them
-      # alertId = alert to be checked
+      # itemId  = item to check for or all  ( if false ) : can be used for a single item from the scraper
+      # userId  = user to check for or its all of them ( if false )
+      # alertId = alert to be checked  ( if false )
      
       userId ? (@users = User.where(:id => userId)) : (@users = User.all)
     
@@ -25,6 +25,22 @@ class Alert < ActiveRecord::Base
                 @myItems = Item.where("title LIKE ? OR desc LIKE ?", "%#{alert.freetext}%", "%#{alert.freetext}%") # need to do pricing and time limit
               end
               @myItems.size != 0 ? (puts "found #{@myItems.size} items") : (puts "miss")
+              
+              if @myItems.size != 0
+                  @myItems.each do |item|
+                     @myNotification = Notification.where(:item_id => item.id, :user_id => @userId)
+                     if @myNotification.exists?
+                       puts "existed"
+                     else
+                       Notification.create!(
+                            :item_id      => item.id,
+                            :user_id      => @userId,
+                            :status       => 'new'
+                        )
+                      end
+                  end
+              end
+              
           end
       end 
         
