@@ -15,7 +15,7 @@ class Item < ActiveRecord::Base
   has_many :alerts
   
   cattr_reader :per_page
-  @@per_page = 60
+  @@per_page = 30
   
   acts_as_taggable_on :brands
   

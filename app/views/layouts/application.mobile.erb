@@ -14,8 +14,11 @@
 	<meta property="og:title" content="Rackjam" />
 	<meta property="og:description" content="Rackjam UK, sorts your synth fix" />
 	
-	<%= include_stylesheets :rackjam, :media => 'all'  %>
-	<%= include_javascripts :rackjam  %>	
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+	<meta name="format-detection" content="telephone=no" />
+	
+	<%= include_stylesheets :mobile, :media => 'all' %>
+	<%= include_javascripts :mobile %>	
 	
 	<%= auto_discovery_link_tag :atom, "/feed" %>
 	<%= auto_discovery_link_tag :rss, "/feed.rss" %>
@@ -26,18 +29,24 @@
 </head>
 
 <body>
+	
 	<div id="header">
-		<%= render "layouts/header" %>
+		<%= render "layouts/header.html" %>
 	</div>
 	
+
 	<div id="main">	
-		<div id="leftNav">
-			<%= render "layouts/leftnav" %>
-		</div>
-    	<%= yield  %>
+    	<%= yield %>
 	</div>	
 	
-	<%= render "layouts/tracking" %>
+	<div id="footer">
+		<ul>
+			<!-- ><li><%= link_to_unless_current 'About', about_path %></li> -->
+			<li><%= link_to "Full Site", root_url(:mobile => 0), :class => "button", :rel => "external" %></li>
+		</ul>
+	</div>
+	
+	<%= render "layouts/tracking.html" %>
 </body>
 </html>
 

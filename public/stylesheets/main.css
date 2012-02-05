@@ -5,7 +5,7 @@ html,body,div,span,applet,object,iframe, h1,h4,h5,h6,p,blockquote,pre, a,abbr,ac
 
 /* -- Styles */
 html{ background-color: #fff; height: 100%; }
-body{ font-family:Helvetica, Arial, Verdana; color:#666; font-size:12px; line-height:10px;  background: #fff;  height: 100%; }
+body{ font-family: Helvetica, Arial, Verdana; color:#666; font-size:12px; line-height:10px;  background: #fff;  height: 100%; }
 
 #main { padding-left: 30px; padding-top: 30px; }
 
@@ -42,9 +42,9 @@ h1 {  font-family: orbitron;  }
 #results.items.grid ul li.item .options { border-top: 1px solid #DDD; float: left; margin-top: 5px; width: 100%; }
 #results.items ul li.item .shortDesc { padding: 0px;  float: left;  font-size: 11px; line-height: 1.35em; }
 #results.items ul li.item .details { padding: 0px;  float: left;  font-size: 11px; line-height: 1.35em; }
-#results.items ul li.item .details .brandTags { margin-top: 4px;}
-#results.items ul li.item .details .brandTags a { color: #bbb; font-weight: bold;  padding-right: 5px; }
-#results.items ul li.item .details .brandTags a:hover { color: red; }
+#results.items ul li.item .brandTags { margin-top: 4px;}
+#results.items ul li.item .brandTags a { color: #bbb; font-weight: bold;  padding-right: 5px; }
+#results.items ul li.item .brandTags a:hover { color: red; }
 #results.items ul li.item ul.details { list-style-type: none; margin: 5px 0 0 0; padding: 6px 0 4px 0; width: 100%;	 border-top: 1px solid #DDDDDD; border-bottom: 1px solid #EFEFEF; }
 #results.items ul li.item ul.details li { display: inline-block; margin-right: 8px; font-weight: bold; }
 
@@ -109,7 +109,7 @@ p.alert { position: absolute; top: 120px; left: 200px;  font-size: 14px; -moz-bo
 #leftNav #box { background: none repeat scroll 0 0 #eee; height: 62px !important; margin-top: 25px; width: 137px !important; overflow: hidden; /* filter: alpha(opacity=70); -khtml-opacity: 0.7; -moz-opacity: 0.7;  opacity: 0.7;*/ }
 #leftNav #box li { height: 62px; }
 #leftNav #copyLA { border-top: 1px solid #EEE; color: #333333; float: left; font-weight: bold; margin-top: 10px; padding-top: 10px; width: 135px; }
-#leftNav #fb { margin-top: 15px; width: 150px; overflow: hidden; height: 21px; } 
+#leftNav #fb { margin-top: 15px; width: 150px; overflow: hidden; height: 24px; } 
 
 .registrations {  line-height: 1.4em; }
 .registrations form label {  float: left; font-weight: bold; }

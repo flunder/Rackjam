@@ -27,7 +27,7 @@
 		<div class="options">
 			<ul class="details">
 				<li class="time"><%= time_ago_in_w(item.updated_at) %></li>
-				<li class="love"><%=  render :partial => "items/like", :locals => { :item => item } %></li>
+				<li class="love"><%= render :partial => "items/like", :locals => { :item => item } %></li>
 				<li class="site"><%= link_to item.site.capitalize, item.url %></li>
 				<li class="price last">&pound;<%=item.price %></li>
 			</ul>

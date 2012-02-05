@@ -1,37 +1,41 @@
-<h1><a href="/">Rackjam</a><span>v0.4</span></h1>
+<h1><a href="/">Rackjam</a><span>v0.5</span></h1>
 
-<div id="viewAs">
-	<span>Layout View</span>
+<% if !mobile_device? %>
+
+	<div id="viewAs">
+		<span>Layout View</span>
 	
-	<% if @view == 'grid' %>
-		<%= link_to 'grid', params.merge(:view => 'grid'), :id => 'viewAsGrid', :class => 'selected'  %>
-	<% else %>
-		<%= link_to 'grid', params.merge(:view => 'grid'), :id => 'viewAsGrid'%>
+		<% if @view == 'grid' %>
+			<%= link_to 'grid', params.merge(:view => 'grid'), :id => 'viewAsGrid', :class => 'selected'  %>
+		<% else %>
+			<%= link_to 'grid', params.merge(:view => 'grid'), :id => 'viewAsGrid'%>
+		<% end %>
+	
+		<% if @view == 'list' %>
+			<%= link_to 'list', params.merge(:view => 'list'), :id => 'viewAsList', :class => 'selected'  %>
+		<% else %>
+			<%= link_to 'list', params.merge(:view => 'list'), :id => 'viewAsList' %>
+		<% end %>		
+	</div>	
+
+	<% @brands = Item.brand_counts.order('name ASC') %>
+	<% unless @brands.empty? %>
+		<form action="/" id="brand_dropdown">
+			<select name="brand" onchange='this.form.submit()'>
+				<option value="all">Select Brand</option>
+				<% @brands.each do |brand| %>
+					<% if params[:brand] == brand.name.downcase %>
+						<option value="<%= brand %>" selected="selected"><%= brand.name.capitalize %></option>
+					<% else %>
+						<option value="<%= brand %>"><%= brand.name.capitalize %></option>
+					<% end %>
+				<% end %>
+			</select>
+			<input type="text" size="30" name="search" id="search" class="smartInput">
+		</form>
 	<% end %>
 	
-	<% if @view == 'list' %>
-		<%= link_to 'list', params.merge(:view => 'list'), :id => 'viewAsList', :class => 'selected'  %>
-	<% else %>
-		<%= link_to 'list', params.merge(:view => 'list'), :id => 'viewAsList' %>
-	<% end %>		
-</div>	
-
-<% @brands = Item.brand_counts.order('name ASC') %>
-<% unless @brands.empty? %>
-	<form action="/" id="brand_dropdown">
-		<select name="brand" onchange='this.form.submit()'>
-			<option value="all">Select Brand</option>
-			<% @brands.each do |brand| %>
-				<% if params[:brand] == brand.name.downcase %>
-					<option value="<%= brand %>" selected="selected"><%= brand.name.capitalize %></option>
-				<% else %>
-					<option value="<%= brand %>"><%= brand.name.capitalize %></option>
-				<% end %>
-			<% end %>
-		</select>
-		<input type="text" size="30" name="search" id="search" class="smartInput">
-	</form>
-<% end %>
+<% end %>	
 
 <% if notice %><p class="notice"><%= notice %></p><% end %>
 <% if alert %><p class="alert"><%= alert %></p><% end %>

@@ -1,7 +1,7 @@
 class ItemsController < ApplicationController
 
   before_filter :get_view
-  respond_to :js, :html, :json #, :iphone
+  respond_to :js, :html, :json, :mobile
 
   def index
     
@@ -9,7 +9,7 @@ class ItemsController < ApplicationController
     if params[:type] 
       @getItems = Item.type(params[:type])
     else 
-      @getItems = Item.hasimage.within(10.days.ago)         
+      @getItems = Item.hasimage.within(10.days.ago)      
     end
     
     # Search
@@ -22,6 +22,7 @@ class ItemsController < ApplicationController
     @items = @getItems.paginate :page => params[:page]                                           # Paginate
 
     respond_with @items
+
   end
   
   def top
