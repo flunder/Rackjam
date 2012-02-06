@@ -14,8 +14,8 @@ class Item < ActiveRecord::Base
   has_many :likes
   has_many :alerts
   
-  cattr_reader :per_page
-  @@per_page = 60
+  #cattr_reader :per_page
+  #@@per_page = 60
   
   acts_as_taggable_on :brands
   

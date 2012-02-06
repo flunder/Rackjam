@@ -26,11 +26,18 @@ class ApplicationController < ActionController::Base
         request.user_agent =~ /Mobile|webOS/
       end
     end
+    
     helper_method :mobile_device?
 
     def prepare_for_mobile
       session[:mobile_param] = params[:mobile] if params[:mobile]
       request.format = :mobile if mobile_device?
+      
+      if mobile_device?
+        Item.per_page = 30
+      else
+        Item.per_page = 60
+      end
     end
   
 end

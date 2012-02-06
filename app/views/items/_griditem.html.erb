@@ -10,19 +10,17 @@
 	
 	<div class="shortDesc">
 		<h3><%= truncate(item.title, :length => 100).capitalize %></h3>
-		<p>
-			<% if !mobile_device? %>
-				<%= truncate(item.desc, :length => 150).capitalize %>
-		    <% else %>
+		<% if !mobile_device? %>
+			<p>
 				<%= truncate(item.desc, :length => 50).capitalize %>
+			</p>
+			<% unless item.brand_list.empty? %>
+				<div class="brandTags">
+					<% item.brands.each do |k| %>
+						<%= link_to k.name.capitalize , "?brand=#{k.name}" %>
+					<% end %>
+				</div>
 			<% end %>
-		</p>
-		<% unless item.brand_list.empty? %>
-			<div class="brandTags">
-				<% item.brands.each do |k| %>
-					<%= link_to k.name.capitalize , "?brand=#{k.name}" %>
-				<% end %>
-			</div>
 		<% end %>
 	</div>
 

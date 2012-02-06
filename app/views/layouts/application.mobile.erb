@@ -19,6 +19,7 @@
 	
 	<%= include_stylesheets :mobile, :media => 'all' %>
 	<%= include_javascripts :mobile %>	
+    <link rel="stylesheet" type="text/css" href="stylesheets/retina.css" media="only screen and (-webkit-min-device-pixel-ratio: 2)">
 	
 	<%= auto_discovery_link_tag :atom, "/feed" %>
 	<%= auto_discovery_link_tag :rss, "/feed.rss" %>
