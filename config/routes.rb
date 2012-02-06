@@ -7,9 +7,9 @@ Synth4::Application.routes.draw do
   root :to => "items#index"
 
   resources :brands
-  # Setup /brand/akai & /type/mic routs
-  match 'type/:type' => "items#index"
-  match 'brand/:brand' => "items#index"
+  match 'type/:type'      => "items#index" # /type/mic 
+  match 'brand/:brand'    => "items#index" # /brand/akai
+  match 'search/:search'  => "items#index" # /search/akai  
     
   resources :skipwords
   resources :items

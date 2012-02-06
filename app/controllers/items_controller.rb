@@ -21,7 +21,14 @@ class ItemsController < ApplicationController
     @getItems = @getItems.order("updated_at DESC")
     @items = @getItems.paginate :page => params[:page]                                           # Paginate
 
-    respond_with @items
+    @uri = request.fullpath
+    if @uri.include? "?search="
+        redirect_to '/search/' << @uri.gsub("+","%20")[@uri.index('?search=')+8..100] # replace +'s with spaces and redirect
+    elsif @uri.include? "?brand="  
+        redirect_to '/brand/' << @uri.gsub("+","%20")[@uri.index('?brand=')+7..100]   # to a better seo uri
+    else
+      respond_with @items
+    end
 
   end
   
