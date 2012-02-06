@@ -7,9 +7,9 @@ Synth4::Application.routes.draw do
   root :to => "items#index"
 
   resources :brands
-  match 'type/:type'      => "items#index" # /type/mic 
-  match 'brand/:brand'    => "items#index" # /brand/akai
-  match 'search/:search'  => "items#index" # /search/akai  
+  match '/type/:type'      => "items#index" # /type/mic 
+  match '/brand/:brand'    => "items#index" # /brand/akai
+  match '/search/:search'  => "items#index" # /search/akai  
     
   resources :skipwords
   resources :items
@@ -38,6 +38,6 @@ Synth4::Application.routes.draw do
                  get "/register", :to => "devise/registrations#new" 
              end
 
- 
-
+  match "routing_error" => "items#rescue_404"
+  
 end

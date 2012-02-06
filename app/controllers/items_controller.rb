@@ -103,5 +103,8 @@ class ItemsController < ApplicationController
   def debug
     #Item.get();
   end
+  
+  def rescue_404
+  end
     
 end
