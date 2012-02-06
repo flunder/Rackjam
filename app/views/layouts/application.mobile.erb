@@ -34,10 +34,9 @@
 		<%= render "layouts/header.html" %>
 	</div>
 	<div id="subnav">
-		<ul> 
-		    <li><a href="/questions" title="Questions" class="current">Questions</a></li>
-		    <li><a href="/tags" title="Tags" class="">Tags</a></li>
-		    <li><a href="/users" title="Users" class="">Users</a></li>
+		<ul>
+			<li><%= link_to_unless_current 'Recent', root_path, :class => 'current' %></li>			 
+		    <li><%= link_to_unless_current 'Hot', hot_path, :class => 'current' %></li>
 	    </ul>
 	</div>	
 
