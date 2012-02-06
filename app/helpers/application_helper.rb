@@ -49,14 +49,37 @@ module ApplicationHelper
         @action == 'index' ? @title << " » My Likes" : ""        
     end
     
-    #if @controller 
-    #  @title << "~ " << @controller << " " << @action
-    #end
-    
-    return @title
-    
-    
+    return @title 
     
   end
+  
+  def getH2
+    
+    @title = ""
+    
+    case @controller
+    when "static"
+        @action == 'about' ? @title << "About Rackjam" : ""
+    when "items"
+        @action == 'index' ? @title << "Recent Items" : ""
+        @action == 'top'   ? @title << "Hot Items" : ""
+        params[:type]      ? @title << " » #{params[:type].capitalize}s" : ""
+        params[:search]    ? @title << "-search: #{params[:search].capitalize}" : ""        
+        params[:brand]     ? @title << " by: #{params[:brand].capitalize}" : ""        
+    when "registrations"
+        @action == 'edit'  ? @title << "My Account" : ""
+        @action == 'new'   ? @title << "Register" : ""
+    when "sessions"
+        @action == 'new'   ? @title << "Sign in" : ""
+    when "passwords"
+        @action == 'new'   ? @title << "Password reminder" : ""        
+    when "alerts"
+        @action == 'index' ? @title << "My Alerts" : ""
+    when "likes"  
+        @action == 'index' ? @title << "My Likes" : ""        
+    end    
+    
+    return @title
+  end   
   
 end

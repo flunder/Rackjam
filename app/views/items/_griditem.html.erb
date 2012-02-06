@@ -17,7 +17,7 @@
 			<% unless item.brand_list.empty? %>
 				<div class="brandTags">
 					<% item.brands.each do |k| %>
-						<%= link_to k.name.capitalize , "?brand=#{k.name}" %>
+						<%= link_to k.name.capitalize, "/brand/#{k.name}" %>
 					<% end %>
 				</div>
 			<% end %>
