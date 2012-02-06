@@ -33,7 +33,13 @@
 	<div id="header">
 		<%= render "layouts/header.html" %>
 	</div>
-	
+	<div id="subnav">
+		<ul> 
+		    <li><a href="/questions" title="Questions" class="current">Questions</a></li>
+		    <li><a href="/tags" title="Tags" class="">Tags</a></li>
+		    <li><a href="/users" title="Users" class="">Users</a></li>
+	    </ul>
+	</div>	
 
 	<div id="main">	
     	<%= yield %>

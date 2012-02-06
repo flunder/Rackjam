@@ -22,7 +22,7 @@ h3 { font-size: 0.6em; }
 h4 { font-size: 0.6em; }
 
 /* Header */
-#header { width: 100%; background: rgba(0, 0, 0, 0.9); clear: both; float: left; position: relative; top: 0px; height: 35px; margin-bottom: 5px; }
+#header { width: 100%; background: rgba(0, 0, 0, 0.9); clear: both; float: left; position: relative; top: 0px; height: 35px; }
 #header h1 { display: block; float: left; font-weight: bold; font-size: 18px; text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.9); margin: 0px; line-height: 1.6; overflow: hidden; position: relative; left: 0px; top: 4px; }
 #header h1 a { color: white; text-decoration: none; padding: 10px 7px; }
 #header h1 span { display: none; }
@@ -42,7 +42,7 @@ h4 { font-size: 0.6em; }
 #results.items ul.viewThumbs li img { float: left; width: 125px; margin-right: 5px; }
 #results.items ul.viewThumbs li h3 { font-size: 0.9em; clear: right; margin-top: 0px; margin-bottom: 0.2em; }
 #results.items ul.viewThumbs li p { font-size: 0.6em; clear: right; }
-#results.items ul.viewThumbs li ul.details { display: none;float: left; clear: right; list-style-type: none; margin: 5px 0 0 0; padding: 6px 0 4px 0; font-size: 0.7em }
+#results.items ul.viewThumbs li ul.details { float: left; clear: right; list-style-type: none; margin: 5px 0 0 0; padding: 6px 0 4px 0; font-size: 0.7em }
 #results.items ul.viewThumbs li ul.details li { display: inline-block; margin-right: 8px; font-weight: bold; height: 15px; padding-top: 1px; }
 #results.items ul.viewThumbs li ul.details li.time { cursor: default; padding-left: 16px; background: url("http://static.tumblr.com/fftf9xi/GCtl5z3ut/icon_timeago.png") no-repeat; float: left;   }
 #results.items ul.viewThumbs li ul.details li.love a { opacity: 0.5; background: url("../images/icons/like_grey.png") no-repeat; float: left; text-indent: -77777px; width: 15px; }
@@ -50,10 +50,9 @@ h4 { font-size: 0.6em; }
 #results.items ul.viewThumbs li .brandTags a { color: #777; text-decoration: none; font-size: 0.65em; padding: 0 5px; background-color: #EEE; border-right: 1px solid #CCC; border-bottom: 1px solid #CCC; text-shadow: 0 1px 0 white; }
 #results.items ul.viewThumbs li .brandTags a:hover { color: red; }
 
-
 #paginationWrap { clear: both; font-size: 0.8em; position: relative; width: 100%; float: left;}
 #paginationWrap .pagination { font-weight: bold; padding-left: 7px;}
-#paginationWrap .pagination * { -moz-border-radius: 5px; -webkit-border-radius: 5px; -khtml-border-radius: 5px; border-radius: 5px; margin: 0 2px; line-height: 3.5em; }
+#paginationWrap .pagination * { -moz-border-radius: 5px; -webkit-border-radius: 5px; -khtml-border-radius: 5px; border-radius: 5px; margin: 0 2px; line-height: 2.5em; }
 #paginationWrap .pagination .previous_page { background: #ddd; padding: 5px 10px; color: #333; }
 #paginationWrap .pagination .next_page { background: #ddd; padding: 5px 10px; color: #333; }
 #paginationWrap .pagination a { background: #ddd; padding: 5px 10px; color: #333; text-decoration: none; }
@@ -62,3 +61,45 @@ h4 { font-size: 0.6em; }
 #paginationWrap .pagination a:hover, 
 #paginationWrap .pagination em:hover { background: #222; color: white; }
 #paginationWrap .pagination .disabled { color: #aaa; display: none; }
+
+
+#subnav {
+    background-color: #e3f8ff;  
+    width: 100%;
+    height: 25px;
+    float: left;
+    padding: 5px 0 0px 0px;   
+    border-bottom: 1px solid #fff;
+	margin-bottom: 5px;
+}
+
+#subnav ul {
+    margin: 0 0 0 0px;  
+}
+#subnav li {
+    float: left;
+    list-style: none;
+    margin-right: 2px;
+}
+
+#subnav a, .nav a:visited {
+    font-size: 11px;    
+    color: #283556;
+	text-decoration: none;
+}
+
+#subnav a {
+    -moz-border-radius: 15px;   
+    -webkit-border-radius: 15px;        
+    border-radius: 15px;    
+    padding: 2px 6px;
+}
+
+#subnav .current:first-child {
+    margin-left: 5px;   
+}
+
+#subnav .current {
+    background-color: #ff706c;
+    color: #fff!important;  
+}
