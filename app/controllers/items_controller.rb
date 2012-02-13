@@ -1,7 +1,7 @@
 class ItemsController < ApplicationController
 
   before_filter :get_view
-  respond_to :js, :html, :json, :mobile
+  respond_to :html, :js, :json, :mobile
 
   def index
     
