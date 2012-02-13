@@ -2,33 +2,39 @@
 
 <li class="item" id="<%= item.id %>">
 	
-	<% if item.imageSrc != '' %>
-		<%= link_to (image_tag item.photo.url(:thumb), :alt => item.title), item.url, :target => '_blank', :class => 'image' %>
+	<% if griditem_counter == 30+Random.rand(15) %>
+		<%= render 'items/inlinead' %>
 	<% else %>
-		<%= image_tag 'noimage.png', :class => 'image' %>
-	<% end %>
 	
-	<div class="shortDesc">
-		<h3><%= truncate(item.title, :length => 100).capitalize %></h3>
-		<% if !mobile_device? %>
-			<p>
-				<%= truncate(item.desc, :length => 50).capitalize %>
-			</p>
-			<% unless item.brand_list.empty? %>
-				<div class="brandTags">
-					<% item.brands.each do |k| %>
-						<%= link_to k.name.capitalize, "/brand/#{k.name}" %>
-					<% end %>
-				</div>
-			<% end %>
+		<% if item.imageSrc != '' %>
+			<%= link_to (image_tag item.photo.url(:thumb), :alt => item.title), item.url, :target => '_blank', :class => 'image' %>
+		<% else %>
+			<%= image_tag 'noimage.png', :class => 'image' %>
 		<% end %>
-	</div>
+	
+		<div class="shortDesc">
+			<h3><%= truncate(item.title, :length => 100).capitalize %></h3>
+			<% if !mobile_device? %>
+				<p>
+					<%= truncate(item.desc, :length => 50).capitalize %>
+				</p>
+				<% unless item.brand_list.empty? %>
+					<div class="brandTags">
+						<% item.brands.each do |k| %>
+							<%= link_to k.name.capitalize, "/brand/#{k.name}" %>
+						<% end %>
+					</div>
+				<% end %>
+			<% end %>
+		</div>
 
-	<ul class="details">
-		<li class="time"><%= time_ago_in_w(item.updated_at) %></li>
-		<% if !mobile_device? %><li class="love"><%= render :partial => "items/like", :locals => { :item => item } %></li><% end %>
-		<li class="site"><%= link_to item.site.capitalize, item.url, :rel => 'nofollow' %></li>
-		<li class="price last"><%=item.getFixed %>&pound;<%=item.price %></li>
-	</ul>
+		<ul class="details">
+			<li class="time"><%= time_ago_in_w(item.updated_at) %></li>
+			<% if !mobile_device? %><li class="love"><%= render :partial => "items/like", :locals => { :item => item } %></li><% end %>
+			<li class="site"><%= link_to item.site.capitalize, item.url, :rel => 'nofollow' %></li>
+			<li class="price last"><%=item.getFixed %>&pound;<%=item.price %></li>
+		</ul>
+		
+	<% end %>
 
 </li>
