@@ -1,7 +1,7 @@
 class LikesController < ApplicationController
   
   before_filter :authenticate_user!
-  respond_to :js, :html, :json
+  respond_to :html, :js, :json
   
   def index
     @likes = current_user.likes.all

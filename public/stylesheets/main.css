@@ -90,7 +90,7 @@ p.alert { position: absolute; top: 120px; left: 200px;  font-size: 14px; -moz-bo
 .details li.love a.liked { background: url("../images/icons/like.png") no-repeat;  opacity: 0.8; }
 .details li.love .like_submit { opacity: 0.5; position: relative; top: 1px; } 
 .details li.love .like_submit:hover { opacity: 1; }
-.details li.price a {  }
+.details li.price { color: #2E3326; }
 .details li.site a  { /* background: url("http://static.tumblr.com/arbn4az/9aYljnre3/permalink.png") no-repeat; padding-left: 16px; */ color: #999;  /* padding-top: 1px; */Ã¥}
 .details li.last { margin-right: 0px !important; float: right; }
 .details li a:hover { color: black; }

@@ -1,10 +1,9 @@
 Synth4::Application.routes.draw do
 
-  resources :notifications
-
-  resources :alerts
-
   root :to => "items#index"
+
+  resources :notifications
+  resources :alerts
 
   resources :brands
   match '/type/:type'      => "items#index" # /type/mic 

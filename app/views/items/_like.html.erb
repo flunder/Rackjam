@@ -6,5 +6,5 @@
 		<%= link_to 'like', new_like_path, :class => 'unliked', :remote => true %>
 	<% end %>
 <% else %>
-	<%= link_to 'x', new_user_session_path %>
+	<%= link_to 'like this', new_user_session_path, :rel => "nofollow" %>
 <% end %>
