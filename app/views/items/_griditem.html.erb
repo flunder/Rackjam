@@ -27,7 +27,7 @@
 	<ul class="details">
 		<li class="time"><%= time_ago_in_w(item.updated_at) %></li>
 		<% if !mobile_device? %><li class="love"><%= render :partial => "items/like", :locals => { :item => item } %></li><% end %>
-		<li class="site"><%= link_to item.site.capitalize, item.url %></li>
+		<li class="site"><%= link_to item.site.capitalize, item.url, :rel => 'nofollow' %></li>
 		<li class="price last"><%=item.getFixed %>&pound;<%=item.price %></li>
 	</ul>
 
