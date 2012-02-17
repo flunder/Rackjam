@@ -126,6 +126,9 @@ class Item < ActiveRecord::Base
 
   def self.update_via_feed(source, url, tresh = 10)
     
+      # Getting latest tweets
+      Bucket.getLatestRackjamTweet
+    
       feed = Feedzirra::Feed.fetch_and_parse(url)
       feed.entries.each_with_index do |entry,index|
         

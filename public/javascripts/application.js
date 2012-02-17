@@ -22,7 +22,13 @@ $(document).ready(function(){
 	     queue: false
 		}
   });		
-
+/*
+	$('.post-thumb a img').hover( function () {
+		$(this).stop().animate({opacity : 0.8}, 300);
+	}, function () {
+		$(this).stop().animate({opacity : 1}, 300); 
+	});
+*/
 	/* Adverts slider */
 	$("#box").jCarouselLite({
 		auto: 10000,

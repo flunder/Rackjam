@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120202000011) do
+ActiveRecord::Schema.define(:version => 20120217114837) do
 
   create_table "alerts", :force => true do |t|
     t.string  "freetext"
@@ -23,6 +23,14 @@ ActiveRecord::Schema.define(:version => 20120202000011) do
   create_table "brands", :force => true do |t|
     t.string   "name"
     t.string   "permalink"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "buckets", :force => true do |t|
+    t.string   "name"
+    t.string   "content"
+    t.integer  "number"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -59,6 +67,14 @@ ActiveRecord::Schema.define(:version => 20120202000011) do
     t.integer  "user_id"
     t.integer  "item_id"
     t.string   "status"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "rackjam", :force => true do |t|
+    t.string   "name"
+    t.string   "content"
+    t.integer  "number"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

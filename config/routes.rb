@@ -14,6 +14,7 @@ Synth4::Application.routes.draw do
   resources :items
   resources :interests
   resources :likes
+  # resources :buckets    
   
   match '/about' => "static#about"  
   match '/hot'   => 'items#top'

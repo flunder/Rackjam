@@ -2,7 +2,7 @@
 
 <% if @cookie_value != 'closed' %>
 	<div id="intro">
-		<%= Twitter.user_timeline("rackjam").first.text %>
+		<%= Bucket.find_by_name('latestTweet').content %>
 		<a href="#" id="closeIntro">x</a>
 	</div>
 <% end %>

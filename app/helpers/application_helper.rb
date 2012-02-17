@@ -34,7 +34,7 @@ module ApplicationHelper
         @action == 'index' ? "" : ""
         @action == 'top'   ? @title << " » Hot" : ""
         params[:type]      ? @title << " » #{params[:type].capitalize}s" : ""
-        params[:search]    ? @title << " » search for: #{params[:search].capitalize}" : ""        
+        params[:search]    ? @title << " » Searchresults for: #{params[:search].capitalize}" : ""        
         params[:brand]     ? @title << " » #{params[:brand].capitalize}" : ""        
     when "registrations"
         @action == 'edit'  ? @title << " » My Account" : ""
