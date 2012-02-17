@@ -5,15 +5,15 @@
 
 	<div id="viewAs">
 		<% if @view == 'grid' %>
-			<%= link_to 'grid', params.merge(:view => 'grid'), :id => 'viewAsGrid', :class => 'selected'  %>
+			<%= link_to 'grid', params.merge(:view => 'grid'), :id => 'viewAsGrid', :class => 'selected', :rel => "nofollow"  %>
 		<% else %>
-			<%= link_to 'grid', params.merge(:view => 'grid'), :id => 'viewAsGrid'%>
+			<%= link_to 'grid', params.merge(:view => 'grid'), :id => 'viewAsGrid', :rel => "nofollow" %>
 		<% end %>
 	
 		<% if @view == 'list' %>
-			<%= link_to 'list', params.merge(:view => 'list'), :id => 'viewAsList', :class => 'selected'  %>
+			<%= link_to 'list', params.merge(:view => 'list'), :id => 'viewAsList', :class => 'selected', :rel => "nofollow"   %>
 		<% else %>
-			<%= link_to 'list', params.merge(:view => 'list'), :id => 'viewAsList' %>
+			<%= link_to 'list', params.merge(:view => 'list'), :id => 'viewAsList', :rel => "nofollow"  %>
 		<% end %>		
 	</div>	
 
