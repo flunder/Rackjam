@@ -2,7 +2,10 @@
 
 <% if @cookie_value != 'closed' %>
 	<div id="intro">
-		<%= Bucket.find_by_name('latestTweet').content %>
+		<% @tweet = Bucket.find_by_name('latestTweet') %>
+		<% if @tweet %>
+			<%= @tweet.content %>
+		<% end %>
 		<a href="#" id="closeIntro">x</a>
 	</div>
 <% end %>
