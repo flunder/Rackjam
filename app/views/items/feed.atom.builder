@@ -9,6 +9,7 @@ atom_feed :language => 'en-gb' do |feed|
     feed.entry feed_item, :published => feed_item.updated_at do |entry|
       
       entry.title(feed_item.title)
+      entry.path('x')
       
       @content = ''
 

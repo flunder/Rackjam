@@ -1,7 +1,7 @@
 class ItemsController < ApplicationController
 
   before_filter :get_view
-  respond_to :html, :js, :json, :mobile
+  respond_to :html, :js, :mobile
 
   def index
     
@@ -17,10 +17,10 @@ class ItemsController < ApplicationController
       @getItems = @getItems.search(params[:search])     
     end   
     
-    @getItems = Item.tagged_with(params[:brand]) if params[:brand] and params[:brand] != 'all'   # Selection by Brand
-    @getItems = @getItems.order("updated_at DESC")
-    @items = @getItems.paginate :page => params[:page]                                           # Paginate
+    @getItems = Item.tagged_with(params[:brand]) if params[:brand] and params[:brand] != 'all'   # Selection by Brand 
+    @items = @getItems.order("updated_at DESC").paginate :page => params[:page]                  # Paginate
 
+    # Convert paths like ?search= to /search/
     @uri = request.fullpath
     if @uri.include? "?search="
         redirect_to '/search/' << @uri.gsub("+","%20")[@uri.index('?search=')+8..100] # replace +'s with spaces and redirect
@@ -33,6 +33,7 @@ class ItemsController < ApplicationController
   end
   
   def top
+    # Show the hottest items
     @getItems = Item.hasimage.within(10.days.ago).joins(:interest).order('interests.item_count DESC')
     @items = @getItems.paginate :page => params[:page]  
     render "items/index"
@@ -92,11 +93,11 @@ class ItemsController < ApplicationController
   
   def feed
     @title = "Rackjam feed" # this will be the name of the feed displayed on the feed reader
-    @feed_items = Item.all(:limit => 30)
+    @feed_items = Item.all(:limit => 50, :order => 'id desc')
     
     respond_to do |format|
       format.atom { render :layout => false }
-      format.rss { redirect_to feed_path(:format => :atom), :status => :moved_permanently } # we want the RSS feed to redirect permanently to the ATOM feed
+      format.rss { redirect_to feed_path(:format => :atom), :status => :moved_permanently } # we want the RSS feeATOM feed
     end
   end
   
