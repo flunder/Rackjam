@@ -1,0 +1,21 @@
+<style>
+	#brandHeader { clear: both; float: left; width: 100%; margin-bottom: 25px; }
+	.brandImage { width: 300px; height: 200px; background: #eee; float: left; }
+	.brandCopy { width: 300px; height: 200px; float: left; margin-left: 25px; }	
+</style>
+
+<div id="results" class="<%=controller.controller_name %> <%=@view%>">
+	<div id="brandHeader">
+		<div class="brandImage">
+		</div>
+		<div class="brandCopy">
+			<h3><%=@brandName.capitalize %></h3>
+			Sed auctor neque eu tellus rhoncus ut eleifend nibh porttitor. Ut in nulla enim. Phasellus molestie magna non est bibendum non venenatis nisl tempor. Suspendisse dictum feugiat nisl ut dapibus. Mauris iaculis porttitor posuere. Praesent id metus massa, ut blandit odio. Proin quis tortor orci. Etiam at risus et justo.
+		</div>
+	</div>
+	<!-- %= render 'items/view' % -->
+</div>
+
+<div id="paginationWrap">
+	<%= will_paginate @items %>
+</div>

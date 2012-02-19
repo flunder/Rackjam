@@ -1,4 +1,6 @@
 class BrandsController < ApplicationController
+
+  respond_to :html, :js, :mobile
   
   def index
     @brands = Brand.all
@@ -10,12 +12,15 @@ class BrandsController < ApplicationController
   end
 
   def show
+    # Brand-data
     @brand = Brand.find_by_permalink(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.xml  { render :xml => @brand }
-    end
+    
+    # Item-data
+    @brandName = params[:id]
+    @getItems = Item.tagged_with(@brandName) if @brandName and @brandName != 'all'  
+    @items = @getItems.order("updated_at DESC").paginate :page => params[:page]
+    
+    respond_with @items
   end
 
   def new

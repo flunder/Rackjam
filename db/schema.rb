@@ -71,14 +71,6 @@ ActiveRecord::Schema.define(:version => 20120217114837) do
     t.datetime "updated_at"
   end
 
-  create_table "rackjam", :force => true do |t|
-    t.string   "name"
-    t.string   "content"
-    t.integer  "number"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "skipwords", :force => true do |t|
     t.string   "keyword"
     t.datetime "created_at"
