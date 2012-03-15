@@ -91,6 +91,11 @@ class ItemsController < ApplicationController
     render :nothing => true
   end 
   
+  def getFromScrapedad
+    Item.get_from_scrapedad
+    render :nothing => true
+  end
+  
   def feed
     @title = "Rackjam feed" # this will be the name of the feed displayed on the feed reader
     @feed_items = Item.all(:limit => 50, :order => 'id desc')
@@ -103,9 +108,6 @@ class ItemsController < ApplicationController
   
   def debug
     #Item.get();
-  end
-  
-  def rescue_404
   end
     
 end

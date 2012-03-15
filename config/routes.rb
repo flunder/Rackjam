@@ -26,6 +26,7 @@ Synth4::Application.routes.draw do
   match "getone/:url"      => "items#getone"
   match "categorize/:id"   => "items#categorize"
   match "debug/"           => "items#debug"  
+  match "dad/"             => "items#getFromScrapedad"    
   match "runalerts/"       => "alerts#run"
   match "checkalert"       => "alerts#checkalert"    
   match "runnotifications" => "notifications#run"      
