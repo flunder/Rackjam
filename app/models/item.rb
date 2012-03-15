@@ -49,7 +49,7 @@ class Item < ActiveRecord::Base
   validates_presence_of :image_remote_url, :if => :image_url_provided?, :message => 'is invalid or inaccessible'  
   
   has_attached_file :photo,
-                    :styles => { :small =>  ["50x50#", :png], :thumb =>  ["200x134#", :png], :large =>  ["250x230#", :png] },
+                    :styles => { :small =>  ["50x50#", :png], :thumb =>  ["200x134#", :png] }, #, :large =>  ["250x230#", :png]
                     :path => ":rails_root/public/images/items/:id/:style/:basename.:extension",
                     :url  => "/images/items/:id/:style/:basename.:extension",
                     :default_url => "/images/noimage.png",
@@ -162,6 +162,7 @@ class Item < ActiveRecord::Base
   
   # Using ScrapeDad
   def self.get_from_scrapedad()
+    
     xml = open('http://php.scrapedad.co.uk/ebay/getcat.php?catId=38071').read
     
     source = XML::Parser.string(xml) # source.class => LibXML::XML::Parser
@@ -171,36 +172,29 @@ class Item < ActiveRecord::Base
     entries.each do |item| # entry.class => LibXML::XML::Node
       title = item.find_first('title').content     
       image = item.find_first('image').content 
-      if image.empty? # no image? Use the thumbnail
-        image = item.find_first('thumb').content 
-      end
-      
+      image = item.find_first('thumb').content if image.empty?
       url = item.find_first('url').content             
       price = item.find_first('price').content                         
       
       @exists = Item.exists?(:url => url)
       
       if !@exists 
+          create!(
+              :url          => url,
+              :title        => title,
+              :desc         => '',          
+              :imageSrc     => image,
+              :image_url    => image,
+              :price        => price,
+              :site         => 'ebay'
+          )          
+      else
+        puts "existed"
+      end
       
-        begin
-            create!(
-                :url          => url,
-                :title        => title,
-                :desc         => '',          
-                :imageSrc     => image,
-                :image_url    => image,
-                :price        => price,
-                :site         => 'ebay'
-            )
-        rescue Exception => exc
-            puts("Error: #{exc.message}")
-        end     
-
-    else
-      puts "existed"
-    end
-      
-      
+      @createdItem = Item.where(:url => url)
+      self.categorize(@createdItem,first.id)
+      Alert.checkAlert(@createdItem.first.id, false, false)               
     end
     
     puts "done"
