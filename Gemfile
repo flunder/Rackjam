@@ -25,6 +25,7 @@ gem "tzinfo", "~> 0.3.29"
 gem 'devise'
 gem 'curb', "0.7.15"
 gem 'twitter'
+gem 'libxml-ruby'
 
 # REDUCED COMPRESSED JAM 
 gem 'jammit'
