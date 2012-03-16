@@ -11,7 +11,7 @@ require 'xml'
 
 class Item < ActiveRecord::Base
   
-  has_one :interest
+  has_one  :interest
   has_many :likes
   has_many :alerts
   
@@ -58,7 +58,6 @@ class Item < ActiveRecord::Base
   
   def self.type(q)
       query = "%#{q}%"
-      # where("items.title LIKE ?", query).where("items.desc LIKE ?", query) ~ causes AND in sql
       where("items.title LIKE ? or items.desc LIKE ?", query, query)
   end
   
@@ -69,10 +68,10 @@ class Item < ActiveRecord::Base
   
   def self.get() 
       self.get_from_scrapedad()    
-      self.update_via_feed('gumtree', 'http://www.gumtree.com/cgi-bin/list_postings.pl?feed=rss&posting_cat=4709&search_terms=instruments')
-      self.update_via_feed('craig', 'http://london.craigslist.co.uk/search/ele?query=&srchType=A&minAsk=50&maxAsk=&hasPic=1&format=rss')
-      self.update_via_feed('preloved', 'http://rss.preloved.co.uk/rss/listadverts?subcategoryid=&keyword=synth&type=for%20sale&membertype=private&searcharea=10&minprice=30')
-      self.update_via_feed('preloved', 'http://rss.preloved.co.uk/rss/listadverts?subcategoryid=570&keyword=&type=for%20sale&membertype=private&searcharea=10&minprice=30')
+      #self.update_via_feed('gumtree', 'http://www.gumtree.com/cgi-bin/list_postings.pl?feed=rss&posting_cat=4709&search_terms=instruments')
+      #self.update_via_feed('craig', 'http://london.craigslist.co.uk/search/ele?query=&srchType=A&minAsk=50&maxAsk=&hasPic=1&format=rss')
+      #self.update_via_feed('preloved', 'http://rss.preloved.co.uk/rss/listadverts?subcategoryid=&keyword=synth&type=for%20sale&membertype=private&searcharea=10&minprice=30')
+      #self.update_via_feed('preloved', 'http://rss.preloved.co.uk/rss/listadverts?subcategoryid=570&keyword=&type=for%20sale&membertype=private&searcharea=10&minprice=30')
       #self.update_via_feed('ebay', 'http://musical-instruments.shop.ebay.co.uk/Sequencers-Grooveboxes-/58721/i.html?LH_PrefLoc=0&LH_Price=30..%40c&rt=nc&_catref=1&_dlg=1&_dmpt=UK_Musical_Instruments_Sequencers_Grooveboxes_MJ&_ds=1&_mPrRngCbx=1&_rss=1')
       #self.update_via_feed('ebay', 'http://musical-instruments.shop.ebay.co.uk/Outboards-Effects-/23791/i.html?LH_PrefLoc=0&LH_Price=30..%40c&rt=nc&_catref=1&_dlg=1&_dmpt=UK_Musical_Instruments_Outboards_Effects_MJ&_ds=1&_mPrRngCbx=1&_rss=1')
       #self.update_via_feed('ebay', 'http://musical-instruments.shop.ebay.co.uk/Synthesisers-Sound-Modules-/38071/i.html?LH_PrefLoc=0&LH_Price=30..%40c&rt=nc&_catref=1&_dlg=1&_dmpt=UK_Musical_Instruments_Pro_Audio_Synthesisers_CV&_ds=1&_mPrRngCbx=1&_rss=1')
@@ -163,42 +162,52 @@ class Item < ActiveRecord::Base
   # Using ScrapeDad
   def self.get_from_scrapedad()
     
-    xml = open('http://php.scrapedad.co.uk/ebay/getcat.php?catId=38071').read
+    # Get project feeds from Dad
+    projects_xml = open('http://www.scrapedad.co.uk/projects/rackjam.xml').read
     
-    source = XML::Parser.string(xml) # source.class => LibXML::XML::Parser
+    source = XML::Parser.string(projects_xml) # source.class => LibXML::XML::Parser
     content = source.parse # content.class => LibXML::XML::Document
-    entries = content.root.find('./item') # entries.class => LibXML::XML::XPath::Object
+    feeds = content.root.find('./feed') # entries.class => LibXML::XML::XPath::Object   
+    
+    feeds.each do |feed| 
+        @name = feed.find_first('name').content   
+        @url = feed.find_first('url').content        
+        puts "running >> #{@name} > #{@url}"
+ 
+        xml = open(@url).read
+    
+        source = XML::Parser.string(xml) # source.class => LibXML::XML::Parser
+        content = source.parse # content.class => LibXML::XML::Document
+        entries = content.root.find('./item') # entries.class => LibXML::XML::XPath::Object
 
-    entries.each do |item| # entry.class => LibXML::XML::Node
-      title = item.find_first('title').content     
-      image = item.find_first('image').content 
-      image = item.find_first('thumb').content if image.empty?
-      url = item.find_first('url').content             
-      price = item.find_first('price').content                         
+        entries.each do |item| # entry.class => LibXML::XML::Node
+            title = item.find_first('title').content     
+            image = item.find_first('image').content 
+            image = item.find_first('thumb').content if image.empty?
+            url = item.find_first('url').content             
+            price = item.find_first('price').content                         
       
-      @exists = Item.exists?(:url => url)
-      
-      if !@exists 
-          create!(
-              :url          => url,
-              :title        => title,
-              :desc         => '',          
-              :imageSrc     => image,
-              :image_url    => image,
-              :price        => price,
-              :site         => 'ebay'
-          )          
-      else
-        puts "existed"
-      end
-      
-      @createdItem = Item.where(:url => url)
-      self.categorize(@createdItem,first.id)
-      Alert.checkAlert(@createdItem.first.id, false, false)               
-    end
-    
-    puts "done"
-    
+            @exists = Item.exists?(:url => url)
+
+            if !@exists 
+                create!(
+                    :url          => url,
+                    :title        => title,
+                    :desc         => '',          
+                    :imageSrc     => image,
+                    :image_url    => image,
+                    :price        => price,
+                    :site         => 'ebay'
+                )       
+                @createdItem = Item.where(:url => url).first
+                self.categorize(@createdItem.id)
+                Alert.checkAlert(@createdItem.id, false, false)                                
+            else
+              puts "existed"
+            end
+            
+        end #entries.each 
+    end #feeds.each
   end
   
   def self.validateItem(item) 
