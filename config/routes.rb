@@ -27,6 +27,7 @@ Synth4::Application.routes.draw do
   match "categorize/:id"   => "items#categorize"
   match "debug/"           => "items#debug"  
   match "dad/"             => "items#getFromScrapedad"    
+  match "counts/"          => "items#updateCategoryCounts"
   match "runalerts/"       => "alerts#run"
   match "checkalert"       => "alerts#checkalert"    
   match "runnotifications" => "notifications#run"      
