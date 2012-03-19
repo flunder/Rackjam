@@ -2,7 +2,7 @@
 
 class ApplicationController < ActionController::Base
   
-  before_filter :prepare_for_mobile
+  before_filter :prepare_for_mobile, :get_categories
   protect_from_forgery
   
   def get_view
@@ -18,6 +18,10 @@ class ApplicationController < ActionController::Base
      end    
      @view ||= 'grid'
   end  
+
+  def get_categories
+    @categories = Item.getCategoriesFromBucket
+  end
 
   private
 
