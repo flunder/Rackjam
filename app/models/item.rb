@@ -67,12 +67,12 @@ class Item < ActiveRecord::Base
   end
   
   def self.get() 
-      self.get_from_scrapedad()    
+      self.get_from_scrapedad() # Run Scrapedad feeds
       self.update_via_feed('gumtree', 'http://www.gumtree.com/cgi-bin/list_postings.pl?feed=rss&posting_cat=4709&search_terms=instruments')
       self.update_via_feed('craig', 'http://london.craigslist.co.uk/search/ele?query=&srchType=A&minAsk=50&maxAsk=&hasPic=1&format=rss')
       self.update_via_feed('preloved', 'http://rss.preloved.co.uk/rss/listadverts?subcategoryid=&keyword=synth&type=for%20sale&membertype=private&searcharea=10&minprice=30')
       self.update_via_feed('preloved', 'http://rss.preloved.co.uk/rss/listadverts?subcategoryid=570&keyword=&type=for%20sale&membertype=private&searcharea=10&minprice=30')
-      self.updateCategoryCounts()
+      self.updateCategoryCounts() # Update Category counts
   end
 
   def self.getone(source, url) 
@@ -430,11 +430,11 @@ class Item < ActiveRecord::Base
   end
   
   def self.getCategoriesStatic()
-    @categories = ['compressor','sampler','synth','machiene','mic','mixer']
+    @categories = ['amp','compressor','controller','groovebox','sampler','synth','machiene','monitor','mic','mixer']
   end
 
   def self.getCategoriesFromBucket()
-    @categories = Bucket.where(:content => 'categoryCount')
+    @categories = Bucket.where(:content => 'categoryCount').order('name')
   end
   
   def self.updateCategoryCounts()
