@@ -72,13 +72,7 @@ class Item < ActiveRecord::Base
       self.update_via_feed('craig', 'http://london.craigslist.co.uk/search/ele?query=&srchType=A&minAsk=50&maxAsk=&hasPic=1&format=rss')
       self.update_via_feed('preloved', 'http://rss.preloved.co.uk/rss/listadverts?subcategoryid=&keyword=synth&type=for%20sale&membertype=private&searcharea=10&minprice=30')
       self.update_via_feed('preloved', 'http://rss.preloved.co.uk/rss/listadverts?subcategoryid=570&keyword=&type=for%20sale&membertype=private&searcharea=10&minprice=30')
-      #self.update_via_feed('ebay', 'http://musical-instruments.shop.ebay.co.uk/Sequencers-Grooveboxes-/58721/i.html?LH_PrefLoc=0&LH_Price=30..%40c&rt=nc&_catref=1&_dlg=1&_dmpt=UK_Musical_Instruments_Sequencers_Grooveboxes_MJ&_ds=1&_mPrRngCbx=1&_rss=1')
-      #self.update_via_feed('ebay', 'http://musical-instruments.shop.ebay.co.uk/Outboards-Effects-/23791/i.html?LH_PrefLoc=0&LH_Price=30..%40c&rt=nc&_catref=1&_dlg=1&_dmpt=UK_Musical_Instruments_Outboards_Effects_MJ&_ds=1&_mPrRngCbx=1&_rss=1')
-      #self.update_via_feed('ebay', 'http://musical-instruments.shop.ebay.co.uk/Synthesisers-Sound-Modules-/38071/i.html?LH_PrefLoc=0&LH_Price=30..%40c&rt=nc&_catref=1&_dlg=1&_dmpt=UK_Musical_Instruments_Pro_Audio_Synthesisers_CV&_ds=1&_mPrRngCbx=1&_rss=1')
-      #self.update_via_feed('ebay', 'http://musical-instruments.shop.ebay.co.uk/Drum-Machines-/38069/i.html?LH_PrefLoc=0&LH_Price=30..%40c&rt=nc&_catref=1&_dlg=1&_dmpt=UK_Drum_Machines_Grooveboxes&_ds=1&_mPrRngCbx=1&_rss=1')
-      #self.update_via_feed('ebay', 'http://musical-instruments.shop.ebay.co.uk/Midi-Audio-Interfaces-/123445/i.html?LH_PrefLoc=0&LH_Price=30..%40c&rt=nc&_catref=1&_dlg=1&_dmpt=UK_Drum_Machines_Grooveboxes&_ds=1&_mPrRngCbx=1&_rss=1')      
-      #self.update_via_feed('ebay', 'http://musical-instruments.shop.ebay.co.uk/Monitors-/23786/i.html?LH_PrefLoc=0&LH_Price=30..%40c&rt=nc&_catref=1&_dlg=1&_dmpt=UK_Drum_Machines_Grooveboxes&_ds=1&_mPrRngCbx=1&_rss=1')            
-      #self.update_via_feed('ebay', 'http://musical-instruments.shop.ebay.co.uk/Midi-Controllers-/14987/i.html?LH_PrefLoc=0&LH_Price=30..%40c&rt=nc&_catref=1&_dlg=1&_dmpt=UK_Drum_Machines_Grooveboxes&_ds=1&_mPrRngCbx=1&_rss=1')                  
+      self.updateCategoryCounts()
   end
 
   def self.getone(source, url) 
@@ -431,6 +425,33 @@ class Item < ActiveRecord::Base
         puts "found brand(s): #{result}"
         myItem.update_attributes(:brand_list => result)
       end    
+    end
+    
+  end
+  
+  def self.getCategoriesStatic()
+    @categories = ['compressor','sampler','synth','machiene','mic','mixer']
+  end
+
+  def self.getCategoriesFromBucket()
+    @categories = Bucket.where(:content => 'categoryCount')
+  end
+  
+  def self.updateCategoryCounts()
+    
+    @categories = self.getCategoriesStatic
+    
+    @categories.each do |category|
+      
+      @categoryFieldName = category # cat name
+      @categoryItems = Item.type(category).within(10.days.ago).size # cat items 
+       
+      @myItem = Bucket.find_by_name(@categoryFieldName)  # Insert or create Bucket fields
+      if (@myItem) 
+        Bucket.update( @myItem.id, :number => @categoryItems, :content => 'categoryCount' )  
+      else
+        Bucket.create!( :name => @categoryFieldName, :number => @categoryItems, :content => 'categoryCount')       
+      end
     end
     
   end

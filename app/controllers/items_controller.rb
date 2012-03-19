@@ -7,7 +7,7 @@ class ItemsController < ApplicationController
     
     # Selection by type
     if params[:type] 
-      @getItems = Item.type(params[:type])
+      @getItems = Item.type(params[:type]).within(10.days.ago) 
     else 
       @getItems = Item.hasimage.within(10.days.ago)      
     end
@@ -19,6 +19,8 @@ class ItemsController < ApplicationController
     
     @getItems = Item.tagged_with(params[:brand]) if params[:brand] and params[:brand] != 'all'   # Selection by Brand 
     @items = @getItems.order("updated_at DESC").paginate :page => params[:page]                  # Paginate
+
+  @categories = Item.getCategoriesFromBucket
 
     # Convert paths like ?search= to /search/
     @uri = request.fullpath
@@ -94,6 +96,11 @@ class ItemsController < ApplicationController
   def getFromScrapedad
     Item.get_from_scrapedad
     render :nothing => true
+  end
+  
+  def updateCategoryCounts
+    Item.updateCategoryCounts
+    render :nothing => true    
   end
   
   def feed
