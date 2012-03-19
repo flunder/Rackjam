@@ -430,7 +430,7 @@ class Item < ActiveRecord::Base
   end
   
   def self.getCategoriesStatic()
-    @categories = ['amp','compressor','controller','groovebox','sampler','synth','machiene','monitor','mic','mixer']
+    @categories = ['amp','compressor','controller','groovebox','sampler','synth','machine','monitor','mic','mixer']
   end
 
   def self.getCategoriesFromBucket()
