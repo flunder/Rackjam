@@ -20,8 +20,6 @@ class ItemsController < ApplicationController
     @getItems = Item.tagged_with(params[:brand]) if params[:brand] and params[:brand] != 'all'   # Selection by Brand 
     @items = @getItems.order("updated_at DESC").paginate :page => params[:page]                  # Paginate
 
-  @categories = Item.getCategoriesFromBucket
-
     # Convert paths like ?search= to /search/
     @uri = request.fullpath
     if @uri.include? "?search="
@@ -79,6 +77,7 @@ class ItemsController < ApplicationController
   
   def get
     # Gets items from a site and loads them into the db
+    # This is a hell of a trigger \~__~/
     Item.get();
     render :nothing => true
   end
