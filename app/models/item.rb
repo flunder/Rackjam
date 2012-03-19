@@ -166,10 +166,11 @@ class Item < ActiveRecord::Base
     projects_xml = open('http://www.scrapedad.co.uk/projects/rackjam.xml').read
     
     source = XML::Parser.string(projects_xml) # source.class => LibXML::XML::Parser
-    content = source.parse # content.class => LibXML::XML::Document
+    content = source.parse # content.class => LibXML::XML::Document    
     feeds = content.root.find('./feed') # entries.class => LibXML::XML::XPath::Object   
-    
-    feeds.each do |feed| 
+   
+    feeds.each do |feed| # Run through all feeds coming from scrapedad
+      
         @name = feed.find_first('name').content   
         @url = feed.find_first('url').content        
         puts "running >> #{@name} > #{@url}"
@@ -178,40 +179,42 @@ class Item < ActiveRecord::Base
     
         source = XML::Parser.string(xml) # source.class => LibXML::XML::Parser
         content = source.parse # content.class => LibXML::XML::Document
+        @site = content.root.attributes.get_attribute('site').value # Get site attribute        
         entries = content.root.find('./item') # entries.class => LibXML::XML::XPath::Object
 
         entries.each do |item| # entry.class => LibXML::XML::Node
-            title = item.find_first('title').content     
-            image = item.find_first('image').content 
-            image = item.find_first('thumb').content if image.empty?
-            url = item.find_first('url').content             
-            price = item.find_first('price').content                         
-            listingtype = item.find_first('listingtype').content   
-            expires = item.find_first('endTime').content 
-      
-            @exists = Item.exists?(:url => url)
+          
+            @title = item.find_first('title').content     
+            @image = item.find_first('image').content 
+            @image = item.find_first('thumb').content if @image.empty?
+            @url = item.find_first('url').content             
+            @price = item.find_first('price').content                         
+            @listingtype = item.find_first('listingtype').content   
+            @expires = item.find_first('endTime').content 
 
-            if !@exists 
+            @exists = Item.exists?(:url => @url)
+            
+            if !@exists              
                 create!(
-                    :url          => url,
-                    :title        => title,
+                    :url          => @url,
+                    :title        => @title,
                     :desc         => '',          
-                    :imageSrc     => image,
-                    :image_url    => image,
-                    :price        => price,
-                    :expires      => expires,
-                    :listingtype  => listingtype,
-                    :site         => 'ebay'
+                    :imageSrc     => @image,
+                    :image_url    => @image,
+                    :price        => @price,
+                    :expires      => @expires,
+                    :listingtype  => @listingtype,
+                    :site         => @site
                 )       
-                @createdItem = Item.where(:url => url).first
+                @createdItem = Item.where(:url => @url).first
                 self.categorize(@createdItem.id)
-                Alert.checkAlert(@createdItem.id, false, false)                                
+                Alert.checkAlert(@createdItem.id, false, false)                                                 
             else
               puts "existed"
             end
             
         end #entries.each 
-    end #feeds.each
+    end #feeds.each  
   end
   
   def self.validateItem(item) 
