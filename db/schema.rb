@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120217114837) do
+ActiveRecord::Schema.define(:version => 20120319185909) do
 
   create_table "alerts", :force => true do |t|
     t.string  "freetext"
@@ -54,6 +54,7 @@ ActiveRecord::Schema.define(:version => 20120217114837) do
     t.datetime "expires"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "listingtype"
   end
 
   create_table "likes", :force => true do |t|
@@ -67,6 +68,14 @@ ActiveRecord::Schema.define(:version => 20120217114837) do
     t.integer  "user_id"
     t.integer  "item_id"
     t.string   "status"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "rackjam", :force => true do |t|
+    t.string   "name"
+    t.string   "content"
+    t.integer  "number"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

@@ -28,7 +28,7 @@ class Item < ActiveRecord::Base
   end  
   
   def getFixed()
-    if self.site == 'ebay'
+    if self.site == 'ebay' && self.listingtype == 'Auction'
       return "~ "
     end
   end
@@ -186,6 +186,8 @@ class Item < ActiveRecord::Base
             image = item.find_first('thumb').content if image.empty?
             url = item.find_first('url').content             
             price = item.find_first('price').content                         
+            listingtype = item.find_first('listingtype').content   
+            expires = item.find_first('endTime').content 
       
             @exists = Item.exists?(:url => url)
 
@@ -197,6 +199,8 @@ class Item < ActiveRecord::Base
                     :imageSrc     => image,
                     :image_url    => image,
                     :price        => price,
+                    :expires      => expires,
+                    :listingtype  => listingtype,
                     :site         => 'ebay'
                 )       
                 @createdItem = Item.where(:url => url).first
