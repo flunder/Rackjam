@@ -67,6 +67,7 @@ class Item < ActiveRecord::Base
   end
   
   def self.get() 
+      Bucket.getLatestRackjamTweet # Getting latest tweets
       self.get_from_scrapedad() # Run Scrapedad feeds
       self.update_via_feed('gumtree', 'http://www.gumtree.com/cgi-bin/list_postings.pl?feed=rss&posting_cat=4709&search_terms=instruments')
       self.update_via_feed('craig', 'http://london.craigslist.co.uk/search/ele?query=&srchType=A&minAsk=50&maxAsk=&hasPic=1&format=rss')
@@ -118,10 +119,7 @@ class Item < ActiveRecord::Base
   end
 
   def self.update_via_feed(source, url, tresh = 10)
-    
-      # Getting latest tweets
-      Bucket.getLatestRackjamTweet
-    
+        
       feed = Feedzirra::Feed.fetch_and_parse(url)
       feed.entries.each_with_index do |entry,index|
         
@@ -151,6 +149,9 @@ class Item < ActiveRecord::Base
           end
 
       end
+      
+      self.updateCategoryCounts() # Badly placed here but for now hope this will run it
+      
   end
   
   # Using ScrapeDad
