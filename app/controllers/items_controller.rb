@@ -32,6 +32,10 @@ class ItemsController < ApplicationController
 
   end
   
+  def frontpage
+    render "items/frontpage", :layout => "frontpage"
+  end
+
   def top
     # Show the hottest items
     @getItems = Item.hasimage.within(10.days.ago).joins(:interest).order('interests.item_count DESC')

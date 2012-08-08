@@ -1,6 +1,7 @@
 Synth4::Application.routes.draw do
 
   root :to => "items#index"
+  #root :to => "items#frontpage"
 
   resources :notifications
   resources :alerts

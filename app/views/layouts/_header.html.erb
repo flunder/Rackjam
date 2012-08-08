@@ -3,6 +3,7 @@
 
 <% if !mobile_device? %>
 
+	<!--
 	<div id="viewAs">
 		<% if @view == 'grid' %>
 			<%= link_to 'grid', params.merge(:view => 'grid'), :id => 'viewAsGrid', :class => 'selected', :rel => "nofollow"  %>
@@ -16,6 +17,7 @@
 			<%= link_to 'list', params.merge(:view => 'list'), :id => 'viewAsList', :rel => "nofollow"  %>
 		<% end %>		
 	</div>	
+	-->
 
 	<form action="/" id="searchBox" accept-charset="UTF-8">
 		<input type="text" size="30" name="search" id="search" class="smartInput">

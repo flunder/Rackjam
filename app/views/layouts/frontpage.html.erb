@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">  	
+	<title><%= getTitle %></title>
+	<meta name="description" content="Rackjam UK, the place to satisfy all your synth needs." />
+	<meta name="author" content="LA">  
+	<meta name="keywords" content="rackjam, ebay, amp, gumtree, marshall, amplifier, speaker, fender, guitar, vintage, gear, rack, synth, focusrite, dsp ,compressor, midi, analog, sampler, machine, mic, mixer, moog, oscillator, arp, access, virus, yamaha, akai, korg, nord, kurzweil, waldorf, novation, roland, native instruments, bose, behringer, dbx, drawmer, e-mu, kawai, motu, samson, shure, oberheim, buy, 2nd hand, second hand, used" />	
+	<meta property="fb:app_id" content="334265279941807" />
+	<meta property="og:url" content="http://www.rackjam.co.uk" />
+	<meta property="og:type" content="website" />
+	<meta property="og:site_name" content="Rackjam" />
+	<meta property="og:image" content="http://www.rackjam.co.uk/images/fb-logo.png" />
+	<meta property="og:title" content="Rackjam" />
+	<meta property="og:description" content="Rackjam UK, sort out your synth fix" />
+	<link rel="canonical" href="http://www.rackjam.co.uk" />
+	
+	<%= include_stylesheets :rackjam, :media => 'all'  %>
+	<%= include_javascripts :rackjam  %>	
+	
+	<%= auto_discovery_link_tag :atom, "/feed" %>
+	<%= auto_discovery_link_tag :rss, "/feed.rss" %>
+	<%= csrf_meta_tag %>
+	<script type="text/javascript" src="http://use.typekit.com/yny6zzk.js"></script>
+	<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+	<%= favicon_link_tag 'favicon.ico' %>
+	
+	<style>
+		
+		body#frontpage { background: url("images/large/illustration5.jpg") no-repeat center 70px transparent; } 
+
+		#frontpage #header { 
+			border-bottom: 1px solid #aaa;
+		    color: #9FF6D4;
+		    font-size: 2em;
+		    height: 28px;
+		    margin: 0 auto;
+		    padding: 15px 0 18px;
+		    width: 960px;
+		    z-index: 100;
+			position: relative;
+			margin-bottom: 388px;
+			background: rgba(255,255,255,0.8);
+		}
+
+
+		#frontpage #brand_dropdown { padding-top: 2px; }
+		#frontpage #header h1 { text-shadow: 2px 2px 0 #28160c;   font-size: 1.2em; padding-top: 9px; }
+		#frontpage #header h1 a { color: #ffb400 !important; }		
+		#frontpage form#searchBox #search {  margin-top: 3px; }
+		
+		
+		#fp_content { padding-bottom: 0; width: auto; width: auto; }
+		#fp_content #fp_intro { border-top: 1px solid #1C323A; padding-top: 20px; text-align: center; display: block; background: #33454e; height: 250px }
+		#fp_content .inner { margin: 0 auto; text-align: left; width: 960px; }
+		#fp_content #fp_features { width: 100%; height: 200px; background: #d2d9df; }		
+		
+	</style>
+	
+</head>
+
+<body id="frontpage">
+	
+		<div id="header">
+			<%= render "layouts/header" %>
+		</div>
+		
+		<div id="fp_content">
+		
+			<section id="fp_intro">
+				<div class="inner">xx</div>	
+			</section>
+
+			<section id="fp_features">
+				<div class="inner">xx</div>	
+			</section>
+		
+		</div>
+
+		
+   		<%= yield  %>
+
+	
+	<%= render "layouts/tracking" %>
+</body>
+</html>

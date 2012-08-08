@@ -16,10 +16,7 @@ h1 { float: left; margin-left: 30px; padding-top: 7px;float: left; font-size: 1.
 h2 { display: none; font-size: 0.8em; } 
 h3 { font-weight: bold; margin: 0; }
 
-/* h1 { font-family: raleway,sans-serif; } */
-/* h1 {  font-family: ff-cocon-web-pro,sans-serif; font-style: normal; font-weight: 700; text-shadow: 0 2px 0 #111111; } */
-/* h1 { font-family: chippewa-falls !important; font-size: 1.2em; text-shadow: 0 2px 0 #111111;  } */
-h1 {  font-family: orbitron;  }
+h1 {  font-family: orbitron; }
 
 #header { position: fixed; font-size: 2em; color: black; width: 100%; background: rgba(0, 0, 0, 0.9); padding: 25px 0 18px 0; color: #9ff6d4; border-bottom: 1px solid #555; z-index: 100;}
 #header a { color: white; }
@@ -47,11 +44,6 @@ h1 {  font-family: orbitron;  }
 #results.items ul li.item .brandTags a:hover { color: red; }
 #results.items ul li.item ul.details { list-style-type: none; margin: 5px 0 0 0; padding: 6px 0 4px 0; width: 100%;	 border-top: 1px solid #DDDDDD; border-bottom: 1px solid #EFEFEF; }
 #results.items ul li.item ul.details li { display: inline-block; margin-right: 8px; font-weight: bold; }
-
-/* makes it all align, should remove the shortdesc from dom as well if i go down this path 
-.shortDesc { height: 60px;}
-.shortDesc p { display: none; }
-*/
 
 #results.items.list ul.viewThumbs { clear: none; }
 #results.items.list ul.listItems { clear: none; }
@@ -164,4 +156,5 @@ form#searchBox #search { background: url("/images/searchbox.png") no-repeat scro
 h3#headline { color: #333333; font-size: 26px; line-height: 32px; }
 h4#headline2 { color: #333333; font-size: 15px; font-weight: bold; margin: 20px 0 15px; }
 
+/* Facebook widget */
 .fb_edge_widget_with_comment span.fb_edge_comment_widget iframe.fb_ltr { display: none !important; }
