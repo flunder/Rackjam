@@ -47,11 +47,12 @@ class Item < ActiveRecord::Base
   before_create :dblcheck_file_name
   before_validation :download_remote_image, :if => :image_url_provided?
   validates_presence_of :image_remote_url, :if => :image_url_provided?, :message => 'is invalid or inaccessible'  
+  @month = Time.new.month
   
   has_attached_file :photo,
                     :styles => { :small =>  ["50x50#", :png], :thumb =>  ["200x134#", :png] }, #, :large =>  ["250x230#", :png]
-                    :path => ":rails_root/public/images/items/:id/:style/:basename.:extension",
-                    :url  => "/images/items/:id/:style/:basename.:extension",
+                    :path => ":rails_root/public/images/items/#{@month}/:id/:style/:basename.:extension",
+                    :url  => "/images/items/#{@month}/:id/:style/:basename.:extension",
                     :default_url => "/images/noimage.png",
                     :default_style => :thumb
   # // PAPERCLIP ----------------------------------------
