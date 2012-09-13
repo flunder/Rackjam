@@ -21,7 +21,7 @@ h1 {  font-family: orbitron; }
 #header { position: fixed; font-size: 2em; color: black; width: 100%; background: rgba(0, 0, 0, 0.9); padding: 25px 0 18px 0; color: #9ff6d4; border-bottom: 1px solid #555; z-index: 100;}
 #header a { color: white; }
 #header a:hover { color: #ffc405; }
-#header h1 span { color: red !important; font-size: 0.5em; margin-left: 0.3em; display: none; }
+#header h1 span { color: #FFBA00; font-size: 0.4em; text-transform: uppercase; }
 #header #viewAs { position: absolute; left: 230px; top: 35px;}
 #header #viewAs span { float: left; margin-right: 10px; font-weight: bold; font-size: 0.5em; color: #777; padding-top: 1px; }
 #header #viewAs a#viewAsList { opacity: 0.4; background: url("../images/icons/list.gif") no-repeat; float: left; height: 12px; margin-right: 8px; text-indent: -77777px; width: 17px;}
