@@ -70,8 +70,8 @@ h1 {  font-family: orbitron; }
 p.notice,
 p.alert { position: absolute; top: 120px; left: 200px;  font-size: 14px; -moz-border-radius: 10px;  -webkit-border-radius: 10px;  -khtml-border-radius: 10px;  border-radius: 10px; background: rgba(255, 255, 255, 0.95);color: #333333;font-weight: bold;line-height: 1.2em;margin-bottom: 20px;padding: 15px;width: 300px;border: 1px solid #aaa;-moz-box-shadow: 0 0 6px #eee;  -webkit-box-shadow: 0 0 6px #eee; box-shadow: 0 0 6px #eee; 	 }
 
-#intro { margin-bottom: 20px; color: white; line-height: 1.2em; width: 100px; background: #eee; padding: 15px 40px 15px 15px; color: #333; font-weight: bold; -webkit-border-radius:10px; -moz-border-radius:10px; -o-border-radius:10px; border-radius:10px; background: #eee !important; position: relative; left: -5px; top: -5px; -moz-box-shadow: 0 0 3px #bbb;  -webkit-box-shadow: 0 0 3px #bbb; box-shadow: 0 0 3px #bbb; }
-#intro #closeIntro { float: right; position: absolute; top: 14px; left: 135px; }
+#intro { background: #F8F8F8 !important; color: #333333; left: -5px; line-height: 1.25em; margin-bottom: 20px; padding: 15px 40px 15px 15px; position: relative; top: -5px; width: 124px; }
+#intro #closeIntro { float: right; left: 166px; position: absolute; top: 4px; }
 
 .details li  { float: left; color: #999; }
 .details li a { padding-top: 0px;  }

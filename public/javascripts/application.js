@@ -50,6 +50,12 @@ $(document).ready(function(){
 		}
 	)
 	*/
+	
+ 	 $('.image').hover( function () {   
+        $(this).stop().animate({opacity : 0.8}, 200);  
+    }, function () {   
+        $(this).stop().animate({opacity : 1}, 200); 
+    });
 		
 	// smartInputs ---------------------------------------------- 
 
