@@ -50,7 +50,7 @@ class Item < ActiveRecord::Base
   @month = Time.new.month
   
   has_attached_file :photo,
-                    :styles => { :small =>  ["50x50#", :png], :thumb =>  ["200x134#", :png] }, #, :large =>  ["250x230#", :png]
+                    :styles => { :thumb =>  ["200x134#", :png] }, #, :small =>  ["50x50#", :png],  :large =>  ["250x230#", :png]
                     :path => ":rails_root/public/images/items/#{@month}/:id/:style/:basename.:extension",
                     :url  => "/images/items/#{@month}/:id/:style/:basename.:extension",
                     :default_url => "/images/noimage.png",
@@ -69,7 +69,7 @@ class Item < ActiveRecord::Base
   
   def self.get() 
       Bucket.getLatestRackjamTweet # Getting latest tweets
-      self.get_from_scrapedad() # Run Scrapedad feeds
+      # self.get_from_scrapedad() # Run Scrapedad feeds
       self.update_via_feed('gumtree', 'http://www.gumtree.com/cgi-bin/list_postings.pl?feed=rss&posting_cat=4709&search_terms=instruments')
       self.update_via_feed('craig', 'http://london.craigslist.co.uk/search/ele?query=&srchType=A&minAsk=50&maxAsk=&hasPic=1&format=rss')
       self.update_via_feed('preloved', 'http://rss.preloved.co.uk/rss/listadverts?subcategoryid=&keyword=synth&type=for%20sale&membertype=private&searcharea=10&minprice=30')
@@ -140,6 +140,7 @@ class Item < ActiveRecord::Base
             else
               @feeditem = reformatItem(@feeditem, source)
               puts "insert (#{source})"
+              # puts @feeditem              
               createItem(@feeditem,entry,source)
               # Alert
               @createdItem = Item.where(:url => entry.url)
@@ -359,6 +360,7 @@ class Item < ActiveRecord::Base
   
   def self.cleanPrice(price)
       # remove the £
+      price = price.gsub("£", "")
       price = price.gsub("&#163;", "")
       price = price.gsub("&pound;", "")
       price = price.gsub("&amp;pound&lt;", "")
