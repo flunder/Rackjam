@@ -11,6 +11,8 @@ require 'xml'
 
 class Item < ActiveRecord::Base
   
+  attr_accessible :url, :title, :desc, :imageSrc, :image_url, :price, :site, :brand, :manufac, :modelname, :brand_list, :expires, :listingtype
+  
   has_one  :interest
   has_many :likes
   has_many :alerts
@@ -50,7 +52,7 @@ class Item < ActiveRecord::Base
   @month = Time.new.month
   
   has_attached_file :photo,
-                    :styles => { :thumb =>  ["200x134#", :png] }, #, :small =>  ["50x50#", :png],  :large =>  ["250x230#", :png]
+                    :styles => { :thumb =>  ["200x134#", :jpg] }, #, :small =>  ["50x50#", :png],  :large =>  ["250x230#", :png]
                     :path => ":rails_root/public/images/items/#{@month}/:id/:style/:basename.:extension",
                     :url  => "/images/items/#{@month}/:id/:style/:basename.:extension",
                     :default_url => "/images/noimage.png",
@@ -68,8 +70,8 @@ class Item < ActiveRecord::Base
   end
   
   def self.get() 
-      Bucket.getLatestRackjamTweet # Getting latest tweets
-      # self.get_from_scrapedad() # Run Scrapedad feeds
+      # Bucket.getLatestRackjamTweet # Getting latest tweets
+      self.get_from_scrapedad() # Run Scrapedad feeds
       self.update_via_feed('gumtree', 'http://www.gumtree.com/cgi-bin/list_postings.pl?feed=rss&posting_cat=4709&search_terms=instruments')
       self.update_via_feed('craig', 'http://london.craigslist.co.uk/search/ele?query=&srchType=A&minAsk=50&maxAsk=&hasPic=1&format=rss')
       self.update_via_feed('preloved', 'http://rss.preloved.co.uk/rss/listadverts?subcategoryid=&keyword=synth&type=for%20sale&membertype=private&searcharea=10&minprice=30')
@@ -143,8 +145,8 @@ class Item < ActiveRecord::Base
               # puts @feeditem              
               createItem(@feeditem,entry,source)
               # Alert
-              @createdItem = Item.where(:url => entry.url)
-              Alert.checkAlert(@createdItem.first.id, false, false)               
+              # @createdItem = Item.where(:url => entry.url)
+              # Alert.checkAlert(@createdItem.first.id, false, false)               
             end
           else 
             puts 'existed'

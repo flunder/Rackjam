@@ -17,7 +17,7 @@ gem "will_paginate", "~> 3.0.pre2"
 gem "permalink_fu"
 gem 'scrapi'
 gem 'feedzirra'
-gem "paperclip", "~> 2.3.11"
+gem "paperclip", "~> 2.8.0" #2.3.11
 gem 'acts-as-taggable-on'
 gem 'oauth'
 gem 'htmlentities'
