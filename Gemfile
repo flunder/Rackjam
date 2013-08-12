@@ -1,3 +1,9 @@
+if RUBY_VERSION =~ /1.9/
+  Encoding.default_external = Encoding::UTF_8
+  Encoding.default_internal = Encoding::UTF_8
+end
+
+
 source 'http://rubygems.org'
 
 # JAM 
@@ -11,7 +17,7 @@ gem "will_paginate", "~> 3.0.pre2"
 gem "permalink_fu"
 gem 'scrapi'
 gem 'feedzirra'
-gem "paperclip", "~> 2.3.11"
+gem "paperclip", "~> 2.8.0" #2.3.11
 gem 'acts-as-taggable-on'
 gem 'oauth'
 gem 'htmlentities'
@@ -26,3 +32,4 @@ gem 'jammit'
 
 # EXTRA EXTRA EXTRA JAMCHECKER 
 gem "airbrake"
+gem 'newrelic_rpm'

@@ -28,9 +28,11 @@ end
 puts "> Done"
 
 # Create a user
+=begin
 u = User.new(
   :email => "hi@larsattacks.co.uk",
   :password => 'rackjam',
   :confirmed_at => "2011-07-21 11:31"
 )
 u.save!(:validate => false)
+=end
