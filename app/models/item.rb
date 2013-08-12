@@ -61,15 +61,19 @@ class Item < ActiveRecord::Base
   before_create :dblcheck_file_name
   before_validation :download_remote_image, :if => :image_url_provided?
   validates_presence_of :image_remote_url, :if => :image_url_provided?, :message => 'is invalid or inaccessible'  
-  @month = Time.new.month
   
   has_attached_file :photo,
                     :styles => { :original => ["200x134#", :jpg] }, 
                     :convert_options => { :original => '-quality 100' },  
-                    :path => ":rails_root/public/images/items/#{@month}/:id/:style/:basename.:extension",
-                    :url  => "/images/items/#{@month}/:id/:style/:basename.:extension",
+                    :path => ":rails_root/public/images/items/:month/:id/:basename.:extension",
+                    :url  => "/images/items/:month/:id/:basename.:extension",
                     :default_url => "/images/noimage.png",
-                    :default_style => :thumb
+                    :default_style => :original
+                    
+  Paperclip.interpolates :month do |attachment, style|
+    "#{attachment.instance.created_at.month}"
+  end                    
+  
   # // PAPERCLIP ----------------------------------------
   
   def self.get() 
@@ -338,29 +342,29 @@ class Item < ActiveRecord::Base
           end
 
       when 'craig'
-           return scraper = Scraper.define do
-             process ".posting", :item => Scraper.define {
-               process "h2", :title => :text
-               process "#userbody", :desc => :text
-               process "table img", :imageSrc => "@src"
-               process "h2", :price => :text
-               process "#posting-map img", :location => "@src"
-               result :title, :imageSrc, :desc, :price, :location 
-             }
-             result :item
-           end
+          return scraper = Scraper.define do
+            process ".posting", :item => Scraper.define {
+              process "h2", :title => :text
+              process "#postingbody", :desc => :text
+              process "#ci img:last-child", :imageSrc => "@src"
+              process "h2", :price => :text
+              process "#posting-map img", :location => "@src"
+              result :title, :imageSrc, :desc, :price, :location 
+            }
+            result :item
+          end
 
       when 'preloved'
-         return scraper = Scraper.define do
-           process ".layout100", :item => Scraper.define {
-             process "h1", :title => :text
-             process "tr>td", :desc => :text
-             process ".lightbox", :imageSrc => "@href"
-             process "table tr:nth-child(2) td:nth-child(3)", :price => :text
-             result :title, :imageSrc, :desc, :price
-           }
-           result :item
-         end
+          return scraper = Scraper.define do
+            process ".container_16 .grid_8", :item => Scraper.define {
+              process "h1", :title => :text
+              process "> p", :desc => :text
+              process "div:nth-of-type(1) .lightbox", :imageSrc => "@href"
+              process "table tr:nth-child(2) td:nth-child(2)", :price => :text
+              result :title, :imageSrc, :desc, :price
+            }
+            result :item
+          end
          
       end
   end
@@ -417,7 +421,7 @@ class Item < ActiveRecord::Base
       myItem = Item.find_by_url(itemURL)    
     end
 
-    if myItem # using the magic if statement formula
+    if myItem 
 
       result = Array.new
     
@@ -441,7 +445,7 @@ class Item < ActiveRecord::Base
   end
   
   def self.getCategoriesStatic()
-    @categories = ['amp','compressor','controller','groovebox','guitar','sampler','synth','turntable','machine','monitor','mic','mixer']
+    @categories = ['amp','compressor','controller','groovebox','guitar','keyboard','sampler','synth','turntable','machine','monitor','mic','mixer','piano']
   end
 
   def self.getCategoriesFromBucket()
@@ -468,23 +472,16 @@ class Item < ActiveRecord::Base
   end
   
   def self.cleanUpOldItems()
-<<<<<<< HEAD
     @oldStuff = Item.where("created_at < ?", 2.months.ago) 
     puts "Cleaning #{@oldStuff.count} Items"
     @oldStuff.destroy_all
   end
-=======
-    @oldStuff = Item.where("created_at < ?", 1.months.ago) 
-    puts "Cleaning #{@oldStuff.count} Items"
-    @oldStuff.destroy_all
-  end  
->>>>>>> 79264b32ef89671712c0f2786587ef848ad8e413
   
   private
     
     def dblcheck_file_name
       # Always generate a new filename
-        self.photo.instance_write(:file_name, "#{SecureRandom.hex(6)}.png")
+        self.photo.instance_write(:file_name, "#{SecureRandom.hex(6)}.jpg")
     end
 
     def image_url_provided?
@@ -500,17 +497,15 @@ class Item < ActiveRecord::Base
       io = open(URI.parse(image_url))
       def io.original_filename; base_uri.path.split('/').last; end
       io.original_filename.blank? ? nil : io
-    rescue # catch url errors with validations instead of exceptions (Errno::ENOENT, OpenURI::HTTPError, etc...)
-  end
-
-  def clean
-    Item.cleanUpOldItems
-    render :nothing => true 
-  end
+      rescue # catch url errors with validations instead of exceptions (Errno::ENOENT, OpenURI::HTTPError, etc...)
+    end
   
-  def clean
-    Item.cleanUpOldItems
-    render :nothing => true 
-  end
+    def destroy_original
+      File.unlink(self.photo.path)
+    end  
+
+    def destroy_photo()
+      self.photo.clear
+    end
   
 end
