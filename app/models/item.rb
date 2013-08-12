@@ -141,7 +141,7 @@ class Item < ActiveRecord::Base
           if !@exists 
             @feedpage = open(entry.url).read
             @feeditem = feedSpecificFields(source)
-            @feeditem = @feeditem.scrape(Iconv.conv('UTF8//IGNORE', @feedpage.encoding.to_s, @feedpage), :parser=>:html_parser)          
+            @feeditem = @feeditem.scrape(@feedpage)   
             @feeditem = validateItem(@feeditem)
 
             #puts "#{@feeditem}\n\n"
@@ -226,7 +226,7 @@ class Item < ActiveRecord::Base
   end
   
   def self.validateItem(item) 
-      return false if item.title.empty?   
+      return false if !item.title
       return false if skipMe(item) == true
       item.title = cleanString(item.title)
       item.desc = cleanString(item.desc)      
@@ -358,7 +358,7 @@ class Item < ActiveRecord::Base
           return scraper = Scraper.define do
             process ".container_16 .grid_8", :item => Scraper.define {
               process "h1", :title => :text
-              process "> p", :desc => :text
+              process ".dotted + h2 + p", :desc => :text
               process "div:nth-of-type(1) .lightbox", :imageSrc => "@href"
               process "table tr:nth-child(2) td:nth-child(2)", :price => :text
               result :title, :imageSrc, :desc, :price
