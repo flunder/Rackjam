@@ -15,6 +15,8 @@ class Item < ActiveRecord::Base
   has_many :likes
   has_many :alerts
   
+  before_destroy :destroy_photo 
+  
   #cattr_reader :per_page
   #@@per_page = 60
   
@@ -33,6 +35,16 @@ class Item < ActiveRecord::Base
     end
   end
   
+  def self.type(q)
+      query = "%#{q}%"
+      where("items.title LIKE ? or items.desc LIKE ?", query, query)
+  end
+  
+  def self.search(q)
+      query = "%#{q}%"
+      where("items.title LIKE ? or items.desc LIKE ?", query, query)
+  end  
+  
   scope :within, lambda { |date|
       {:conditions => ["created_at > ?", date || 7.days.ago]}
   }
@@ -50,22 +62,13 @@ class Item < ActiveRecord::Base
   @month = Time.new.month
   
   has_attached_file :photo,
-                    :styles => { :thumb =>  ["200x134#", :png] }, #, :small =>  ["50x50#", :png],  :large =>  ["250x230#", :png]
+                    :styles => { :original => ["200x134#", :jpg] }, 
+                    :convert_options => { :original => '-quality 100' },  
                     :path => ":rails_root/public/images/items/#{@month}/:id/:style/:basename.:extension",
                     :url  => "/images/items/#{@month}/:id/:style/:basename.:extension",
                     :default_url => "/images/noimage.png",
                     :default_style => :thumb
   # // PAPERCLIP ----------------------------------------
-  
-  def self.type(q)
-      query = "%#{q}%"
-      where("items.title LIKE ? or items.desc LIKE ?", query, query)
-  end
-  
-  def self.search(q)
-      query = "%#{q}%"
-      where("items.title LIKE ? or items.desc LIKE ?", query, query)
-  end
   
   def self.get() 
       Bucket.getLatestRackjamTweet # Getting latest tweets
@@ -460,6 +463,12 @@ class Item < ActiveRecord::Base
     
   end
   
+  def self.cleanUpOldItems()
+    @oldStuff = Item.where("created_at < ?", 2.months.ago) 
+    puts "Cleaning #{@oldStuff.count} Items"
+    @oldStuff.destroy_all
+  end
+  
   private
     
     def dblcheck_file_name
@@ -481,6 +490,11 @@ class Item < ActiveRecord::Base
       def io.original_filename; base_uri.path.split('/').last; end
       io.original_filename.blank? ? nil : io
     rescue # catch url errors with validations instead of exceptions (Errno::ENOENT, OpenURI::HTTPError, etc...)
+  end
+
+  def clean
+    Item.cleanUpOldItems
+    render :nothing => true 
   end
   
 end
