@@ -32,6 +32,7 @@ Synth4::Application.routes.draw do
   match "runalerts/"       => "alerts#run"
   match "checkalert"       => "alerts#checkalert"    
   match "runnotifications" => "notifications#run"      
+  match "clean"            => "items#clean"  
   
   devise_for :users, 
              :path_prefix => '',

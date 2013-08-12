@@ -119,5 +119,10 @@ class ItemsController < ApplicationController
   def debug
     #Item.get();
   end
+
+  def clean
+    Item.cleanUpOldItems
+    render :nothing => true 
+  end
     
 end

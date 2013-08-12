@@ -11,11 +11,13 @@ require 'xml'
 
 class Item < ActiveRecord::Base
   
-  attr_accessible :url, :title, :desc, :imageSrc, :image_url, :price, :site, :brand, :manufac, :modelname, :brand_list, :expires, :listingtype
+  attr_accessible :url, :title, :desc, :imageSrc, :image_url, :price, :site, :brand, :manufac, :modelname, :brand_list, :expires, :listingtype, :photo
   
   has_one  :interest
   has_many :likes
   has_many :alerts
+  
+  before_destroy :destroy_photo 
   
   #cattr_reader :per_page
   #@@per_page = 60
@@ -77,6 +79,8 @@ class Item < ActiveRecord::Base
       self.update_via_feed('preloved', 'http://rss.preloved.co.uk/rss/listadverts?subcategoryid=&keyword=synth&type=for%20sale&membertype=private&searcharea=10&minprice=30')
       self.update_via_feed('preloved', 'http://rss.preloved.co.uk/rss/listadverts?subcategoryid=570&keyword=&type=for%20sale&membertype=private&searcharea=10&minprice=30')
       self.updateCategoryCounts() # Update Category counts
+      puts "run clean"      
+      self.cleanUpOldItems()      
   end
 
   def self.getone(source, url) 
@@ -462,6 +466,12 @@ class Item < ActiveRecord::Base
     
   end
   
+  def self.cleanUpOldItems()
+    @oldStuff = Item.where("created_at < ?", 1.months.ago) 
+    puts "Cleaning #{@oldStuff.count} Items"
+    @oldStuff.destroy_all
+  end  
+  
   private
     
     def dblcheck_file_name
@@ -483,6 +493,11 @@ class Item < ActiveRecord::Base
       def io.original_filename; base_uri.path.split('/').last; end
       io.original_filename.blank? ? nil : io
     rescue # catch url errors with validations instead of exceptions (Errno::ENOENT, OpenURI::HTTPError, etc...)
+  end
+  
+  def clean
+    Item.cleanUpOldItems
+    render :nothing => true 
   end
   
 end
