@@ -11,7 +11,7 @@ require 'xml'
 
 class Item < ActiveRecord::Base
   
-  attr_accessible :url, :title, :desc, :imageSrc, :image_url, :price, :site, :brand, :manufac, :modelname, :brand_list, :expires, :listingtype
+  attr_accessible :url, :title, :desc, :imageSrc, :image_url, :price, :site, :brand, :manufac, :modelname, :brand_list, :expires, :listingtype, :photo
   
   has_one  :interest
   has_many :likes
@@ -64,12 +64,8 @@ class Item < ActiveRecord::Base
   @month = Time.new.month
   
   has_attached_file :photo,
-<<<<<<< HEAD
                     :styles => { :original => ["200x134#", :jpg] }, 
                     :convert_options => { :original => '-quality 100' },  
-=======
-                    :styles => { :thumb =>  ["200x134#", :jpg] }, #, :small =>  ["50x50#", :png],  :large =>  ["250x230#", :png]
->>>>>>> 71dc1301c33bae935e8fcd81374bd492f1037bd5
                     :path => ":rails_root/public/images/items/#{@month}/:id/:style/:basename.:extension",
                     :url  => "/images/items/#{@month}/:id/:style/:basename.:extension",
                     :default_url => "/images/noimage.png",
@@ -84,6 +80,8 @@ class Item < ActiveRecord::Base
       self.update_via_feed('preloved', 'http://rss.preloved.co.uk/rss/listadverts?subcategoryid=&keyword=synth&type=for%20sale&membertype=private&searcharea=10&minprice=30')
       self.update_via_feed('preloved', 'http://rss.preloved.co.uk/rss/listadverts?subcategoryid=570&keyword=&type=for%20sale&membertype=private&searcharea=10&minprice=30')
       self.updateCategoryCounts() # Update Category counts
+      puts "run clean"      
+      self.cleanUpOldItems()      
   end
 
   def self.getone(source, url) 
@@ -470,10 +468,17 @@ class Item < ActiveRecord::Base
   end
   
   def self.cleanUpOldItems()
+<<<<<<< HEAD
     @oldStuff = Item.where("created_at < ?", 2.months.ago) 
     puts "Cleaning #{@oldStuff.count} Items"
     @oldStuff.destroy_all
   end
+=======
+    @oldStuff = Item.where("created_at < ?", 1.months.ago) 
+    puts "Cleaning #{@oldStuff.count} Items"
+    @oldStuff.destroy_all
+  end  
+>>>>>>> 79264b32ef89671712c0f2786587ef848ad8e413
   
   private
     
@@ -498,6 +503,11 @@ class Item < ActiveRecord::Base
     rescue # catch url errors with validations instead of exceptions (Errno::ENOENT, OpenURI::HTTPError, etc...)
   end
 
+  def clean
+    Item.cleanUpOldItems
+    render :nothing => true 
+  end
+  
   def clean
     Item.cleanUpOldItems
     render :nothing => true 
