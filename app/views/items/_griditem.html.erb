@@ -7,7 +7,7 @@
 	<% else %>
 	
 		<% if item.imageSrc != '' %>
-			<%= link_to (image_tag item.photo.url(:thumb), :alt => item.title), item.url, :target => '_blank', :class => 'image' %>
+			<%= link_to (image_tag item.photo.url(:thumb), :alt => item.title), item, :class => 'image' %>
 		<% else %>
 			<%= image_tag 'noimage.png', :class => 'image' %>
 		<% end %>
@@ -32,6 +32,7 @@
 			<li class="time"><%= time_ago_in_w(item.updated_at) %></li>
 			<% if !mobile_device? %><li class="love"><%= render :partial => "items/like", :locals => { :item => item } %></li><% end %>
 			<li class="site"><%= link_to item.site.capitalize, item.url, :rel => 'nofollow' %></li>
+			<li class="info"><%= link_to 'info', item.url %></li>			
 			<li class="price last"><%=item.getFixed %>&pound;<%=item.price %></li>
 		</ul>
 		

@@ -23,7 +23,7 @@ $(document).ready(function(){
     });	
     
     /* Tipsy */
-    $('#hotList a img').tipsy({ title: 'alt',gravity: 'nw' });
+    $('.tipsyList a img').tipsy({ title: 'alt',gravity: 'nw' });
     	
     /*
 	$('.post-thumb a img').hover( function () {

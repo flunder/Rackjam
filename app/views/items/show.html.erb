@@ -1,12 +1,54 @@
-<p id="notice"><%= notice %></p>
+<div id="staticResults" class="singleItem">
+	
+	<p id="notice"><%= notice %></p>
 
-<p>
-  <h2><%= @item.title %></h2>
-  <%= @item.url %><br/>
-  <%= image_tag(@item.imageSrc, :alt => @item.title) %><br/>
-  <%= @item.price %><br/>
-  <%= @item.desc %><br/>
-</p>
+	<div class="itemWrap">
+		
+	  	<h2><%= @item.title.capitalize %></h2>
+	
+   	  	<%= link_to (image_tag @item.imageSrc, :alt => @item.title), @item.url, :target => '_blank', :class => 'image' %>
 
-<%= link_to 'Edit', edit_item_path(@item) %> |
-<%= link_to 'Back', items_path %>
+		<ul class="details">
+			<li class="time"><%= time_ago_in_w(@item.updated_at) %></li>
+			<li class="site"><%= link_to @item.site.capitalize, @item.url, :rel => 'nofollow' %></li>
+			<li class="price last"><%=@item.getFixed %>&pound;<%=@item.price %></li>
+		</ul>
+	  	
+		<div class="desc">
+	  		<%= @item.desc %><br/>
+		</div>
+		
+		<div class="shortDesc">
+			<% unless @item.brand_list.empty? %>
+				<div class="brandTags">
+					<% @item.brands.each do |k| %>
+						<%= link_to k.name.capitalize, "/brand/#{k.name}" %>
+					<% end %>
+				</div>
+			<% end %>
+		</div>		
+		
+	</div>
+	
+	<div class="rightSide">
+		
+		<div class="googleAd">
+			<%= render 'items/inlinead' %>
+		</div>
+	
+		<div class="relatedItems">		
+			<% @relatedItems = @item.find_related_brands.limit(12); %>
+			<% if @relatedItems.length > 1 %>
+				<h3>Related Items</h3>
+				<ul id="relatedList" class="tipsyList">
+					<% @relatedItems.each do |item| %>
+					<li>
+						<%= link_to (image_tag item.photo.url(:thumb), :alt => item.title, :width => '98'), item, :class => 'image' %>
+					</li>
+					<% end %>
+				</ul>				
+			<% end %>
+		</div>
+	</div>
+	
+</div>
