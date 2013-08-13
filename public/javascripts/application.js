@@ -13,15 +13,18 @@ $(document).ready(function(){
 	})
 	
 	/* ISOTOPE */
+	
+    $container = $('#browsecontainer');	
+	
  	$('#results.items.grid').isotope({
-   	itemSelector: '.item',
+   	    itemSelector: '.item',
 		layoutMode : 'fitRows',
 		animationOptions: {
-	     duration: 500,
-	     easing: 'linear',
-	     queue: false
-		}
-  });		
+	      duration: 500,
+	      easing: 'linear',
+	      queue: false
+	    }
+    });		
 /*
 	$('.post-thumb a img').hover( function () {
 		$(this).stop().animate({opacity : 0.8}, 300);
@@ -39,19 +42,8 @@ $(document).ready(function(){
 		start: Math.floor(Math.random()*$("#box ul li").length),
 		vertical: true
     });
-
-	/*
-	$('#box').hover(
-		function() {
-			$(this).fadeTo('slow', 1);
-		}, 
-		function() {
-			$(this).fadeTo('slow', 0.7);
-		}
-	)
-	*/
 	
- 	 $('.image').hover( function () {   
+ 	$('.image').hover( function () {   
         $(this).stop().animate({opacity : 0.8}, 200);  
     }, function () {   
         $(this).stop().animate({opacity : 1}, 200); 
@@ -84,33 +76,33 @@ $(document).ready(function(){
 		}
 	});		
 
-  /* login form js values */
-  $('.form span.defaultValue').each(function() {
- 
+    /* login form js values */
+    $('.form span.defaultValue').each(function() {
+
       var defaultValue = $(this).text();
       var inputField = $(this).siblings('input');
-     
+
       inputField.attr("default",defaultValue) /* add the default attribute ~ <input type="" default="dd/mm/yyy" */
       if (inputField.val() == '' || inputField.val() == defaultValue) {
           inputField.val(defaultValue).addClass('defaultValueFields').addClass('initValue')
       } 
-  });
-  
-  /* Handle a click on a defaultValue field */
-  $(".defaultValueFields").live('focus',function() {   
+    });
+
+    /* Handle a click on a defaultValue field */
+    $(".defaultValueFields").live('focus',function() {   
       $(this).removeClass('initValue')
- 
+
       if( $(this).val() == $(this).attr("default") ) {
           $(this).val('');
       }
-  }).blur(function() {
+    }).blur(function() {
       if( !$(this).val().length ) {
           $(this).val($(this).attr("default")).addClass('initValue');
       }
-  });  
+    });  
 
-  /* Hover ajax functions for /HOT ----------------------------- */
-		function hoveredItem(){ 
+    /* Hover ajax functions for /HOT ----------------------------- */
+	function hoveredItem(){ 
 		$.ajax({
 		  url: "/interests.js",
 			data: { id: $(this).attr('id'), value: + "1" }
