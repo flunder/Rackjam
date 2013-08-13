@@ -18,6 +18,7 @@ javascripts:
     - public/javascripts/jquery.ui.selectmenu.js
     - public/javascripts/cookies.jquery.js    
     - public/javascripts/application.js
+    - public/javascripts/jquery.tipsy.js
   mobile:
     - public/javascripts/jquery.min.js
 

@@ -2,20 +2,16 @@ $(document).ready(function(){
 
 	/* Setup Brand-dropdown */
 	$('#brand_dropdown select').selectmenu({
-			width: 200
+		width: 200
 	});
-
 
 	/* Rackjam NOTICE cookie handling */
 	$('#closeIntro').click(function(){
-			$(this).parent('div').slideUp('slow');				
-			$.cookie( "rackjamnotice", "closed", { expires: 3 } ); 	
+		$(this).parent('div').slideUp('slow');				
+		$.cookie( "rackjamnotice", "closed", { expires: 3 } ); 	
 	})
 	
 	/* ISOTOPE */
-	
-    $container = $('#browsecontainer');	
-	
  	$('#results.items.grid').isotope({
    	    itemSelector: '.item',
 		layoutMode : 'fitRows',
@@ -24,15 +20,20 @@ $(document).ready(function(){
 	      easing: 'linear',
 	      queue: false
 	    }
-    });		
-/*
+    });	
+    
+    /* Tipsy */
+    $('#hotList a img').tipsy({ title: 'alt',gravity: 'nw' });
+    	
+    /*
 	$('.post-thumb a img').hover( function () {
 		$(this).stop().animate({opacity : 0.8}, 300);
 	}, function () {
 		$(this).stop().animate({opacity : 1}, 300); 
 	});
-*/
-	/* Adverts slider */
+    */
+    
+	/* Adverts slider 
 	$("#box").jCarouselLite({
 		auto: 10000,
 		speed: 700,
@@ -42,6 +43,7 @@ $(document).ready(function(){
 		start: Math.floor(Math.random()*$("#box ul li").length),
 		vertical: true
     });
+    */
 	
  	$('.image').hover( function () {   
         $(this).stop().animate({opacity : 0.8}, 200);  
@@ -101,7 +103,7 @@ $(document).ready(function(){
       }
     });  
 
-    /* Hover ajax functions for /HOT ----------------------------- */
+    /* Hover ajax functions populating /HOT ----------------------------- */
 	function hoveredItem(){ 
 		$.ajax({
 		  url: "/interests.js",
@@ -131,13 +133,9 @@ $(document).ready(function(){
     /* Love click handler ----------------- */
 	$('.love').click(function(){
 
-		var heart = $(this).find('a');
-		var item = $(this).parents('li');
-		var state = heart.attr('class');
-
-		//$(heart).ajaxStart(function() {
-		//  $(item).addClass('loading');
-		//});
+		var heart = $(this).find('a'),
+		    item = $(this).parents('li'),
+		    state = heart.attr('class');
 
 		$.ajax({
 		  	url: "/likes/new",

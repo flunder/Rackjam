@@ -1,0 +1,10 @@
+<% @hotItems = Item.hasimage.within(10.days.ago).joins(:interest).order('interests.item_count DESC').limit(9)  %>
+
+<h3>Most Viewed</h3>
+<ul id="hotList">
+	<% @hotItems.each do |item| %>
+	<li>
+		<%= link_to (image_tag item.photo.url(:thumb), :alt => item.title, :width => '50'), item.url, :target => '_blank', :class => 'image' %>
+	</li>
+	<% end %>
+</ul>	
