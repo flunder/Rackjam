@@ -9,7 +9,7 @@
    	  	<%= link_to (image_tag @item.imageSrc, :alt => @item.title), @item.url, :target => '_blank', :class => 'image' %>
 
 		<ul class="details">
-			<li class="time"><%= time_ago_in_w(@item.updated_at) %></li>
+			<li class="time"><%= time_ago_in_w(@item.updated_at) %> ago</li>
 			<li class="site"><%= link_to @item.site.capitalize, @item.url, :rel => 'nofollow' %></li>
 			<li class="price last"><%=@item.getFixed %>&pound;<%=@item.price %></li>
 		</ul>

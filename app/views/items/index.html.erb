@@ -1,26 +1,21 @@
+<% if current_page?('/') %>
+<div id="welcome">
+	<div id="welcomeNote">
+		<h2>Welcome to Rackjam</h2> 
+		<p>Quickly browse all the latest in music gear in the UK.</p>
+	</div>
+</div>
+<% end %>
+
 <div id="results" class="<%=controller.controller_name %> <%=@view%>">
 	<% if params[:brand] %>
 		<h3 class="slug">Brand: <%= params[:brand] %></h3>
 	<% end %>
+	
 	<%= render 'view' %>
 </div>
 
 <div id="paginationWrap">
 	<%= will_paginate @items %>
 </div>
-
-<style>
-	#results h3.slug { 
-		border-bottom: 1px solid rgba(0, 0, 0, 0.15);
-		    color: #333333;
-		    display: block;
-		    float: left;
-		    font-size: 1.3em;
-		    font-weight: bold;
-		    line-height: 12px;
-		    margin: 1px 0 10px;
-		    padding: 3px 0 8px;
-		    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
-		    text-transform: uppercase;
-		    width: auto;}
-</style>
+  
