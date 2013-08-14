@@ -233,7 +233,7 @@ filter: grayscale(100%); /* Current draft standard */
 .singleItem .rightSide #relatedList li a:hover img { opacity: 1;filter: none;  }
 
 #welcome {  margin-top: 113px; margin-bottom: -70px; position: relative; margin-left: 200px; position: relative; width: 430px; border: 6px solid #eee;  
-background: url("/images/large/illustration5.jpg") no-repeat center top transparent; height: 400px; }
+background: url("/images/large/illustration5_b.jpg") no-repeat center top transparent; height: 400px; }
 @media all and (min-width: 932px) and (max-width: 1150px) { #welcome { width: 660px; } }
 @media all and (min-width: 1150px) and (max-width: 1400px) { #welcome { width: 890px; } }	
 @media all and (min-width: 1400px) and (max-width: 1640px) { #welcome { width: 1120px; } }
